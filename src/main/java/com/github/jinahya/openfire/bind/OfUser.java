@@ -106,14 +106,15 @@ public class OfUser implements Serializable {
 
     // -------------------------------------------------------------------------
     @Id
-    @Column(name = COLUMN_NAME_USERNAME, nullable = false, unique = true,
-            updatable = false)
+    @Column(name = COLUMN_NAME_USERNAME)
     @NotNull
     @XmlElement(required = true)
     private String username;
 
+    @Column(name = "storedKey")
     private String storedKey;
 
+    @Column(name = "serverKey")
     private String serverKey;
 
     private String salt;
@@ -124,6 +125,7 @@ public class OfUser implements Serializable {
     @Column(name = "plainPassword", nullable = false)
     private String plainPassword;
 
+    @Column(name = "encryptedPassword")
     private String encryptedPassword;
 
     @Column(name = COLUMN_NAME_NAME)
@@ -135,12 +137,14 @@ public class OfUser implements Serializable {
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015Converter.class)
+    @NotNull
     @XmlElement(required = true)
     private Date creationDate;
 
     @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015Converter.class)
+    @NotNull
     @XmlElement(required = true)
     private Date modificationDate;
 }
