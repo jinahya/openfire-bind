@@ -16,19 +16,14 @@
 package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
-import java.util.Date;
 import static java.util.Optional.ofNullable;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,10 +34,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */
 @Entity
-@IdClass(OfUserFlagId.class)
-public class OfUserFlag implements Serializable {
+public class OfPrivate implements Serializable {
+
+    public static final String TABLE_NAME = "ofPrivate";
 
     public static final String COLUMN_NAME_NAME = "name";
+
+    public static final String COLUMN_NAME_NAMESPACE = "namespace";
+
+    public static final String COLUMN_NAME_PRIVATE_DATA = "privateData";
 
     // -------------------------------------------------------------------------
     // ---------------------------------------------------------------- username
@@ -57,7 +57,7 @@ public class OfUserFlag implements Serializable {
     }
 
     @Deprecated
-    public OfUserFlag username(final String username) {
+    public OfPrivate username(final String username) {
         setUsername(username);
         return this;
     }
@@ -73,7 +73,7 @@ public class OfUserFlag implements Serializable {
                 .orElse(null);
     }
 
-    public OfUserFlag ofUser(final OfUser ofUser) {
+    public OfPrivate ofUser(final OfUser ofUser) {
         setOfUser(ofUser);
         return this;
     }
@@ -87,44 +87,36 @@ public class OfUserFlag implements Serializable {
         this.name = name;
     }
 
-    public OfUserFlag name(final String name) {
+    public OfPrivate name(final String name) {
         setName(name);
         return this;
     }
 
-    // --------------------------------------------------------------- startTime
-    public Date getStartTime() {
-        if (startTime != null) {
-            return new Date(startTime.getTime());
-        }
-        return startTime;
+    // --------------------------------------------------------------- namespace
+    public String getNamespace() {
+        return namespace;
     }
 
-    public void setStartTime(final Date startTime) {
-        if (startTime != null) {
-            this.startTime = new Date(startTime.getTime());
-            return;
-        }
-        this.startTime = startTime;
+    public void setNamespace(final String namespace) {
+        this.namespace = namespace;
     }
 
-    public OfUserFlag startTime(final Date startTime) {
-        setStartTime(startTime);
+    public OfPrivate namespace(final String namespace) {
+        setNamespace(namespace);
         return this;
     }
 
-    // ----------------------------------------------------------------- endTime
-    public Date getEndTime() {
-        return ofNullable(endTime).map(v -> new Date(v.getTime())).orElse(null);
+    // ------------------------------------------------------------- privateData
+    public String getPrivateData() {
+        return privateData;
     }
 
-    public void setEndTime(final Date endTime) {
-        this.endTime = ofNullable(endTime)
-                .map(v -> new Date(v.getTime())).orElse(null);
+    public void setPrivateData(final String privateData) {
+        this.privateData = privateData;
     }
 
-    public OfUserFlag endTime(final Date endTime) {
-        setEndTime(endTime);
+    public OfPrivate privateData(final String privateData) {
+        setPrivateData(privateData);
         return this;
     }
 
@@ -132,7 +124,7 @@ public class OfUserFlag implements Serializable {
     @Id
     @Column(name = OfUser.COLUMN_NAME_USERNAME)
     @NotNull
-    //@XmlElement(required = true)
+    @XmlElement(required = true)
     @XmlAttribute(required = true)
     private String username;
 
@@ -148,20 +140,16 @@ public class OfUserFlag implements Serializable {
     @Id
     @Column(name = COLUMN_NAME_NAME)
     @NotNull
-    //@XmlElement(required = true)
-    @XmlAttribute(required = true)
+    @XmlElement(required = true)
     private String name;
 
     // -------------------------------------------------------------------------
-    @Column(name = "startTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
-    @XmlElement(nillable = true)
-    private Date startTime;
+    @Id
+    @Column(name = "namespace")
+    @XmlElement(required = true)
+    private String namespace;
 
-    @Column(name = "endTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
-    @XmlElement(nillable = true)
-    private Date endTime;
+    @Column(name = "privateData")
+    @XmlElement(required = true)
+    private String privateData;
 }

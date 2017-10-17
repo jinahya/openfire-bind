@@ -24,11 +24,8 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,13 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */
 @Entity
-@IdClass(OfUserFlagId.class)
-public class OfUserFlag implements Serializable {
+public class OfPresence implements Serializable {
 
-    public static final String COLUMN_NAME_NAME = "name";
-
-    // -------------------------------------------------------------------------
-    // ---------------------------------------------------------------- username
+    // --------------------------------------------------------------- groupName
     @Deprecated
     public String getUsername() {
         return username;
@@ -57,7 +50,7 @@ public class OfUserFlag implements Serializable {
     }
 
     @Deprecated
-    public OfUserFlag username(final String username) {
+    public OfPresence username(final String username) {
         setUsername(username);
         return this;
     }
@@ -69,62 +62,52 @@ public class OfUserFlag implements Serializable {
 
     public void setOfUser(final OfUser ofUser) {
         this.ofUser = ofUser;
-        username = ofNullable(this.ofUser).map(OfUser::getUsername)
+        this.username = ofNullable(this.ofUser).map(OfUser::getUsername)
                 .orElse(null);
     }
 
-    public OfUserFlag ofUser(final OfUser ofUser) {
+    public OfPresence ofUser(final OfUser ofUser) {
         setOfUser(ofUser);
         return this;
     }
 
-    // -------------------------------------------------------------------- name
-    public String getName() {
-        return name;
+    @XmlAttribute
+    public String ofUserUsername() {
+        return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    // --------------------------------------------------------- offlinePresence
+    public String getOfflinePresence() {
+        return offlinePresence;
     }
 
-    public OfUserFlag name(final String name) {
-        setName(name);
+    public void setOfflinePresence(final String offlinePresence) {
+        this.offlinePresence = offlinePresence;
+    }
+
+    public OfPresence name(final String offlinePresence) {
+        setOfflinePresence(offlinePresence);
         return this;
     }
 
-    // --------------------------------------------------------------- startTime
-    public Date getStartTime() {
-        if (startTime != null) {
-            return new Date(startTime.getTime());
+    // ------------------------------------------------------------- offlineDate
+    public Date getOfflineDate() {
+        if (offlineDate == null) {
+            return offlineDate;
         }
-        return startTime;
+        return new Date(offlineDate.getTime());
     }
 
-    public void setStartTime(final Date startTime) {
-        if (startTime != null) {
-            this.startTime = new Date(startTime.getTime());
+    public void setOfflineDate(final Date offlineDate) {
+        if (offlineDate == null) {
+            this.offlineDate = null;
             return;
         }
-        this.startTime = startTime;
+        this.offlineDate = offlineDate;
     }
 
-    public OfUserFlag startTime(final Date startTime) {
-        setStartTime(startTime);
-        return this;
-    }
-
-    // ----------------------------------------------------------------- endTime
-    public Date getEndTime() {
-        return ofNullable(endTime).map(v -> new Date(v.getTime())).orElse(null);
-    }
-
-    public void setEndTime(final Date endTime) {
-        this.endTime = ofNullable(endTime)
-                .map(v -> new Date(v.getTime())).orElse(null);
-    }
-
-    public OfUserFlag endTime(final Date endTime) {
-        setEndTime(endTime);
+    public OfPresence offlineDate(final Date offlineDate) {
+        setOfflineDate(offlineDate);
         return this;
     }
 
@@ -132,8 +115,7 @@ public class OfUserFlag implements Serializable {
     @Id
     @Column(name = OfUser.COLUMN_NAME_USERNAME)
     @NotNull
-    //@XmlElement(required = true)
-    @XmlAttribute(required = true)
+    @XmlTransient
     private String username;
 
     @ManyToOne(optional = false)
@@ -145,23 +127,13 @@ public class OfUserFlag implements Serializable {
     @XmlTransient
     private OfUser ofUser;
 
-    @Id
-    @Column(name = COLUMN_NAME_NAME)
+    @Column(name = "offlinePresence")
+    @XmlElement(nillable = true)
+    private String offlinePresence;
+
+    @Column(name = "offlineDate", nullable = false)
+    @Convert(converter = OfDate015Converter.class)
     @NotNull
-    //@XmlElement(required = true)
-    @XmlAttribute(required = true)
-    private String name;
-
-    // -------------------------------------------------------------------------
-    @Column(name = "startTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
-    @XmlElement(nillable = true)
-    private Date startTime;
-
-    @Column(name = "endTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
-    @XmlElement(nillable = true)
-    private Date endTime;
+    @XmlElement(required = true)
+    private Date offlineDate;
 }

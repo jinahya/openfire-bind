@@ -24,7 +24,7 @@ import javax.persistence.AttributeConverter;
  *
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */
-public class Date015Converter implements AttributeConverter<Date, String> {
+public class OfDate015Converter implements AttributeConverter<Date, String> {
 
     @Override
     public String convertToDatabaseColumn(final Date attribute) {

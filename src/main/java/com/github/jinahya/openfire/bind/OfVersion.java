@@ -19,6 +19,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -28,10 +31,45 @@ import javax.persistence.Id;
 public class OfVersion implements Serializable {
 
     // -------------------------------------------------------------------------
+    public static final String TABLE_NAME = "ofVersion";
+
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------- name
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+    
+    public OfVersion name(final String name) {
+        setName(name);
+        return this;
+    }
+
+    // ----------------------------------------------------------------- version
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(final int version) {
+        this.version = version;
+    }
+    
+    public OfVersion version(final int version) {
+        setVersion(version);
+        return this;
+    }
+
+    // -------------------------------------------------------------------------
     @Id
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
+    @NotNull
+    @XmlAttribute(required = true)
     private String name;
 
-    @Column(name = "version")
+    @Column(name = "version", nullable = false)
+    @XmlElement(required = true)
     private int version;
 }
