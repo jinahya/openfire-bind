@@ -38,11 +38,28 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfGroupPropId.class)
 public class OfGroupProp implements Serializable {
 
+    public static final String TABLE_NAME = "ofGroupProp";
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfGroupProp() {
+        super();
+    }
+
+    // -------------------------------------------------------------- idInstance
+    public OfGroupPropId getIdInstance() {
+        return new OfGroupPropId().groupName(groupName).name(name);
+    }
+
     // --------------------------------------------------------------- groupName
+    @Deprecated
     public String getGroupName() {
         return groupName;
     }
 
+    @Deprecated
     public void setGroupName(final String groupName) {
         this.groupName = groupName;
     }
@@ -54,19 +71,17 @@ public class OfGroupProp implements Serializable {
     }
 
     // ----------------------------------------------------------------- ofGroup
-    @Deprecated
     public OfGroup getOfGroup() {
         return ofGroup;
     }
 
-    @Deprecated
     public void setOfGroup(final OfGroup ofGroup) {
         this.ofGroup = ofGroup;
-        this.groupName = ofNullable(this.ofGroup).map(OfGroup::getGroupName)
+        this.groupName = ofNullable(this.ofGroup)
+                .map(OfGroup::getGroupName)
                 .orElse(null);
     }
 
-    @Deprecated
     public OfGroupProp ofGroup(final OfGroup ofGroup) {
         setOfGroup(ofGroup);
         return this;

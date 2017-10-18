@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * An id class for {@link OfGroupUser}.
  *
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */
@@ -56,6 +57,48 @@ public class OfGroupUserId implements Serializable {
             return false;
         }
         return true;
+    }
+
+    // --------------------------------------------------------------- groupName
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public OfGroupUserId groupName(final String groupName) {
+        setGroupName(groupName);
+        return this;
+    }
+
+    // ---------------------------------------------------------------- username
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(final String username) {
+        this.username = username;
+    }
+
+    public OfGroupUserId username(final String username) {
+        setUsername(username);
+        return this;
+    }
+
+    // ----------------------------------------------------------- administrator
+    public boolean isAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(final boolean administrator) {
+        this.administrator = administrator;
+    }
+    
+    public OfGroupUserId administrator(final boolean administrator) {
+        setAdministrator(administrator);
+        return this;
     }
 
     // -------------------------------------------------------------------------

@@ -78,6 +78,11 @@ public class OfPrivate implements Serializable {
         return this;
     }
 
+    @XmlAttribute
+    public String getOfUserUsername() {
+        return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
+    }
+
     // -------------------------------------------------------------------- name
     public String getName() {
         return name;
@@ -124,8 +129,9 @@ public class OfPrivate implements Serializable {
     @Id
     @Column(name = OfUser.COLUMN_NAME_USERNAME)
     @NotNull
-    @XmlElement(required = true)
-    @XmlAttribute(required = true)
+    //@XmlElement(required = true)
+    //@XmlAttribute(required = true)
+    @XmlTransient
     private String username;
 
     @ManyToOne(optional = false)
@@ -145,11 +151,11 @@ public class OfPrivate implements Serializable {
 
     // -------------------------------------------------------------------------
     @Id
-    @Column(name = "namespace")
+    @Column(name = COLUMN_NAME_NAMESPACE)
     @XmlElement(required = true)
     private String namespace;
 
-    @Column(name = "privateData")
+    @Column(name = COLUMN_NAME_PRIVATE_DATA)
     @XmlElement(required = true)
     private String privateData;
 }

@@ -18,9 +18,12 @@ package com.github.jinahya.openfire.bind;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import java.util.Date;
+import static java.util.Optional.ofNullable;
 import javax.persistence.AttributeConverter;
 
 /**
+ * An attribute converter for converting {@link Date} to/from {@code %015d}
+ * database value.
  *
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */
@@ -28,6 +31,12 @@ public class OfDate015Converter implements AttributeConverter<Date, String> {
 
     @Override
     public String convertToDatabaseColumn(final Date attribute) {
+        if (true) {
+            return ofNullable(attribute)
+                    .map(Date::getTime)
+                    .map(v -> format("%015d", v))
+                    .orElse(null);
+        }
         if (attribute == null) {
             return null;
         }
@@ -36,6 +45,12 @@ public class OfDate015Converter implements AttributeConverter<Date, String> {
 
     @Override
     public Date convertToEntityAttribute(final String dbData) {
+        if (true) {
+            return ofNullable(dbData)
+                    .map(Long::parseLong)
+                    .map(Date::new)
+                    .orElse(null);
+        }
         if (dbData == null) {
             return null;
         }

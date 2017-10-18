@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlElement;
 public class OfUser implements Serializable {
 
     // -------------------------------------------------------------------------
+    public static final String TABLE_NAME = "ofUser";
+
     public static final String COLUMN_NAME_USERNAME = "username";
 
     public static final String COLUMN_NAME_NAME = "name";

@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
+import static java.util.Optional.ofNullable;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -25,18 +26,31 @@ import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity for {@value OfGroupUser#TABLE_NAME} table.
  *
- * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
+ * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
 @IdClass(OfGroupUserId.class)
 public class OfGroupUser implements Serializable {
 
+    // -------------------------------------------------------------------------
+    public static final String TABLE_NAME = "ofGroupUser";
+
     public static final String COLUMN_NAME_ADMINISTRATOR = "administrator";
+
+    // -------------------------------------------------------------- idInstance
+    public OfGroupUserId getIdInstance() {
+        return new OfGroupUserId()
+                .groupName(groupName)
+                .username(username)
+                .administrator(administrator);
+    }
 
     // --------------------------------------------------------------- groupName
     @Deprecated
@@ -63,6 +77,11 @@ public class OfGroupUser implements Serializable {
         return this;
     }
 
+    @XmlAttribute
+    public String getOfGroupGroupName() {
+        return ofNullable(ofGroup).map(OfGroup::getGroupName).orElse(null);
+    }
+
     // -------------------------------------------------------------------------
     @Deprecated
     public String getUsername() {
@@ -86,6 +105,11 @@ public class OfGroupUser implements Serializable {
     public OfGroupUser ofUser(final OfUser ofUser) {
         setOfUser(ofUser);
         return this;
+    }
+
+    @XmlAttribute
+    public String getOfUserUsername() {
+        return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
     }
 
     // ----------------------------------------------------------- administrator
