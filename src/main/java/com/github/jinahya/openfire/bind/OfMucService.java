@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 public class OfMucService implements Serializable {
 
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMucService";
 
     public static final String COLUMN_NAME_SERVICE_ID = "serviceID";

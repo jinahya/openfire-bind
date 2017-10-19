@@ -19,7 +19,8 @@ package com.github.jinahya.openfire.bind;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfMucServicePropId extends OfPropId<Long, OfMucServicePropId> {
+public class OfMucServicePropId
+        extends OfOwnedPropId<Long, OfMucServicePropId> {
 
     // --------------------------------------------------------------- serviceId
     public OfMucServicePropId serviceId(final Long serviceId) {

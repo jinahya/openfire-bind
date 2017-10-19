@@ -15,14 +15,16 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import javax.persistence.Entity;
+
 /**
+ * An abstract class for {@code Prop} classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfGroupPropId extends OfOwnedPropId<String, OfGroupPropId> {
+@Entity
+public class OfProperty extends OfProp<OfProperty> {
 
-    // --------------------------------------------------------------- groupName
-    public OfGroupPropId groupName(final String groupName) {
-        return ownerId(groupName);
-    }
+    // -------------------------------------------------------------------------
+    public static final String TABLE_NAME = "ofProperty";
 }

@@ -15,9 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
 import static java.util.Optional.ofNullable;
-import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -27,7 +25,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -36,39 +33,46 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @IdClass(OfGroupPropId.class)
-public class OfUserProp implements Serializable {
+public class OfUserProp extends OfOwnedProp<OfUser, OfUserProp> {
 
-    // --------------------------------------------------------------- groupName
-    @Deprecated
-    public String getUsername() {
-        return username;
-    }
-
-    @Deprecated
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    @Deprecated
-    public OfUserProp username(final String username) {
-        setUsername(username);
-        return this;
-    }
+//    // --------------------------------------------------------------- groupName
+//    @Deprecated
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    @Deprecated
+//    public void setUsername(final String username) {
+//        this.username = username;
+//    }
+//
+//    @Deprecated
+//    public OfUserProp username(final String username) {
+//        setUsername(username);
+//        return this;
+//    }
 
     // ------------------------------------------------------------------ ofUser
-    public OfUser getOfUser() {
+    @Override
+    OfUser getOwner() {
         return ofUser;
     }
 
+    @Override
+    void setOwner(OfUser owner) {
+        this.ofUser = owner;
+    }
+
+    public OfUser getOfUser() {
+        return getOwner();
+    }
+
     public void setOfUser(final OfUser ofUser) {
-        this.ofUser = ofUser;
-        this.username = ofNullable(this.ofUser).map(OfUser::getUsername)
-                .orElse(null);
+        setOwner(ofUser);
     }
 
     public OfUserProp ofUser(final OfUser ofUser) {
-        setOfUser(ofUser);
-        return this;
+        return owner(ofUser);
     }
 
     @XmlAttribute
@@ -76,41 +80,41 @@ public class OfUserProp implements Serializable {
         return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
     }
 
-    // -------------------------------------------------------------------- name
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public OfUserProp name(final String name) {
-        setName(name);
-        return this;
-    }
-
-    // --------------------------------------------------------------- propValue
-    public String getPropValue() {
-        return propValue;
-    }
-
-    public void setPropValue(final String propValue) {
-        this.propValue = propValue;
-    }
-
-    public OfUserProp propValue(final String propValue) {
-        setPropValue(propValue);
-        return this;
-    }
+//    // -------------------------------------------------------------------- name
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(final String name) {
+//        this.name = name;
+//    }
+//
+//    public OfUserProp name(final String name) {
+//        setName(name);
+//        return this;
+//    }
+//
+//    // --------------------------------------------------------------- propValue
+//    public String getPropValue() {
+//        return propValue;
+//    }
+//
+//    public void setPropValue(final String propValue) {
+//        this.propValue = propValue;
+//    }
+//
+//    public OfUserProp propValue(final String propValue) {
+//        setPropValue(propValue);
+//        return this;
+//    }
 
     // -------------------------------------------------------------------------
+//    @Id
+//    @Column(name = OfUser.COLUMN_NAME_USERNAME)
+//    @NotNull
+//    @XmlTransient
+//    private String username;
     @Id
-    @Column(name = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    @XmlTransient
-    private String username;
-
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
@@ -120,14 +124,14 @@ public class OfUserProp implements Serializable {
     @XmlTransient
     private OfUser ofUser;
 
-    @Id
-    @Column(name = "name", nullable = false)
-    @NotNull
-    @XmlElement(required = true)
-    private String name;
-
-    @Column(name = "propValue", nullable = false)
-    @NotNull
-    @XmlElement(required = true)
-    private String propValue;
+//    @Id
+//    @Column(name = "name", nullable = false)
+//    @NotNull
+//    @XmlElement(required = true)
+//    private String name;
+//
+//    @Column(name = "propValue", nullable = false)
+//    @NotNull
+//    @XmlElement(required = true)
+//    private String propValue;
 }

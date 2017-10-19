@@ -26,10 +26,12 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity(name = "ofGroup")
+@Entity
 public class OfGroup implements Serializable {
 
     // -------------------------------------------------------------------------
+    public static final String TABLE_NAME = "ofGroup";
+
     public static final String COLUMN_NAME_GROUP_NAME = "groupName";
 
     public static final String COLUMN_NAME_DESCRIPTION = "description";

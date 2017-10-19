@@ -15,14 +15,28 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfGroupPropId extends OfOwnedPropId<String, OfGroupPropId> {
+@Entity
+public class OfRoom implements Serializable {
 
-    // --------------------------------------------------------------- groupName
-    public OfGroupPropId groupName(final String groupName) {
-        return ownerId(groupName);
-    }
+    public static final String TABLE_NAME = "ofRoom";
+
+    public static final String COLUMN_NAME_ROOM_ID = "roomID";
+
+    // -------------------------------------------------------------------------
+    @Id
+    @Column(name = COLUMN_NAME_ROOM_ID)
+    @NotNull
+    @XmlElement(nillable = true)
+    private Long roomId;
 }

@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @IdClass(OfMucServicePropId.class)
-public class OfMucServiceProp extends OfProp<OfMucService, OfMucServiceProp> {
+public class OfMucServiceProp
+        extends OfOwnedProp<OfMucService, OfMucServiceProp> {
 
     public static final String TABLE_NAME = "ofServiceProp";
 

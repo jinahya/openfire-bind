@@ -25,7 +25,7 @@ import java.util.Objects;
  * @param <T> owner id type parameter
  * @param <U> subclass type parameter
  */
-abstract class OfPropId<T extends Serializable, U extends OfPropId<T, U>>
+abstract class OfOwnedPropId<T, U extends OfOwnedPropId<T, U>>
         implements Serializable {
 
     // -------------------------------------------------------------------------
@@ -48,7 +48,7 @@ abstract class OfPropId<T extends Serializable, U extends OfPropId<T, U>>
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfPropId<?, ?> other = (OfPropId<?, ?>) obj;
+        final OfOwnedPropId<?, ?> other = (OfOwnedPropId<?, ?>) obj;
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }

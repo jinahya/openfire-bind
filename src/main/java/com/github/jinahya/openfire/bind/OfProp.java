@@ -27,29 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * An abstract class for {@code Prop} classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
- * @param <T> owner type parameter
- * @param <U> subclass type parameter
+ * @param <T> subclass type parameter
  */
 @MappedSuperclass
 @XmlTransient
-abstract class OfProp<T extends Serializable, U extends OfProp<T, U>>
-        implements Serializable {
+abstract class OfProp<T extends OfProp<T>> implements Serializable {
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
     public static final String COLUMN_NAME_PROP_VALUE = "propValue";
-
-    // ------------------------------------------------------------------- owner
-    abstract T getOwner();
-
-    abstract void setOwner(T owner);
-
-    @SuppressWarnings("unchecked")
-    U owner(final T owner) {
-        setOwner(owner);
-        return (U) this;
-    }
 
     // -------------------------------------------------------------------- name
     public String getName() {
@@ -61,9 +48,9 @@ abstract class OfProp<T extends Serializable, U extends OfProp<T, U>>
     }
 
     @SuppressWarnings("unchecked")
-    public U name(final String name) {
+    public T name(final String name) {
         setName(name);
-        return (U) this;
+        return (T) this;
     }
 
     // --------------------------------------------------------------- propValue
@@ -76,9 +63,9 @@ abstract class OfProp<T extends Serializable, U extends OfProp<T, U>>
     }
 
     @SuppressWarnings("unchecked")
-    public U propValue(final String propValue) {
+    public T propValue(final String propValue) {
         setPropValue(propValue);
-        return (U) this;
+        return (T) this;
     }
 
     // -------------------------------------------------------------------------

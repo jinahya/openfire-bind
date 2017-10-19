@@ -41,27 +41,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @IdClass(OfUserFlagId.class)
 public class OfUserFlag implements Serializable {
+    
+    public static final String TABLE_NAME = "ofUserFlag";
 
     public static final String COLUMN_NAME_NAME = "name";
 
     // -------------------------------------------------------------------------
-    // ---------------------------------------------------------------- username
-    @Deprecated
-    public String getUsername() {
-        return username;
-    }
-
-    @Deprecated
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    @Deprecated
-    public OfUserFlag username(final String username) {
-        setUsername(username);
-        return this;
-    }
-
     // ------------------------------------------------------------------ ofUser
     public OfUser getOfUser() {
         return ofUser;
@@ -69,8 +54,6 @@ public class OfUserFlag implements Serializable {
 
     public void setOfUser(final OfUser ofUser) {
         this.ofUser = ofUser;
-        username = ofNullable(this.ofUser).map(OfUser::getUsername)
-                .orElse(null);
     }
 
     public OfUserFlag ofUser(final OfUser ofUser) {
@@ -94,18 +77,13 @@ public class OfUserFlag implements Serializable {
 
     // --------------------------------------------------------------- startTime
     public Date getStartTime() {
-        if (startTime != null) {
-            return new Date(startTime.getTime());
-        }
-        return startTime;
+        return ofNullable(this.startTime).map(v -> new Date(v.getTime()))
+                .orElse(null);
     }
 
     public void setStartTime(final Date startTime) {
-        if (startTime != null) {
-            this.startTime = new Date(startTime.getTime());
-            return;
-        }
-        this.startTime = startTime;
+        this.startTime = ofNullable(startTime).map(v -> new Date(v.getTime()))
+                .orElse(null);
     }
 
     public OfUserFlag startTime(final Date startTime) {
@@ -119,8 +97,8 @@ public class OfUserFlag implements Serializable {
     }
 
     public void setEndTime(final Date endTime) {
-        this.endTime = ofNullable(endTime)
-                .map(v -> new Date(v.getTime())).orElse(null);
+        this.endTime = ofNullable(endTime).map(v -> new Date(v.getTime()))
+                .orElse(null);
     }
 
     public OfUserFlag endTime(final Date endTime) {
@@ -130,12 +108,6 @@ public class OfUserFlag implements Serializable {
 
     // -------------------------------------------------------------------------
     @Id
-    @Column(name = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    //@XmlElement(required = true)
-    @XmlAttribute(required = true)
-    private String username;
-
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),

@@ -15,71 +15,64 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static java.util.Optional.ofNullable;
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity for {@value OfVCard#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-@IdClass(OfGroupPropId.class)
-public class OfGroupProp extends OfOwnedProp<OfGroup, OfGroupProp> {
+public class OfVCard implements Serializable {
 
-    public static final String TABLE_NAME = "ofGroupProp";
+    public static final String TABLE_NAME = "ofUserFlag";
+
+    public static final String COLUMN_NAME_VCARD = "vcard";
 
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.
      */
-    public OfGroupProp() {
+    public OfVCard() {
         super();
     }
 
-    // -------------------------------------------------------------- idInstance
-    public OfGroupPropId getIdInstance() {
-        return new OfGroupPropId()
-                .groupName(ofNullable(getOfGroup())
-                        .map(OfGroup::getGroupName)
-                        .orElse(null))
-                .name(getName());
+    // ------------------------------------------------------------------ ofUser
+    public OfUser getOfUser() {
+        return ofUser;
     }
 
-    // ----------------------------------------------------------------- ofGroup
-    @Override
-    OfGroup getOwner() {
-        return ofGroup;
+    public void setOfUser(final OfUser ofUser) {
+        this.ofUser = ofUser;
     }
 
-    @Override
-    void setOwner(final OfGroup owner) {
-        this.ofGroup = owner;
+    public OfVCard ofUser(final OfUser ofUser) {
+        setOfUser(ofUser);
+        return this;
     }
 
-    public OfGroup getOfGroup() {
-        return getOwner();
+    // ------------------------------------------------------------------- vcard
+    public String getVcard() {
+        return vcard;
     }
 
-    public void setOfGroup(final OfGroup ofGroup) {
-        setOwner(ofGroup);
+    public void setVcard(final String vcard) {
+        this.vcard = vcard;
     }
 
-    public OfGroupProp ofGroup(final OfGroup ofGroup) {
-        return owner(ofGroup);
-    }
-
-    @XmlAttribute
-    public String ofGroupGroupName() {
-        return ofNullable(getOfGroup()).map(OfGroup::getGroupName).orElse(null);
+    public OfVCard vcard(final String vcard) {
+        setVcard(vcard);
+        return this;
     }
 
     // -------------------------------------------------------------------------
@@ -87,9 +80,14 @@ public class OfGroupProp extends OfOwnedProp<OfGroup, OfGroupProp> {
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfGroup.COLUMN_NAME_GROUP_NAME,
-            referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
+            name = OfUser.COLUMN_NAME_USERNAME,
+            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @NotNull
     @XmlTransient
-    private OfGroup ofGroup;
+    private OfUser ofUser;
+
+    @Column(name = COLUMN_NAME_VCARD, nullable = false)
+    @NotNull
+    @XmlElement(required = true)
+    private String vcard;
 }
