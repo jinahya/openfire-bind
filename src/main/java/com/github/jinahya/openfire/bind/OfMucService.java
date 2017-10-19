@@ -31,16 +31,20 @@ public class OfMucService implements Serializable {
 
     public static final String TABLE_NAME = "ofMucService";
 
-    // -------------------------------------------------------------------------
-    public String getServiceId() {
+    public static final String COLUMN_NAME_SERVICE_ID = "serviceID";
+
+    public static final String COLUMN_NAME_SUBDOMAIN = "subdomain";
+
+    // --------------------------------------------------------------- serviceId
+    public Long getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(final String serviceId) {
+    public void setServiceId(final Long serviceId) {
         this.serviceId = serviceId;
     }
 
-    // -------------------------------------------------------------------------
+    // --------------------------------------------------------------- subdomain
     public String getSubdomain() {
         return subdomain;
     }
@@ -49,7 +53,7 @@ public class OfMucService implements Serializable {
         this.subdomain = subdomain;
     }
 
-    // -------------------------------------------------------------------------
+    // ------------------------------------------------------------- description
     public String getDescription() {
         return description;
     }
@@ -58,7 +62,7 @@ public class OfMucService implements Serializable {
         this.description = description;
     }
 
-    // -------------------------------------------------------------------------
+    // ------------------------------------------------------------------ hidden
     public boolean isHidden() {
         return hidden;
     }
@@ -68,13 +72,13 @@ public class OfMucService implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    @Column(name = "serviceID", nullable = false)
+    @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false)
     @NotNull
     @XmlElement(required = true)
-    private String serviceId;
+    private Long serviceId;
 
     @Id
-    @Column(name = "subdomain", nullable = false, unique = true)
+    @Column(name = COLUMN_NAME_SUBDOMAIN, nullable = false, unique = true)
     @NotNull
     @XmlElement(required = true)
     private String subdomain;

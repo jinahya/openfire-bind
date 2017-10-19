@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Jin Kwon &lt;onacit at wemakeprice.com&gt;.
+ * Copyright 2017 Jin Kwon &lt;onacit at gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

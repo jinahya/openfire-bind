@@ -19,10 +19,10 @@ package com.github.jinahya.openfire.bind;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfGroupPropId extends OfPropId<String, OfGroupPropId> {
+public class OfMucServicePropId extends OfPropId<Long, OfMucServicePropId> {
 
-    // --------------------------------------------------------------- groupName
-    public OfGroupPropId groupName(final String groupName) {
-        return ownerId(groupName);
+    // --------------------------------------------------------------- serviceId
+    public OfMucServicePropId serviceId(final Long serviceId) {
+        return ownerId(serviceId);
     }
 }

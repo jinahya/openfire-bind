@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Jin Kwon &lt;onacit at wemakeprice.com&gt;.
+ * Copyright 2017 Jin Kwon &lt;onacit at gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,28 +32,18 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity for {@value OfPresence#TABLE_NAME} table.
  *
- * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
+ * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
 public class OfPresence implements Serializable {
 
-    // --------------------------------------------------------------- groupName
-    @Deprecated
-    public String getUsername() {
-        return username;
-    }
+    public static final String TABLE_NAME = "ofPresence";
 
-    @Deprecated
-    public void setUsername(final String username) {
-        this.username = username;
-    }
+    public static final String COLUMN_NAME_OFFLINE_PRESENCE = "offlinePresence";
 
-    @Deprecated
-    public OfPresence username(final String username) {
-        setUsername(username);
-        return this;
-    }
+    public static final String COLUMN_NAME_OFFLINE_DATE = "offlineDate";
 
     // ------------------------------------------------------------------ ofUser
     public OfUser getOfUser() {
@@ -62,8 +52,6 @@ public class OfPresence implements Serializable {
 
     public void setOfUser(final OfUser ofUser) {
         this.ofUser = ofUser;
-        this.username = ofNullable(this.ofUser).map(OfUser::getUsername)
-                .orElse(null);
     }
 
     public OfPresence ofUser(final OfUser ofUser) {
@@ -73,7 +61,7 @@ public class OfPresence implements Serializable {
 
     @XmlAttribute
     public String ofUserUsername() {
-        return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
+        return ofNullable(getOfUser()).map(OfUser::getUsername).orElse(null);
     }
 
     // --------------------------------------------------------- offlinePresence
@@ -113,11 +101,6 @@ public class OfPresence implements Serializable {
 
     // -------------------------------------------------------------------------
     @Id
-    @Column(name = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    @XmlTransient
-    private String username;
-
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
@@ -127,11 +110,11 @@ public class OfPresence implements Serializable {
     @XmlTransient
     private OfUser ofUser;
 
-    @Column(name = "offlinePresence")
+    @Column(name = COLUMN_NAME_OFFLINE_PRESENCE)
     @XmlElement(nillable = true)
     private String offlinePresence;
 
-    @Column(name = "offlineDate", nullable = false)
+    @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
     @Convert(converter = OfDate015Converter.class)
     @NotNull
     @XmlElement(required = true)

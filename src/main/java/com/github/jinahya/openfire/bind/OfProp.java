@@ -17,23 +17,40 @@ package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An abstract class for {@code Prop} classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> owner type parameter
+ * @param <U> subclass type parameter
  */
-@Entity
-public class OfVersion implements Serializable {
+@MappedSuperclass
+@XmlTransient
+abstract class OfProp<T extends Serializable, U extends OfProp<T, U>>
+        implements Serializable {
 
     // -------------------------------------------------------------------------
-    public static final String TABLE_NAME = "ofVersion";
+    public static final String COLUMN_NAME_NAME = "name";
 
-    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_PROP_VALUE = "propValue";
+
+    // ------------------------------------------------------------------- owner
+    abstract T getOwner();
+
+    abstract void setOwner(T owner);
+
+    @SuppressWarnings("unchecked")
+    U owner(final T owner) {
+        setOwner(owner);
+        return (U) this;
+    }
+
     // -------------------------------------------------------------------- name
     public String getName() {
         return name;
@@ -42,34 +59,37 @@ public class OfVersion implements Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-    
-    public OfVersion name(final String name) {
+
+    @SuppressWarnings("unchecked")
+    public U name(final String name) {
         setName(name);
-        return this;
+        return (U) this;
     }
 
-    // ----------------------------------------------------------------- version
-    public int getVersion() {
-        return version;
+    // --------------------------------------------------------------- propValue
+    public String getPropValue() {
+        return propValue;
     }
 
-    public void setVersion(final int version) {
-        this.version = version;
+    public void setPropValue(final String propValue) {
+        this.propValue = propValue;
     }
-    
-    public OfVersion version(final int version) {
-        setVersion(version);
-        return this;
+
+    @SuppressWarnings("unchecked")
+    public U propValue(final String propValue) {
+        setPropValue(propValue);
+        return (U) this;
     }
 
     // -------------------------------------------------------------------------
     @Id
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = COLUMN_NAME_NAME, nullable = false)
     @NotNull
-    @XmlAttribute(required = true)
+    @XmlElement(required = true)
     private String name;
 
-    @Column(name = "version", nullable = false)
+    @Column(name = COLUMN_NAME_PROP_VALUE, nullable = false)
+    @NotNull
     @XmlElement(required = true)
-    private int version;
+    private String propValue;
 }

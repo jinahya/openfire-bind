@@ -17,19 +17,23 @@ package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Entity;
 
 /**
+ * An abstract class for {@code IdClass} of {@code Prop} classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> owner id type parameter
+ * @param <U> subclass type parameter
  */
-public class OfUserFlagId implements Serializable {
+abstract class OfPropId<T extends Serializable, U extends OfPropId<T, U>>
+        implements Serializable {
 
+    // -------------------------------------------------------------------------
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + Objects.hashCode(username);
-        hash = 13 * hash + Objects.hashCode(name);
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(ownerId);
+        hash = 71 * hash + Objects.hashCode(name);
         return hash;
     }
 
@@ -44,28 +48,29 @@ public class OfUserFlagId implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfUserFlagId other = (OfUserFlagId) obj;
-        if (!Objects.equals(username, other.username)) {
+        final OfPropId<?, ?> other = (OfPropId<?, ?>) obj;
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(name, other.name)) {
+        if (!Objects.equals(this.ownerId, other.ownerId)) {
             return false;
         }
         return true;
     }
 
-    // ---------------------------------------------------------------- username
-    public String getUsername() {
-        return username;
+    // ----------------------------------------------------------------- ownerId
+    T getOwnerId() {
+        return ownerId;
     }
 
-    public void setUsername(final String username) {
-        this.username = username;
+    void setOwnerId(final T ownerId) {
+        this.ownerId = ownerId;
     }
-    
-    public OfUserFlagId username(final String username) {
-        setUsername(username);
-        return this;
+
+    @SuppressWarnings("unchecked")
+    U ownerId(final T ownerId) {
+        setOwnerId(ownerId);
+        return (U) this;
     }
 
     // -------------------------------------------------------------------- name
@@ -76,14 +81,15 @@ public class OfUserFlagId implements Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-    
-    public OfUserFlagId name(final String name) {
+
+    @SuppressWarnings("unchecked")
+    public U name(final String name) {
         setName(name);
-        return this;
+        return (U) this;
     }
 
     // -------------------------------------------------------------------------
-    private String username;
+    private T ownerId;
 
     private String name;
 }

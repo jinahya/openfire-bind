@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Jin Kwon &lt;onacit at wemakeprice.com&gt;.
+ * Copyright 2017 Jin Kwon &lt;onacit at gmail.com&gt;.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
 import static java.util.Optional.ofNullable;
-import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -27,16 +25,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
+ * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
 @IdClass(OfGroupPropId.class)
-public class OfGroupProp implements Serializable {
+public class OfGroupProp extends OfProp<OfGroup, OfGroupProp> {
 
     public static final String TABLE_NAME = "ofGroupProp";
 
@@ -50,83 +47,43 @@ public class OfGroupProp implements Serializable {
 
     // -------------------------------------------------------------- idInstance
     public OfGroupPropId getIdInstance() {
-        return new OfGroupPropId().groupName(groupName).name(name);
-    }
-
-    // --------------------------------------------------------------- groupName
-    @Deprecated
-    public String getGroupName() {
-        return groupName;
-    }
-
-    @Deprecated
-    public void setGroupName(final String groupName) {
-        this.groupName = groupName;
-    }
-
-    @Deprecated
-    public OfGroupProp groupName(final String groupName) {
-        setGroupName(groupName);
-        return this;
+        return new OfGroupPropId()
+                .groupName(ofNullable(getOfGroup())
+                        .map(OfGroup::getGroupName)
+                        .orElse(null))
+                .name(getName());
     }
 
     // ----------------------------------------------------------------- ofGroup
-    public OfGroup getOfGroup() {
+    @Override
+    OfGroup getOwner() {
         return ofGroup;
     }
 
+    @Override
+    void setOwner(final OfGroup owner) {
+        this.ofGroup = owner;
+    }
+
+    public OfGroup getOfGroup() {
+        return getOwner();
+    }
+
     public void setOfGroup(final OfGroup ofGroup) {
-        this.ofGroup = ofGroup;
-        this.groupName = ofNullable(this.ofGroup)
-                .map(OfGroup::getGroupName)
-                .orElse(null);
+        setOwner(ofGroup);
     }
 
     public OfGroupProp ofGroup(final OfGroup ofGroup) {
-        setOfGroup(ofGroup);
-        return this;
+        return owner(ofGroup);
     }
 
     @XmlAttribute
     public String ofGroupGroupName() {
-        return ofNullable(ofGroup).map(OfGroup::getGroupName).orElse(null);
-    }
-
-    // -------------------------------------------------------------------- name
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public OfGroupProp name(final String name) {
-        setName(name);
-        return this;
-    }
-
-    // --------------------------------------------------------------- propValue
-    public String getPropValue() {
-        return propValue;
-    }
-
-    public void setPropValue(final String propValue) {
-        this.propValue = propValue;
-    }
-
-    public OfGroupProp propValue(final String propValue) {
-        setPropValue(propValue);
-        return this;
+        return ofNullable(getOfGroup()).map(OfGroup::getGroupName).orElse(null);
     }
 
     // -------------------------------------------------------------------------
     @Id
-    @Column(name = OfGroup.COLUMN_NAME_GROUP_NAME, nullable = false)
-    @NotNull
-    @XmlTransient
-    private String groupName;
-
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
@@ -135,15 +92,4 @@ public class OfGroupProp implements Serializable {
     @NotNull
     @XmlTransient
     private OfGroup ofGroup;
-
-    @Id
-    @Column(name = "name", nullable = false)
-    @NotNull
-    @XmlElement(required = true)
-    private String name;
-
-    @Column(name = "propValue", nullable = false)
-    @NotNull
-    @XmlElement(required = true)
-    private String propValue;
 }
