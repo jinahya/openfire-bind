@@ -22,18 +22,18 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfUserFlagId implements Serializable {
+public class OfMucRoomId implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + Objects.hashCode(ofUser);
-        hash = 13 * hash + Objects.hashCode(name);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(ofMucService);
+        hash = 59 * hash + Objects.hashCode(name);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -43,27 +43,27 @@ public class OfUserFlagId implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfUserFlagId other = (OfUserFlagId) obj;
-        if (!Objects.equals(ofUser, other.ofUser)) {
+        final OfMucRoomId other = (OfMucRoomId) obj;
+        if (!Objects.equals(name, other.name)) {
             return false;
         }
-        if (!Objects.equals(name, other.name)) {
+        if (!Objects.equals(ofMucService, other.ofMucService)) {
             return false;
         }
         return true;
     }
 
-    // ------------------------------------------------------------------ ofUser
-    public String getOfUser() {
-        return ofUser;
+    // ------------------------------------------------------------ ofMucService
+    public Long getOfMucService() {
+        return ofMucService;
     }
 
-    public void setOfUser(final String ofUser) {
-        this.ofUser = ofUser;
+    public void setOfMucService(final Long ofMucService) {
+        this.ofMucService = ofMucService;
     }
-    
-    public OfUserFlagId ofUser(final String ofUser) {
-        setOfUser(ofUser);
+
+    public OfMucRoomId ofMucService(final Long ofMucService) {
+        setOfMucService(ofMucService);
         return this;
     }
 
@@ -75,14 +75,14 @@ public class OfUserFlagId implements Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-    
-    public OfUserFlagId name(final String name) {
+
+    public OfMucRoomId name(final String name) {
         setName(name);
         return this;
     }
 
     // -------------------------------------------------------------------------
-    private String ofUser;
+    private Long ofMucService;
 
     private String name;
 }

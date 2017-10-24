@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import static com.github.jinahya.openfire.bind.OfUtils.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
@@ -41,12 +42,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @IdClass(OfUserFlagId.class)
 public class OfUserFlag implements Serializable {
-    
+
     public static final String TABLE_NAME = "ofUserFlag";
 
     public static final String COLUMN_NAME_NAME = "name";
 
-    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_START_TIME = "startTime";
+
+    public static final String COLUMN_NAME_END_TIME = "endTime";
+
+    // -------------------------------------------------------------- idInstance
+    public OfUserFlagId getIdInstance() {
+        return new OfUserFlagId().ofUser(getOfUserUsername()).name(getName());
+    }
+
     // ------------------------------------------------------------------ ofUser
     public OfUser getOfUser() {
         return ofUser;
@@ -59,6 +68,11 @@ public class OfUserFlag implements Serializable {
     public OfUserFlag ofUser(final OfUser ofUser) {
         setOfUser(ofUser);
         return this;
+    }
+
+    @XmlAttribute
+    public String getOfUserUsername() {
+        return ofNullable(getOfUser()).map(OfUser::getUsername).orElse(null);
     }
 
     // -------------------------------------------------------------------- name
@@ -77,13 +91,11 @@ public class OfUserFlag implements Serializable {
 
     // --------------------------------------------------------------- startTime
     public Date getStartTime() {
-        return ofNullable(this.startTime).map(v -> new Date(v.getTime()))
-                .orElse(null);
+        return copyOf(startTime);
     }
 
     public void setStartTime(final Date startTime) {
-        this.startTime = ofNullable(startTime).map(v -> new Date(v.getTime()))
-                .orElse(null);
+        this.startTime = copyOf(startTime);
     }
 
     public OfUserFlag startTime(final Date startTime) {
@@ -93,12 +105,11 @@ public class OfUserFlag implements Serializable {
 
     // ----------------------------------------------------------------- endTime
     public Date getEndTime() {
-        return ofNullable(endTime).map(v -> new Date(v.getTime())).orElse(null);
+        return copyOf(endTime);
     }
 
     public void setEndTime(final Date endTime) {
-        this.endTime = ofNullable(endTime).map(v -> new Date(v.getTime()))
-                .orElse(null);
+        this.endTime = copyOf(endTime);
     }
 
     public OfUserFlag endTime(final Date endTime) {
@@ -120,20 +131,19 @@ public class OfUserFlag implements Serializable {
     @Id
     @Column(name = COLUMN_NAME_NAME)
     @NotNull
-    //@XmlElement(required = true)
-    @XmlAttribute(required = true)
+    @XmlElement(required = true)
     private String name;
 
     // -------------------------------------------------------------------------
-    @Column(name = "startTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
     @XmlElement(nillable = true)
+    @Convert(converter = OfDate015Converter.class)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = COLUMN_NAME_START_TIME)
     private Date startTime;
 
-    @Column(name = "endTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
     @XmlElement(nillable = true)
+    @Convert(converter = OfDate015Converter.class)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = COLUMN_NAME_END_TIME)
     private Date endTime;
 }

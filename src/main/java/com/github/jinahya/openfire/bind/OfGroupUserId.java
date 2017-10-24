@@ -29,8 +29,8 @@ public class OfGroupUserId implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(groupName);
-        hash = 67 * hash + Objects.hashCode(username);
+        hash = 67 * hash + Objects.hashCode(ofGroup);
+        hash = 67 * hash + Objects.hashCode(ofUser);
         hash = 67 * hash + (administrator ? 1 : 0);
         return hash;
     }
@@ -50,40 +50,40 @@ public class OfGroupUserId implements Serializable {
         if (administrator != other.administrator) {
             return false;
         }
-        if (!Objects.equals(groupName, other.groupName)) {
+        if (!Objects.equals(ofGroup, other.ofGroup)) {
             return false;
         }
-        if (!Objects.equals(username, other.username)) {
+        if (!Objects.equals(ofUser, other.ofUser)) {
             return false;
         }
         return true;
     }
 
-    // --------------------------------------------------------------- groupName
-    public String getGroupName() {
-        return groupName;
+    // ----------------------------------------------------------------- ofGroup
+    public String getOfGroup() {
+        return ofGroup;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setOfGroup(final String ofGroup) {
+        this.ofGroup = ofGroup;
     }
 
-    public OfGroupUserId groupName(final String groupName) {
-        setGroupName(groupName);
+    public OfGroupUserId ofGroup(final String ofGroup) {
+        setOfGroup(ofGroup);
         return this;
     }
 
-    // ---------------------------------------------------------------- username
-    public String getUsername() {
-        return username;
+    // ------------------------------------------------------------------ ofUesr
+    public String getOfUser() {
+        return ofUser;
     }
 
-    public void setUsername(final String username) {
-        this.username = username;
+    public void setOfUser(final String ofUser) {
+        this.ofUser = ofUser;
     }
 
-    public OfGroupUserId username(final String username) {
-        setUsername(username);
+    public OfGroupUserId ofUser(final String ofUser) {
+        setOfUser(ofUser);
         return this;
     }
 
@@ -102,9 +102,9 @@ public class OfGroupUserId implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    private String groupName;
+    private String ofGroup;
 
-    private String username;
+    private String ofUser;
 
     private boolean administrator;
 }

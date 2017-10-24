@@ -15,14 +15,57 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import java.util.Objects;
+
 /**
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfGroupPropId extends OfOwnedPropId<String, OfGroupPropId> {
+public class OfGroupPropId extends OfPropId<OfGroupPropId> {
 
-    // --------------------------------------------------------------- groupName
-    public OfGroupPropId groupName(final String groupName) {
-        return ownerId(groupName);
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(ofGroup);
+        hash = 97 * hash + Objects.hashCode(getName());
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfGroupPropId other = (OfGroupPropId) obj;
+        if (!Objects.equals(ofGroup, other.ofGroup)) {
+            return false;
+        }
+        if (!Objects.equals(getName(), other.getName())) {
+            return false;
+        }
+        return true;
+    }
+
+    // ----------------------------------------------------------------- ofGroup
+    public String getOfGroup() {
+        return ofGroup;
+    }
+
+    public void setOfGroup(final String ofGroup) {
+        this.ofGroup = ofGroup;
+    }
+
+    public OfGroupPropId ofGroup(final String ofGroup) {
+        setOfGroup(ofGroup);
+        return this;
+    }
+
+    // -------------------------------------------------------------------------
+    private String ofGroup;
 }

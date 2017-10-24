@@ -33,63 +33,43 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @IdClass(OfGroupPropId.class)
-public class OfGroupProp extends OfOwnedProp<OfGroup, OfGroupProp> {
+public class OfGroupProp extends OfProp<OfGroupProp> {
 
     public static final String TABLE_NAME = "ofGroupProp";
 
-    // -------------------------------------------------------------------------
-    /**
-     * Creates a new instance.
-     */
-    public OfGroupProp() {
-        super();
-    }
-
     // -------------------------------------------------------------- idInstance
     public OfGroupPropId getIdInstance() {
-        return new OfGroupPropId()
-                .groupName(ofNullable(getOfGroup())
-                        .map(OfGroup::getGroupName)
-                        .orElse(null))
+        return new OfGroupPropId().ofGroup(getOfGroupGroupName())
                 .name(getName());
     }
 
     // ----------------------------------------------------------------- ofGroup
-    @Override
-    OfGroup getOwner() {
+    public OfGroup getOfGroup() {
         return ofGroup;
     }
 
-    @Override
-    void setOwner(final OfGroup owner) {
-        this.ofGroup = owner;
-    }
-
-    public OfGroup getOfGroup() {
-        return getOwner();
-    }
-
     public void setOfGroup(final OfGroup ofGroup) {
-        setOwner(ofGroup);
+        this.ofGroup = ofGroup;
     }
 
     public OfGroupProp ofGroup(final OfGroup ofGroup) {
-        return owner(ofGroup);
+        setOfGroup(ofGroup);
+        return this;
     }
 
     @XmlAttribute
-    public String ofGroupGroupName() {
+    public String getOfGroupGroupName() {
         return ofNullable(getOfGroup()).map(OfGroup::getGroupName).orElse(null);
     }
 
     // -------------------------------------------------------------------------
-    @Id
-    @ManyToOne(optional = false)
+    @XmlTransient
+    @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfGroup.COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
-    @NotNull
-    @XmlTransient
+    @ManyToOne(optional = false)
+    @Id
     private OfGroup ofGroup;
 }

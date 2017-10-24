@@ -47,21 +47,11 @@ public class OfGroupUser implements Serializable {
     // -------------------------------------------------------------- idInstance
     public OfGroupUserId getIdInstance() {
         return new OfGroupUserId()
-                .groupName(getOfGroupGroupName())
-                .username(getOfUserUsername())
+                .ofGroup(getOfGroupGroupName())
+                .ofUser(getOfUserUsername())
                 .administrator(isAdministrator());
     }
 
-//    // --------------------------------------------------------------- groupName
-//    @Deprecated
-//    public String getGroupName() {
-//        return groupName;
-//    }
-//
-//    @Deprecated
-//    public void setGroupName(final String groupName) {
-//        this.groupName = groupName;
-//    }
     // ----------------------------------------------------------------- ofGroup
     public OfGroup getOfGroup() {
         return ofGroup;
@@ -81,16 +71,6 @@ public class OfGroupUser implements Serializable {
         return ofNullable(ofGroup).map(OfGroup::getGroupName).orElse(null);
     }
 
-//    // ---------------------------------------------------------------- username
-//    @Deprecated
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    @Deprecated
-//    public void setUsername(final String username) {
-//        this.username = username;
-//    }
     // ------------------------------------------------------------------ ofUser
     public OfUser getOfUser() {
         return ofUser;
@@ -125,38 +105,28 @@ public class OfGroupUser implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-//    @Id
-//    @Column(name = OfGroup.COLUMN_NAME_GROUP_NAME, nullable = false)
-//    @NotNull
-//    @XmlTransient
-//    private String groupName;
-    @Id
+    @XmlTransient
+    @NotNull
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfGroup.COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
-    @NotNull
-    @XmlTransient
+    @Id
     private OfGroup ofGroup;
 
-//    @Id
-//    @Column(name = OfUser.COLUMN_NAME_USERNAME, nullable = false)
-//    @NotNull
-//    @XmlTransient
-//    private String username;
-    @Id
+    @XmlTransient
+    @NotNull
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfUser.COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    @XmlTransient
+    @Id
     private OfUser ofUser;
 
-    @Id
-    @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)
     @XmlElement(required = true)
+    @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)
+    @Id
     private boolean administrator;
 }
