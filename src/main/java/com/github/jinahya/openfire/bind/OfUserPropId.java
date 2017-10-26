@@ -21,13 +21,13 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
+public class OfUserPropId extends OfPropId<OfUserPropId> {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(service);
-        hash = 83 * hash + Objects.hashCode(getName());
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(ofUser);
+        hash = 97 * hash + Objects.hashCode(getName());
         return hash;
     }
 
@@ -42,8 +42,8 @@ public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfMucServicePropId other = (OfMucServicePropId) obj;
-        if (!Objects.equals(service, other.service)) {
+        final OfUserPropId other = (OfUserPropId) obj;
+        if (!Objects.equals(ofUser, other.ofUser)) {
             return false;
         }
         if (!Objects.equals(getName(), other.getName())) {
@@ -52,19 +52,20 @@ public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
         return true;
     }
 
-    // ----------------------------------------------------------------- service
-    public Long getService() {
-        return service;
+    // ------------------------------------------------------------------ ofUser
+    public String getOfUser() {
+        return ofUser;
     }
 
-    public void setService(Long service) {
-        this.service = service;
+    public void setOfUser(final String ofUser) {
+        this.ofUser = ofUser;
     }
-    public OfMucServicePropId service(final Long service) {
-        setService(service);
+
+    public OfUserPropId ofUser(final String ofUser) {
+        setOfUser(ofUser);
         return this;
     }
 
     // -------------------------------------------------------------------------
-    private Long service;
+    private String ofUser;
 }

@@ -28,6 +28,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -42,6 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class OfMucRoom implements Serializable {
 
     public static final String TABLE_NAME = "ofMucRoom";
+
+    public static final String COLUMN_NAME_ROOM_ID = "roomID";
 
     // -------------------------------------------------------------- idInstance
     public OfMucRoomId getIdInstance() {
@@ -92,7 +96,7 @@ public class OfMucRoom implements Serializable {
     public void setCreationDate(final Date creationDate) {
         this.creationDate = copyOf(creationDate);
     }
-    
+
     public OfMucRoom creationDate(final Date creationDate) {
         setCreationDate(creationDate);
         return this;
@@ -106,7 +110,7 @@ public class OfMucRoom implements Serializable {
     public void setModificationDate(final Date modificationDate) {
         this.modificationDate = copyOf(modificationDate);
     }
-    
+
     public OfMucRoom modificationDate(final Date modificationDate) {
         setModificationDate(modificationDate);
         return this;
@@ -395,11 +399,11 @@ public class OfMucRoom implements Serializable {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
-    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfMucService.COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
+    @ManyToOne(optional = false)
     @Id
     private OfMucService ofMucSerrvice;
 
@@ -439,11 +443,13 @@ public class OfMucRoom implements Serializable {
     @NotNull
     @Convert(converter = OfDate015Converter.class)
     @Column(name = "lockedDate", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lockedDate;
 
     @XmlElement(nillable = true)
     @Convert(converter = OfDate015Converter.class)
     @Column(name = "emptyDate")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date emptyDate;
 
     @XmlElement(required = true)

@@ -32,106 +32,47 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-@IdClass(OfGroupPropId.class)
-public class OfUserProp extends OfOwnedProp<OfUser, OfUserProp> {
+@IdClass(OfUserPropId.class)
+public class OfUserProp extends OfProp<OfUserProp> {
 
-//    // --------------------------------------------------------------- groupName
-//    @Deprecated
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    @Deprecated
-//    public void setUsername(final String username) {
-//        this.username = username;
-//    }
-//
-//    @Deprecated
-//    public OfUserProp username(final String username) {
-//        setUsername(username);
-//        return this;
-//    }
+    /**
+     * The name of the table to which this entity class is bound. The value is
+     * {@value #TABLE_NAME}.
+     */
+    public static final String TABLE_NAME = "ofUserProp";
+
+    // -------------------------------------------------------------- idInstance
+    public OfUserPropId getIdInstance() {
+        return new OfUserPropId().ofUser(getOfUserUsername()).name(getName());
+    }
 
     // ------------------------------------------------------------------ ofUser
-    @Override
-    OfUser getOwner() {
+    public OfUser getOfUser() {
         return ofUser;
     }
 
-    @Override
-    void setOwner(OfUser owner) {
-        this.ofUser = owner;
-    }
-
-    public OfUser getOfUser() {
-        return getOwner();
-    }
-
     public void setOfUser(final OfUser ofUser) {
-        setOwner(ofUser);
+        this.ofUser = ofUser;
     }
 
     public OfUserProp ofUser(final OfUser ofUser) {
-        return owner(ofUser);
+        setOfUser(ofUser);
+        return this;
     }
 
     @XmlAttribute
-    public String ofUserUsername() {
+    public String getOfUserUsername() {
         return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
     }
 
-//    // -------------------------------------------------------------------- name
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(final String name) {
-//        this.name = name;
-//    }
-//
-//    public OfUserProp name(final String name) {
-//        setName(name);
-//        return this;
-//    }
-//
-//    // --------------------------------------------------------------- propValue
-//    public String getPropValue() {
-//        return propValue;
-//    }
-//
-//    public void setPropValue(final String propValue) {
-//        this.propValue = propValue;
-//    }
-//
-//    public OfUserProp propValue(final String propValue) {
-//        setPropValue(propValue);
-//        return this;
-//    }
-
     // -------------------------------------------------------------------------
-//    @Id
-//    @Column(name = OfUser.COLUMN_NAME_USERNAME)
-//    @NotNull
-//    @XmlTransient
-//    private String username;
-    @Id
-    @ManyToOne(optional = false)
+    @XmlTransient
+    @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfUser.COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    @XmlTransient
+    @ManyToOne(optional = false)
+    @Id
     private OfUser ofUser;
-
-//    @Id
-//    @Column(name = "name", nullable = false)
-//    @NotNull
-//    @XmlElement(required = true)
-//    private String name;
-//
-//    @Column(name = "propValue", nullable = false)
-//    @NotNull
-//    @XmlElement(required = true)
-//    private String propValue;
 }

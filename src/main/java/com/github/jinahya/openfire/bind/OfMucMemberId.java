@@ -19,21 +19,16 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An abstract class for {@code IdClass} of {@code Prop} classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
- * @param <T> owner id type parameter
- * @param <U> subclass type parameter
  */
-abstract class OfOwnedPropId<T, U extends OfOwnedPropId<T, U>>
-        implements Serializable {
+public class OfMucMemberId implements Serializable {
 
-    // -------------------------------------------------------------------------
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(ownerId);
-        hash = 71 * hash + Objects.hashCode(name);
+        hash = 41 * hash + Objects.hashCode(ofMucRoom);
+        hash = 41 * hash + Objects.hashCode(jid);
         return hash;
     }
 
@@ -48,48 +43,46 @@ abstract class OfOwnedPropId<T, U extends OfOwnedPropId<T, U>>
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfOwnedPropId<?, ?> other = (OfOwnedPropId<?, ?>) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        final OfMucMemberId other = (OfMucMemberId) obj;
+        if (!Objects.equals(jid, other.jid)) {
             return false;
         }
-        if (!Objects.equals(this.ownerId, other.ownerId)) {
+        if (!Objects.equals(ofMucRoom, other.ofMucRoom)) {
             return false;
         }
         return true;
     }
 
-    // ----------------------------------------------------------------- ownerId
-    T getOwnerId() {
-        return ownerId;
+    // --------------------------------------------------------------- ofMucRoom
+    public Long getOfMucRoom() {
+        return ofMucRoom;
     }
 
-    void setOwnerId(final T ownerId) {
-        this.ownerId = ownerId;
+    public void setOfMucRoom(final Long ofMucRoom) {
+        this.ofMucRoom = ofMucRoom;
     }
 
-    @SuppressWarnings("unchecked")
-    U ownerId(final T ownerId) {
-        setOwnerId(ownerId);
-        return (U) this;
+    public OfMucMemberId ofMucRoom(final Long ofMucRoom) {
+        setOfMucRoom(ofMucRoom);
+        return this;
     }
 
-    // -------------------------------------------------------------------- name
-    public String getName() {
-        return name;
+    // --------------------------------------------------------------------- jid
+    public String getJid() {
+        return jid;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setJid(final String jid) {
+        this.jid = jid;
     }
 
-    @SuppressWarnings("unchecked")
-    public U name(final String name) {
-        setName(name);
-        return (U) this;
+    public OfMucMemberId jid(final String jid) {
+        setJid(jid);
+        return this;
     }
 
     // -------------------------------------------------------------------------
-    private T ownerId;
+    private Long ofMucRoom;
 
-    private String name;
+    private String jid;
 }

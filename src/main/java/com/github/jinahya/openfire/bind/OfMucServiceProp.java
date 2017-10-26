@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @IdClass(OfMucServicePropId.class)
-public class OfMucServiceProp
-        extends OfOwnedProp<OfMucService, OfMucServiceProp> {
+public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
     public static final String TABLE_NAME = "ofServiceProp";
 
@@ -50,112 +49,46 @@ public class OfMucServiceProp
     // -------------------------------------------------------------- idInstance
     public OfMucServicePropId getIdInstance() {
         return new OfMucServicePropId()
-                .serviceId(ofNullable(getOfMucService())
-                        .map(OfMucService::getServiceId)
-                        .orElse(null))
+                .service(getOfMucServiceServiceId())
                 .name(getName());
     }
 
-//    // --------------------------------------------------------------- serviceId
-//    @Deprecated
-//    public long getServiceId() {
-//        return serviceId;
-//    }
-//
-//    @Deprecated
-//    public void setServiceId(final long serviceId) {
-//        this.serviceId = serviceId;
-//    }
-//
-//    @Deprecated
-//    public OfMucServiceProp serviceId(final long serviceId) {
-//        setServiceId(serviceId);
-//        return this;
-//    }
     // ------------------------------------------------------------ ofMucService
-    @Override
-    OfMucService getOwner() {
+    public OfMucService getOfMucService() {
         return ofMucService;
     }
 
-    @Override
-    void setOwner(final OfMucService owner) {
-        this.ofMucService = owner;
-    }
-
-    public OfMucService getOfMucService() {
-        return getOwner();
-    }
-
     public void setOfMucService(final OfMucService ofMucService) {
-        setOwner(ofMucService);
+        this.ofMucService = ofMucService;
     }
 
     public OfMucServiceProp ofMucService(final OfMucService ofMucService) {
-        return owner(ofMucService);
+        setOfMucService(ofMucService);
+        return this;
     }
 
     @XmlAttribute
-    public Long ofMucServiceServiceId() {
+    public Long getOfMucServiceServiceId() {
         return ofNullable(getOfMucService())
                 .map(OfMucService::getServiceId)
                 .orElse(null);
     }
 
     @XmlAttribute
-    public String ofMucServiceSubdomain() {
+    public String getOfMucServiceSubdomain() {
         return ofNullable(getOfMucService())
                 .map(OfMucService::getSubdomain)
                 .orElse(null);
     }
-//
-//    // -------------------------------------------------------------------- name
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(final String name) {
-//        this.name = name;
-//    }
-//
-//    public OfMucServiceProp name(final String name) {
-//        setName(name);
-//        return this;
-//    }
-//
-//    // --------------------------------------------------------------- propValue
-//    public String getPropValue() {
-//        return propValue;
-//    }
-//
-//    public void setPropValue(final String propValue) {
-//        this.propValue = propValue;
-//    }
-//
-//    public OfMucServiceProp propValue(final String propValue) {
-//        setPropValue(propValue);
-//        return this;
-//    }
 
     // -------------------------------------------------------------------------
-    @Id
-    @ManyToOne(optional = false)
+    @XmlTransient
+    @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfMucService.COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
-    @NotNull
-    @XmlTransient
+    @ManyToOne(optional = false)
+    @Id
     private OfMucService ofMucService;
-
-//    @Id
-//    @Column(name = "name", nullable = false)
-//    @NotNull
-//    @XmlElement(required = true)
-//    private String name;
-//
-//    @Column(name = "propValue", nullable = false)
-//    @NotNull
-//    @XmlElement(required = true)
-//    private String propValue;
 }
