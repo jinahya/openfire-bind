@@ -27,7 +27,7 @@ public class OfUserFlagId implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 13 * hash + Objects.hashCode(ofUser);
+        hash = 13 * hash + Objects.hashCode(user);
         hash = 13 * hash + Objects.hashCode(name);
         return hash;
     }
@@ -44,7 +44,7 @@ public class OfUserFlagId implements Serializable {
             return false;
         }
         final OfUserFlagId other = (OfUserFlagId) obj;
-        if (!Objects.equals(ofUser, other.ofUser)) {
+        if (!Objects.equals(user, other.user)) {
             return false;
         }
         if (!Objects.equals(name, other.name)) {
@@ -53,17 +53,17 @@ public class OfUserFlagId implements Serializable {
         return true;
     }
 
-    // ------------------------------------------------------------------ ofUser
-    public String getOfUser() {
-        return ofUser;
+    // -------------------------------------------------------------------- user
+    public String getUser() {
+        return user;
     }
 
-    public void setOfUser(final String ofUser) {
-        this.ofUser = ofUser;
+    public void setUser(final String user) {
+        this.user = user;
     }
-    
-    public OfUserFlagId ofUser(final String ofUser) {
-        setOfUser(ofUser);
+
+    public OfUserFlagId user(final String user) {
+        setUser(user);
         return this;
     }
 
@@ -75,14 +75,14 @@ public class OfUserFlagId implements Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-    
+
     public OfUserFlagId name(final String name) {
         setName(name);
         return this;
     }
 
     // -------------------------------------------------------------------------
-    private String ofUser;
+    private String user;
 
     private String name;
 }

@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * The id class for {@link OfMucRoom}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -27,7 +28,7 @@ public class OfMucRoomId implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 59 * hash + Objects.hashCode(ofMucService);
+        hash = 59 * hash + Objects.hashCode(service);
         hash = 59 * hash + Objects.hashCode(name);
         return hash;
     }
@@ -47,23 +48,23 @@ public class OfMucRoomId implements Serializable {
         if (!Objects.equals(name, other.name)) {
             return false;
         }
-        if (!Objects.equals(ofMucService, other.ofMucService)) {
+        if (!Objects.equals(service, other.service)) {
             return false;
         }
         return true;
     }
 
-    // ------------------------------------------------------------ ofMucService
-    public Long getOfMucService() {
-        return ofMucService;
+    // ----------------------------------------------------------------- service
+    public Long getService() {
+        return service;
     }
 
-    public void setOfMucService(final Long ofMucService) {
-        this.ofMucService = ofMucService;
+    public void setService(final Long service) {
+        this.service = service;
     }
 
-    public OfMucRoomId ofMucService(final Long ofMucService) {
-        setOfMucService(ofMucService);
+    public OfMucRoomId service(final Long service) {
+        setService(service);
         return this;
     }
 
@@ -82,7 +83,7 @@ public class OfMucRoomId implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    private Long ofMucService;
+    private Long service;
 
     private String name;
 }

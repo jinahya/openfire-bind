@@ -42,52 +42,58 @@ public class OfGroupUser implements Serializable {
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofGroupUser";
 
+    public static final String COLUMN_NAME_GROUP_NAME
+            = OfGroup.COLUMN_NAME_GROUP_NAME;
+
+    public static final String COLUMN_NAME_USERNAME
+            = OfUser.COLUMN_NAME_USERNAME;
+
     public static final String COLUMN_NAME_ADMINISTRATOR = "administrator";
 
     // -------------------------------------------------------------- idInstance
     public OfGroupUserId getIdInstance() {
         return new OfGroupUserId()
-                .ofGroup(getOfGroupGroupName())
-                .ofUser(getOfUserUsername())
+                .group(getGroupGroupName())
+                .user(getUserUsername())
                 .administrator(isAdministrator());
     }
 
-    // ----------------------------------------------------------------- ofGroup
-    public OfGroup getOfGroup() {
-        return ofGroup;
+    // ------------------------------------------------------------------- group
+    public OfGroup getGroup() {
+        return group;
     }
 
-    public void setOfGroup(final OfGroup ofGroup) {
-        this.ofGroup = ofGroup;
+    public void setGroup(final OfGroup group) {
+        this.group = group;
     }
 
-    public OfGroupUser ofGroup(final OfGroup ofGroup) {
-        setOfGroup(ofGroup);
+    public OfGroupUser group(final OfGroup group) {
+        setGroup(group);
         return this;
     }
 
     @XmlAttribute
-    public String getOfGroupGroupName() {
-        return ofNullable(ofGroup).map(OfGroup::getGroupName).orElse(null);
+    public String getGroupGroupName() {
+        return ofNullable(getGroup()).map(OfGroup::getGroupName).orElse(null);
     }
 
-    // ------------------------------------------------------------------ ofUser
-    public OfUser getOfUser() {
-        return ofUser;
+    // -------------------------------------------------------------------- user
+    public OfUser getUser() {
+        return user;
     }
 
-    public void setOfUser(final OfUser ofUser) {
-        this.ofUser = ofUser;
+    public void setUser(final OfUser user) {
+        this.user = user;
     }
 
-    public OfGroupUser ofUser(final OfUser ofUser) {
-        setOfUser(ofUser);
+    public OfGroupUser user(final OfUser user) {
+        setUser(user);
         return this;
     }
 
     @XmlAttribute
-    public String getOfUserUsername() {
-        return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
+    public String getUserUsername() {
+        return ofNullable(getUser()).map(OfUser::getUsername).orElse(null);
     }
 
     // ----------------------------------------------------------- administrator
@@ -110,20 +116,20 @@ public class OfGroupUser implements Serializable {
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfGroup.COLUMN_NAME_GROUP_NAME,
+            name = COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
     @Id
-    private OfGroup ofGroup;
+    private OfGroup group;
 
     @XmlTransient
     @NotNull
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfUser.COLUMN_NAME_USERNAME,
+            name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @Id
-    private OfUser ofUser;
+    private OfUser user;
 
     @XmlElement(required = true)
     @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)

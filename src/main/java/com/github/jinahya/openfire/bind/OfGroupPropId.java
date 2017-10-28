@@ -26,7 +26,7 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + Objects.hashCode(ofGroup);
+        hash = 97 * hash + Objects.hashCode(group);
         hash = 97 * hash + Objects.hashCode(getName());
         return hash;
     }
@@ -43,7 +43,7 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
             return false;
         }
         final OfGroupPropId other = (OfGroupPropId) obj;
-        if (!Objects.equals(ofGroup, other.ofGroup)) {
+        if (!Objects.equals(group, other.group)) {
             return false;
         }
         if (!Objects.equals(getName(), other.getName())) {
@@ -52,20 +52,20 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
         return true;
     }
 
-    // ----------------------------------------------------------------- ofGroup
-    public String getOfGroup() {
-        return ofGroup;
+    // ------------------------------------------------------------------- group
+    public String getGroup() {
+        return group;
     }
 
-    public void setOfGroup(final String ofGroup) {
-        this.ofGroup = ofGroup;
+    public void setGroup(final String group) {
+        this.group = group;
     }
 
-    public OfGroupPropId ofGroup(final String ofGroup) {
-        setOfGroup(ofGroup);
+    public OfGroupPropId group(final String group) {
+        setGroup(group);
         return this;
     }
 
     // -------------------------------------------------------------------------
-    private String ofGroup;
+    private String group;
 }

@@ -24,44 +24,52 @@ import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * The entity for {@value OfMucServiceProp#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-@IdClass(OfGroupPropId.class)
-public class OfGroupProp extends OfProp<OfGroupProp> {
+@IdClass(OfMucRoomPropId.class)
+public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
 
-    public static final String TABLE_NAME = "ofGroupProp";
+    public static final String TABLE_NAME = "ofMucRoomProp";
 
-    public static final String COLUMN_NAME_GROUP_NAME
-            = OfGroup.COLUMN_NAME_GROUP_NAME;
+    public static final String COLUMN_NAME_ROOM_ID
+            = OfMucRoom.COLUMN_NAME_ROOM_ID;
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfMucRoomProp() {
+        super();
+    }
 
     // -------------------------------------------------------------- idInstance
-    public OfGroupPropId getIdInstance() {
-        return new OfGroupPropId().group(getGroupGroupName()).name(getName());
+    public OfMucServicePropId getIdInstance() {
+        return new OfMucServicePropId().service(getRoomRoomId())
+                .name(getName());
     }
 
-    // ------------------------------------------------------------------- group
-    public OfGroup getGroup() {
-        return group;
+    // -------------------------------------------------------------------- room
+    public OfMucRoom getRoom() {
+        return room;
     }
 
-    public void setGroup(final OfGroup group) {
-        this.group = group;
+    public void setRoom(final OfMucRoom room) {
+        this.room = room;
     }
 
-    public OfGroupProp group(final OfGroup group) {
-        setGroup(group);
+    public OfMucRoomProp room(final OfMucRoom room) {
+        setRoom(room);
         return this;
     }
 
-    @XmlAttribute
-    public String getGroupGroupName() {
-        return ofNullable(getGroup()).map(OfGroup::getGroupName).orElse(null);
+    public Long getRoomRoomId() {
+        return ofNullable(getRoom()).map(OfMucRoom::getRoomId).orElse(null);
     }
 
     // -------------------------------------------------------------------------
@@ -69,9 +77,9 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_GROUP_NAME,
-            referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
+            name = COLUMN_NAME_ROOM_ID,
+            referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
     @ManyToOne(optional = false)
     @Id
-    private OfGroup group;
+    private OfMucRoom room;
 }

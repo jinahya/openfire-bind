@@ -36,27 +36,32 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity for {@value OfPresence#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-@IdClass(OfUserFlagId.class)
-public class OfUserFlag implements Serializable {
+@IdClass(OfOfflineId.class)
+public class OfOffline implements Serializable {
 
-    public static final String TABLE_NAME = "ofUserFlag";
+    public static final String TABLE_NAME = "ofOffline";
 
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
-    public static final String COLUMN_NAME_NAME = "name";
+    public static final String COLUMN_NAME_MESSAGE_ID = "messageID";
 
-    public static final String COLUMN_NAME_START_TIME = "startTime";
+    public static final String COLUMN_NAME_CREATION_DATE = "offlineDate";
 
-    public static final String COLUMN_NAME_END_TIME = "endTime";
+    public static final String COLUMN_NAME_MESSAGE_SIZE = "messageSize";
+
+    public static final String COLUMN_NAME_STANZA = "stanza";
 
     // -------------------------------------------------------------- idInstance
-    public OfUserFlagId getIdInstance() {
-        return new OfUserFlagId().user(getUserUsername()).name(getName());
+    public OfOfflineId getIdIsnstance() {
+        return new OfOfflineId()
+                .user(getUserUsername())
+                .messageId(getMessageId());
     }
 
     // -------------------------------------------------------------------- user
@@ -68,7 +73,7 @@ public class OfUserFlag implements Serializable {
         this.user = user;
     }
 
-    public OfUserFlag user(final OfUser user) {
+    public OfOffline user(final OfUser user) {
         setUser(user);
         return this;
     }
@@ -78,45 +83,54 @@ public class OfUserFlag implements Serializable {
         return ofNullable(getUser()).map(OfUser::getUsername).orElse(null);
     }
 
-    // -------------------------------------------------------------------- name
-    public String getName() {
-        return name;
+    // --------------------------------------------------------------- messageId
+    public Long getMessageId() {
+        return messageId;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setMessageId(Long messageId) {
+        this.messageId = messageId;
     }
 
-    public OfUserFlag name(final String name) {
-        setName(name);
+    // ------------------------------------------------------------ creationDate
+    public Date getCreationDate() {
+        return copyOf(creationDate);
+    }
+
+    public void setCreationDate(final Date creationDate) {
+        this.creationDate = copyOf(creationDate);
+    }
+
+    public OfOffline creationDate(final Date creationDate) {
+        setCreationDate(creationDate);
         return this;
     }
 
-    // --------------------------------------------------------------- startTime
-    public Date getStartTime() {
-        return copyOf(startTime);
+    // ------------------------------------------------------------- messageSize
+    public int getMessageSize() {
+        return messageSize;
     }
 
-    public void setStartTime(final Date startTime) {
-        this.startTime = copyOf(startTime);
+    public void setMessageSize(int messageSize) {
+        this.messageSize = messageSize;
     }
 
-    public OfUserFlag startTime(final Date startTime) {
-        setStartTime(startTime);
+    public OfOffline messageSize(final int messageSize) {
+        setMessageSize(messageSize);
         return this;
     }
 
-    // ----------------------------------------------------------------- endTime
-    public Date getEndTime() {
-        return copyOf(endTime);
+    // ------------------------------------------------------------------ stanza
+    public String getStanza() {
+        return stanza;
     }
 
-    public void setEndTime(final Date endTime) {
-        this.endTime = copyOf(endTime);
+    public void setStanza(final String stanza) {
+        this.stanza = stanza;
     }
 
-    public OfUserFlag endTime(final Date endTime) {
-        setEndTime(endTime);
+    public OfOffline stanza(final String stanza) {
+        setStanza(stanza);
         return this;
     }
 
@@ -134,19 +148,22 @@ public class OfUserFlag implements Serializable {
     @XmlElement(required = true)
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_NAME)
-    private String name;
+    @Column(name = COLUMN_NAME_MESSAGE_ID, nullable = false)
+    private Long messageId;
 
-    // -------------------------------------------------------------------------
-    @XmlElement(nillable = true)
+    @XmlElement(required = true)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = OfDate015Converter.class)
-    @Column(name = COLUMN_NAME_START_TIME)
-    private Date startTime;
+    @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
+    private Date creationDate;
 
-    @XmlElement(nillable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
-    @Column(name = COLUMN_NAME_END_TIME)
-    private Date endTime;
+    @XmlElement(required = true)
+    @Column(name = COLUMN_NAME_MESSAGE_SIZE, nullable = false)
+    private int messageSize;
+
+    @XmlElement(required = true)
+    @NotNull
+    @Column(name = COLUMN_NAME_STANZA, nullable = false)
+    private String stanza;
 }

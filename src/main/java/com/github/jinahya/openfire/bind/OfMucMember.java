@@ -36,37 +36,40 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @XmlRootElement
-@IdClass(OfMucMemberId.class)
 @Entity
+@IdClass(OfMucMemberId.class)
 public class OfMucMember implements Serializable {
 
     public static final String TABLE_NAME = "ofMucMember";
+
+    public static final String COLUMN_NAME_ROOM_ID
+            = OfMucRoom.COLUMN_NAME_ROOM_ID;
 
     public static final String COLUMN_NAME_JID = "jid";
 
     // -------------------------------------------------------------- idInstance
     @XmlTransient
     public OfMucMemberId getIdInstance() {
-        return new OfMucMemberId().ofMucRoom(getOfMucRoomRoomId()).jid(jid);
+        return new OfMucMemberId().room(getRoomRoomId()).jid(jid);
     }
 
-    // --------------------------------------------------------------- ofMucRoom
-    public OfMucRoom getOfMucRoom() {
-        return ofMucRoom;
+    // -------------------------------------------------------------------- room
+    public OfMucRoom getRoom() {
+        return room;
     }
 
-    public void setOfMucRoom(final OfMucRoom ofMucRoom) {
-        this.ofMucRoom = ofMucRoom;
+    public void setRoom(final OfMucRoom room) {
+        this.room = room;
     }
 
-    public OfMucMember ofMucRoom(final OfMucRoom ofMucRoom) {
-        setOfMucRoom(ofMucRoom);
+    public OfMucMember room(final OfMucRoom room) {
+        setRoom(room);
         return this;
     }
 
     @XmlAttribute
-    public Long getOfMucRoomRoomId() {
-        return ofNullable(ofMucRoom).map(OfMucRoom::getRoomId).orElse(null);
+    public Long getRoomRoomId() {
+        return ofNullable(getRoom()).map(OfMucRoom::getRoomId).orElse(null);
     }
 
     // --------------------------------------------------------------------- jid
@@ -137,11 +140,11 @@ public class OfMucMember implements Serializable {
     @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfMucRoom.COLUMN_NAME_ROOM_ID,
+            name = COLUMN_NAME_ROOM_ID,
             referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
     @ManyToOne(optional = false)
     @Id
-    private OfMucRoom ofMucRoom;
+    private OfMucRoom room;
 
     @XmlElement(required = true)
     @NotNull

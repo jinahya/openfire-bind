@@ -16,13 +16,13 @@
 package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
@@ -34,38 +34,53 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
-@IdClass(OfPrivateId.class)
-public class OfPrivate implements Serializable {
+public class OfPrivateId implements Serializable {
 
-    public static final String TABLE_NAME = "ofPrivate";
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(user);
+        hash = 19 * hash + Objects.hashCode(name);
+        hash = 19 * hash + Objects.hashCode(namespace);
+        return hash;
+    }
 
-    public static final String COLUMN_NAME_USERNAME
-            = OfUser.COLUMN_NAME_USERNAME;
-
-    public static final String COLUMN_NAME_NAME = "name";
-
-    public static final String COLUMN_NAME_NAMESPACE = "namespace";
-
-    public static final String COLUMN_NAME_PRIVATE_DATA = "privateData";
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfPrivateId other = (OfPrivateId) obj;
+        if (!Objects.equals(user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(namespace, other.namespace)) {
+            return false;
+        }
+        return true;
+    }
 
     // -------------------------------------------------------------------- user
-    public OfUser getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(final OfUser user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
-    public OfPrivate user(final OfUser user) {
+    public OfPrivateId user(final String user) {
         setUser(user);
         return this;
-    }
-
-    @XmlAttribute
-    public String getUserUsername() {
-        return ofNullable(getUser()).map(OfUser::getUsername).orElse(null);
     }
 
     // -------------------------------------------------------------------- name
@@ -77,7 +92,7 @@ public class OfPrivate implements Serializable {
         this.name = name;
     }
 
-    public OfPrivate name(final String name) {
+    public OfPrivateId name(final String name) {
         setName(name);
         return this;
     }
@@ -91,49 +106,15 @@ public class OfPrivate implements Serializable {
         this.namespace = namespace;
     }
 
-    public OfPrivate namespace(final String namespace) {
+    public OfPrivateId namespace(final String namespace) {
         setNamespace(namespace);
         return this;
     }
 
-    // ------------------------------------------------------------- privateData
-    public String getPrivateData() {
-        return privateData;
-    }
-
-    public void setPrivateData(final String privateData) {
-        this.privateData = privateData;
-    }
-
-    public OfPrivate privateData(final String privateData) {
-        setPrivateData(privateData);
-        return this;
-    }
-
     // -------------------------------------------------------------------------
-    @XmlTransient
-    @NotNull
-    @Id
-    @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_USERNAME,
-            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    private OfUser user;
+    private String user;
 
-    @XmlElement(required = true)
-    @NotNull
-    @Id
-    @Column(name = COLUMN_NAME_NAME)
     private String name;
 
-    // -------------------------------------------------------------------------
-    @XmlElement(required = true)
-    @Id
-    @Column(name = COLUMN_NAME_NAMESPACE)
     private String namespace;
-
-    @XmlElement(required = true)
-    @Column(name = COLUMN_NAME_PRIVATE_DATA, nullable = false)
-    private String privateData;
 }

@@ -16,7 +16,6 @@
 package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -51,7 +50,6 @@ abstract class OfPropId<T extends OfPropId<T>> implements Serializable {
 //        }
 //        return true;
 //    }
-
     // -------------------------------------------------------------------- name
     public String getName() {
         return name;

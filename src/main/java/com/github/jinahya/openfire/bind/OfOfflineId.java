@@ -15,24 +15,25 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfUserPropId extends OfPropId<OfUserPropId> {
+public class OfOfflineId implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(user);
-        hash = 97 * hash + Objects.hashCode(getName());
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(user);
+        hash = 67 * hash + Objects.hashCode(messageId);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -42,11 +43,11 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfUserPropId other = (OfUserPropId) obj;
+        final OfOfflineId other = (OfOfflineId) obj;
         if (!Objects.equals(user, other.user)) {
             return false;
         }
-        if (!Objects.equals(getName(), other.getName())) {
+        if (!Objects.equals(messageId, other.messageId)) {
             return false;
         }
         return true;
@@ -61,11 +62,27 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
         this.user = user;
     }
 
-    public OfUserPropId user(final String user) {
+    public OfOfflineId user(final String user) {
         setUser(user);
+        return this;
+    }
+
+    // --------------------------------------------------------------- messageId
+    public Long getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(final Long messageId) {
+        this.messageId = messageId;
+    }
+
+    public OfOfflineId messageId(final Long messageId) {
+        setMessageId(messageId);
         return this;
     }
 
     // -------------------------------------------------------------------------
     private String user;
+
+    private Long messageId;
 }

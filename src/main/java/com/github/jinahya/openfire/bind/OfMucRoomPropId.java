@@ -21,13 +21,13 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfUserPropId extends OfPropId<OfUserPropId> {
+public class OfMucRoomPropId extends OfPropId<OfMucRoomPropId> {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(user);
-        hash = 97 * hash + Objects.hashCode(getName());
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(room);
+        hash = 83 * hash + Objects.hashCode(getName());
         return hash;
     }
 
@@ -42,8 +42,8 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OfUserPropId other = (OfUserPropId) obj;
-        if (!Objects.equals(user, other.user)) {
+        final OfMucRoomPropId other = (OfMucRoomPropId) obj;
+        if (!Objects.equals(room, other.room)) {
             return false;
         }
         if (!Objects.equals(getName(), other.getName())) {
@@ -52,20 +52,20 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
         return true;
     }
 
-    // -------------------------------------------------------------------- user
-    public String getUser() {
-        return user;
+    // -------------------------------------------------------------------- room
+    public Long getRoom() {
+        return room;
     }
 
-    public void setUser(final String user) {
-        this.user = user;
+    public void setRoom(final Long room) {
+        this.room = room;
     }
 
-    public OfUserPropId user(final String user) {
-        setUser(user);
+    public OfMucRoomPropId room(final Long room) {
+        setRoom(room);
         return this;
     }
 
     // -------------------------------------------------------------------------
-    private String user;
+    private Long room;
 }

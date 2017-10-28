@@ -36,7 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucServicePropId.class)
 public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
-    public static final String TABLE_NAME = "ofServiceProp";
+    public static final String TABLE_NAME = "ofMucServiceProp";
+
+    public static final String COLUMN_NAME_SERVICE_ID
+            = OfMucService.COLUMN_NAME_SERVICE_ID;
 
     // -------------------------------------------------------------------------
     /**
@@ -48,36 +51,33 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
     // -------------------------------------------------------------- idInstance
     public OfMucServicePropId getIdInstance() {
-        return new OfMucServicePropId()
-                .service(getOfMucServiceServiceId())
+        return new OfMucServicePropId().service(getServiceServiceId())
                 .name(getName());
     }
 
-    // ------------------------------------------------------------ ofMucService
-    public OfMucService getOfMucService() {
-        return ofMucService;
+    // ----------------------------------------------------------------- service
+    public OfMucService getService() {
+        return service;
     }
 
-    public void setOfMucService(final OfMucService ofMucService) {
-        this.ofMucService = ofMucService;
+    public void setService(final OfMucService service) {
+        this.service = service;
     }
 
-    public OfMucServiceProp ofMucService(final OfMucService ofMucService) {
-        setOfMucService(ofMucService);
+    public OfMucServiceProp service(final OfMucService service) {
+        setService(service);
         return this;
     }
 
     @XmlAttribute
-    public Long getOfMucServiceServiceId() {
-        return ofNullable(getOfMucService())
-                .map(OfMucService::getServiceId)
+    public Long getServiceServiceId() {
+        return ofNullable(getService()).map(OfMucService::getServiceId)
                 .orElse(null);
     }
 
     @XmlAttribute
-    public String getOfMucServiceSubdomain() {
-        return ofNullable(getOfMucService())
-                .map(OfMucService::getSubdomain)
+    public String getServiceSubdomain() {
+        return ofNullable(getService()).map(OfMucService::getSubdomain)
                 .orElse(null);
     }
 
@@ -86,9 +86,9 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
     @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfMucService.COLUMN_NAME_SERVICE_ID,
+            name = COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
     @ManyToOne(optional = false)
     @Id
-    private OfMucService ofMucService;
+    private OfMucService service;
 }

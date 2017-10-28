@@ -60,6 +60,7 @@ public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
     public void setService(Long service) {
         this.service = service;
     }
+
     public OfMucServicePropId service(final Long service) {
         setService(service);
         return this;

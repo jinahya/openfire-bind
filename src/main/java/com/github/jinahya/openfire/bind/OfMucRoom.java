@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * And entity for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -47,30 +48,31 @@ public class OfMucRoom implements Serializable {
 
     public static final String COLUMN_NAME_ROOM_ID = "roomID";
 
+    public static final String COLUMN_NAME_SERVICE_ID
+            = OfMucService.COLUMN_NAME_SERVICE_ID;
+
     // -------------------------------------------------------------- idInstance
     public OfMucRoomId getIdInstance() {
-        return new OfMucRoomId()
-                .ofMucService(getOfMucServiceServiceId())
-                .name(getName());
+        return new OfMucRoomId().service(getServiceServiceId()).name(getName());
     }
 
-    // ------------------------------------------------------------ ofMucService
-    public OfMucService getOfMucSerrvice() {
-        return ofMucSerrvice;
+    // ----------------------------------------------------------------- service
+    public OfMucService getService() {
+        return service;
     }
 
-    public void setOfMucSerrvice(final OfMucService ofMucSerrvice) {
-        this.ofMucSerrvice = ofMucSerrvice;
+    public void setService(final OfMucService service) {
+        this.service = service;
     }
 
-    public OfMucRoom ofMucService(final OfMucService ofMucService) {
-        setOfMucSerrvice(ofMucSerrvice);
+    public OfMucRoom service(final OfMucService service) {
+        setService(service);
         return this;
     }
 
     @XmlAttribute
-    public Long getOfMucServiceServiceId() {
-        return ofNullable(getOfMucSerrvice()).map(OfMucService::getServiceId)
+    public Long getServiceServiceId() {
+        return ofNullable(getService()).map(OfMucService::getServiceId)
                 .orElse(null);
     }
 
@@ -399,17 +401,17 @@ public class OfMucRoom implements Serializable {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
+    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = OfMucService.COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
-    @ManyToOne(optional = false)
-    @Id
-    private OfMucService ofMucSerrvice;
+    private OfMucService service;
 
     @XmlElement(required = true)
     @NotNull
-    @Column(name = "roomID", nullable = false)
+    @Column(name = COLUMN_NAME_ROOM_ID, nullable = false)
     private Long roomId;
 
     @Column(name = "creationDate", nullable = false)

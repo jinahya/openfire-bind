@@ -41,28 +41,31 @@ public class OfUserProp extends OfProp<OfUserProp> {
      */
     public static final String TABLE_NAME = "ofUserProp";
 
+    public static final String COLUMN_NAME_USERNAME
+            = OfUser.COLUMN_NAME_USERNAME;
+
     // -------------------------------------------------------------- idInstance
     public OfUserPropId getIdInstance() {
-        return new OfUserPropId().ofUser(getOfUserUsername()).name(getName());
+        return new OfUserPropId().user(getUserUsername()).name(getName());
     }
 
-    // ------------------------------------------------------------------ ofUser
-    public OfUser getOfUser() {
-        return ofUser;
+    // -------------------------------------------------------------------- user
+    public OfUser getUser() {
+        return user;
     }
 
-    public void setOfUser(final OfUser ofUser) {
-        this.ofUser = ofUser;
+    public void setUser(final OfUser user) {
+        this.user = user;
     }
 
-    public OfUserProp ofUser(final OfUser ofUser) {
-        setOfUser(ofUser);
+    public OfUserProp user(final OfUser user) {
+        setUser(user);
         return this;
     }
 
     @XmlAttribute
-    public String getOfUserUsername() {
-        return ofNullable(ofUser).map(OfUser::getUsername).orElse(null);
+    public String getUserUsername() {
+        return ofNullable(getUser()).map(OfUser::getUsername).orElse(null);
     }
 
     // -------------------------------------------------------------------------
@@ -70,9 +73,9 @@ public class OfUserProp extends OfProp<OfUserProp> {
     @NotNull
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfUser.COLUMN_NAME_USERNAME,
+            name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @ManyToOne(optional = false)
     @Id
-    private OfUser ofUser;
+    private OfUser user;
 }

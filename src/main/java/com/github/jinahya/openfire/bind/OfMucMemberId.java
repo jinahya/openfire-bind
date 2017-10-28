@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * The id class for {@link OfMucMember}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -27,7 +28,7 @@ public class OfMucMemberId implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + Objects.hashCode(ofMucRoom);
+        hash = 41 * hash + Objects.hashCode(room);
         hash = 41 * hash + Objects.hashCode(jid);
         return hash;
     }
@@ -47,23 +48,23 @@ public class OfMucMemberId implements Serializable {
         if (!Objects.equals(jid, other.jid)) {
             return false;
         }
-        if (!Objects.equals(ofMucRoom, other.ofMucRoom)) {
+        if (!Objects.equals(room, other.room)) {
             return false;
         }
         return true;
     }
 
-    // --------------------------------------------------------------- ofMucRoom
-    public Long getOfMucRoom() {
-        return ofMucRoom;
+    // -------------------------------------------------------------------- room
+    public Long getRoom() {
+        return room;
     }
 
-    public void setOfMucRoom(final Long ofMucRoom) {
-        this.ofMucRoom = ofMucRoom;
+    public void setRoom(final Long room) {
+        this.room = room;
     }
 
-    public OfMucMemberId ofMucRoom(final Long ofMucRoom) {
-        setOfMucRoom(ofMucRoom);
+    public OfMucMemberId room(final Long room) {
+        setRoom(room);
         return this;
     }
 
@@ -82,7 +83,7 @@ public class OfMucMemberId implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    private Long ofMucRoom;
+    private Long room;
 
     private String jid;
 }

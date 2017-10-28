@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
+ * An entity for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -48,6 +49,11 @@ public class OfMucService implements Serializable {
         this.serviceId = serviceId;
     }
 
+    public OfMucService serviceId(final Long serviceId) {
+        setServiceId(serviceId);
+        return this;
+    }
+
     // --------------------------------------------------------------- subdomain
     public String getSubdomain() {
         return subdomain;
@@ -55,6 +61,11 @@ public class OfMucService implements Serializable {
 
     public void setSubdomain(final String subdomain) {
         this.subdomain = subdomain;
+    }
+
+    public OfMucService subdomain(final String subdomain) {
+        setSubdomain(subdomain);
+        return this;
     }
 
     // ------------------------------------------------------------- description
@@ -76,22 +87,22 @@ public class OfMucService implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false)
-    @NotNull
     @XmlElement(required = true)
+    @NotNull
+    @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false)
     private Long serviceId;
 
+    @XmlElement(required = true)
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_SUBDOMAIN, nullable = false, unique = true)
-    @NotNull
-    @XmlElement(required = true)
     private String subdomain;
 
-    @Column(name = "description")
     @XmlElement(nillable = true)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "isHidden", nullable = false)
     @XmlElement(required = true)
+    @Column(name = "isHidden", nullable = false)
     private boolean hidden;
 }

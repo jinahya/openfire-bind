@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import static com.github.jinahya.openfire.bind.OfUtils.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
@@ -41,27 +42,30 @@ public class OfPresence implements Serializable {
 
     public static final String TABLE_NAME = "ofPresence";
 
+    public static final String COLUMN_NAME_USERNAME
+            = OfUser.COLUMN_NAME_USERNAME;
+
     public static final String COLUMN_NAME_OFFLINE_PRESENCE = "offlinePresence";
 
     public static final String COLUMN_NAME_OFFLINE_DATE = "offlineDate";
 
-    // ------------------------------------------------------------------ ofUser
-    public OfUser getOfUser() {
-        return ofUser;
+    // -------------------------------------------------------------------- user
+    public OfUser getUser() {
+        return user;
     }
 
-    public void setOfUser(final OfUser ofUser) {
-        this.ofUser = ofUser;
+    public void setUser(final OfUser user) {
+        this.user = user;
     }
 
-    public OfPresence ofUser(final OfUser ofUser) {
-        setOfUser(ofUser);
+    public OfPresence user(final OfUser user) {
+        setUser(user);
         return this;
     }
 
     @XmlAttribute
-    public String ofUserUsername() {
-        return ofNullable(getOfUser()).map(OfUser::getUsername).orElse(null);
+    public String getUserUsername() {
+        return ofNullable(getUser()).map(OfUser::getUsername).orElse(null);
     }
 
     // --------------------------------------------------------- offlinePresence
@@ -80,18 +84,11 @@ public class OfPresence implements Serializable {
 
     // ------------------------------------------------------------- offlineDate
     public Date getOfflineDate() {
-        if (offlineDate == null) {
-            return offlineDate;
-        }
-        return new Date(offlineDate.getTime());
+        return copyOf(offlineDate);
     }
 
     public void setOfflineDate(final Date offlineDate) {
-        if (offlineDate == null) {
-            this.offlineDate = null;
-            return;
-        }
-        this.offlineDate = offlineDate;
+        this.offlineDate = copyOf(offlineDate);
     }
 
     public OfPresence offlineDate(final Date offlineDate) {
@@ -104,11 +101,11 @@ public class OfPresence implements Serializable {
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfUser.COLUMN_NAME_USERNAME,
+            name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @NotNull
     @XmlTransient
-    private OfUser ofUser;
+    private OfUser user;
 
     @Column(name = COLUMN_NAME_OFFLINE_PRESENCE)
     @XmlElement(nillable = true)
