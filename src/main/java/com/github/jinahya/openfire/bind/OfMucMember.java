@@ -138,18 +138,18 @@ public class OfMucMember implements Serializable {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
+    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_ROOM_ID,
             referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
-    @ManyToOne(optional = false)
-    @Id
     private OfMucRoom room;
 
     @XmlElement(required = true)
     @NotNull
-    @Column(name = COLUMN_NAME_JID, nullable = false)
     @Id
+    @Column(name = COLUMN_NAME_JID, nullable = false)
     private String jid;
 
     @XmlElement(nillable = true)

@@ -32,7 +32,7 @@ public class OfMucRoomPropId extends OfPropId<OfMucRoomPropId> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

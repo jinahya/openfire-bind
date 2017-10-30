@@ -18,6 +18,7 @@ package com.github.jinahya.openfire.bind;
 import java.util.Objects;
 
 /**
+ * The id class for {@link OfGroupProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

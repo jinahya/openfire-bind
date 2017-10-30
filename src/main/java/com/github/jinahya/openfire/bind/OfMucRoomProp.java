@@ -75,11 +75,11 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
+    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_ROOM_ID,
             referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
-    @ManyToOne(optional = false)
-    @Id
     private OfMucRoom room;
 }

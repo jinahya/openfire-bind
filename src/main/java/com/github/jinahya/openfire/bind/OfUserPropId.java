@@ -18,11 +18,13 @@ package com.github.jinahya.openfire.bind;
 import java.util.Objects;
 
 /**
+ * An id class for {@link OfUserProp} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfUserPropId extends OfPropId<OfUserPropId> {
 
+    // -------------------------------------------------------------------------
     @Override
     public int hashCode() {
         int hash = 3;
@@ -32,7 +34,7 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

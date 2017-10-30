@@ -63,13 +63,13 @@ public class OfVersion implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @XmlAttribute(required = true)
+    @NotNull
     @Id
     @Column(name = "name", nullable = false, unique = true)
-    @NotNull
-    @XmlAttribute(required = true)
     private String name;
 
-    @Column(name = "version", nullable = false)
     @XmlElement(required = true)
+    @Column(name = "version", nullable = false)
     private int version;
 }

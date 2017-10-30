@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import static com.github.jinahya.openfire.bind.OfUtilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -58,6 +59,11 @@ public class OfUser implements Serializable {
         this.username = username;
     }
 
+    public OfUser username(final String username) {
+        setUsername(username);
+        return this;
+    }
+
     // -------------------------------------------------------------------- name
     public String getName() {
         return name;
@@ -65,6 +71,11 @@ public class OfUser implements Serializable {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public OfUser name(final String name) {
+        setName(name);
+        return this;
     }
 
     // ------------------------------------------------------------------- email
@@ -76,34 +87,37 @@ public class OfUser implements Serializable {
         this.email = email;
     }
 
+    public OfUser email(final String email) {
+        setEmail(email);
+        return this;
+    }
+
     // ------------------------------------------------------------ creationDate
     public Date getCreationDate() {
-        if (creationDate == null) {
-            return null;
-        }
-        return new Date(creationDate.getTime());
+        return copyOf(creationDate);
     }
 
     public void setCreationDate(final Date creationDate) {
-        if (creationDate == null) {
-            this.creationDate = null;
-        }
-        this.creationDate = new Date(creationDate.getTime());
+        this.creationDate = copyOf(creationDate);
+    }
+
+    public OfUser creationDate(final Date creationDate) {
+        setCreationDate(creationDate);
+        return this;
     }
 
     // -------------------------------------------------------- modificationDate
     public Date getModificationDate() {
-        if (modificationDate == null) {
-            return null;
-        }
-        return new Date(modificationDate.getTime());
+        return copyOf(modificationDate);
     }
 
     public void setModificationDate(final Date modificationDate) {
-        if (modificationDate == null) {
-            this.modificationDate = null;
-        }
-        this.modificationDate = new Date(modificationDate.getTime());
+        this.modificationDate = copyOf(modificationDate);
+    }
+
+    public OfUser modificationDate(final Date modificationDate) {
+        setModificationDate(modificationDate);
+        return this;
     }
 
     // -------------------------------------------------------------------------
@@ -136,17 +150,17 @@ public class OfUser implements Serializable {
     @Column(name = COLUMN_NAME_EMAIL)
     private String email;
 
-    @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
+    @XmlElement(required = true)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = OfDate015Converter.class)
-    @NotNull
-    @XmlElement(required = true)
+    @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
     private Date creationDate;
 
-    @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
+    @XmlElement(required = true)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = OfDate015Converter.class)
-    @NotNull
-    @XmlElement(required = true)
+    @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
     private Date modificationDate;
 }

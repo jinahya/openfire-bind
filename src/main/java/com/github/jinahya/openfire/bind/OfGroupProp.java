@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -67,11 +68,11 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
+    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
-    @ManyToOne(optional = false)
-    @Id
     private OfGroup group;
 }

@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  * @param <T> subclass type parameter
  */
-@MappedSuperclass
 @XmlTransient
+@MappedSuperclass
 abstract class OfProp<T extends OfProp<T>> implements Serializable {
 
     // -------------------------------------------------------------------------
@@ -69,14 +69,14 @@ abstract class OfProp<T extends OfProp<T>> implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @XmlElement(required = true)
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_NAME, nullable = false)
-    @NotNull
-    @XmlElement(required = true)
     private String name;
 
-    @Column(name = COLUMN_NAME_PROP_VALUE, nullable = false)
-    @NotNull
     @XmlElement(required = true)
+    @NotNull
+    @Column(name = COLUMN_NAME_PROP_VALUE, nullable = false)
     private String propValue;
 }

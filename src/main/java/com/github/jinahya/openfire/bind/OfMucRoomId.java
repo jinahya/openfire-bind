@@ -45,10 +45,10 @@ public class OfMucRoomId implements Serializable {
             return false;
         }
         final OfMucRoomId other = (OfMucRoomId) obj;
-        if (!Objects.equals(name, other.name)) {
+        if (!Objects.equals(service, other.service)) {
             return false;
         }
-        if (!Objects.equals(service, other.service)) {
+        if (!Objects.equals(name, other.name)) {
             return false;
         }
         return true;

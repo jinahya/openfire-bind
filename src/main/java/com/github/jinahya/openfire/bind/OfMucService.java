@@ -77,6 +77,11 @@ public class OfMucService implements Serializable {
         this.description = description;
     }
 
+    public OfMucService description(final String description) {
+        setDescription(description);
+        return this;
+    }
+
     // ------------------------------------------------------------------ hidden
     public boolean isHidden() {
         return hidden;
@@ -84,6 +89,11 @@ public class OfMucService implements Serializable {
 
     public void setHidden(final boolean hidden) {
         this.hidden = hidden;
+    }
+
+    public OfMucService hidden(final boolean hidden) {
+        setHidden(hidden);
+        return this;
     }
 
     // -------------------------------------------------------------------------

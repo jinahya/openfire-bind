@@ -19,17 +19,28 @@ import java.util.Date;
 import static java.util.Optional.ofNullable;
 
 /**
+ * A utility class.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-final class OfUtils {
+final class OfUtilities {
 
+    // -------------------------------------------------------------------------
+    /**
+     * Returns a copy of given value.
+     *
+     * @param date the value to be copied
+     * @return a copy of given value.
+     */
     static Date copyOf(final Date date) {
         return ofNullable(date).map(v -> new Date(v.getTime())).orElse(null);
     }
 
     // -------------------------------------------------------------------------    
-    private OfUtils() {
+    /**
+     * Creates a new instance.
+     */
+    private OfUtilities() {
         super();
     }
 }

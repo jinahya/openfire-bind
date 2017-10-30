@@ -113,26 +113,26 @@ public class OfGroupUser implements Serializable {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
-    @Id
     private OfGroup group;
 
     @XmlTransient
     @NotNull
+    @Id
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    @Id
     private OfUser user;
 
     @XmlElement(required = true)
-    @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)
     @Id
+    @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)
     private boolean administrator;
 }

@@ -84,11 +84,11 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
+    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
-    @ManyToOne(optional = false)
-    @Id
     private OfMucService service;
 }

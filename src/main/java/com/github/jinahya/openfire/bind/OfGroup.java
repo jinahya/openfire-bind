@@ -66,14 +66,14 @@ public class OfGroup implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @XmlElement(required = true)
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_GROUP_NAME, nullable = false)
-    @NotNull
-    @XmlElement(required = true)
     private String groupName;
 
+    @XmlElement(nillable = true)
     @Id
     @Column(name = COLUMN_NAME_DESCRIPTION)
-    @XmlElement(nillable = true)
     private String description;
 }

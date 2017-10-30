@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static com.github.jinahya.openfire.bind.OfUtils.copyOf;
+import static com.github.jinahya.openfire.bind.OfUtilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-public class ofConversation implements Serializable {
+public class OfConversation implements Serializable {
 
     public static final String TABLE_NAME = "ofConversation";
 

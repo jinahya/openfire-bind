@@ -37,6 +37,9 @@ public class OfVCard implements Serializable {
 
     public static final String TABLE_NAME = "ofUserFlag";
 
+    public static final String COLUMN_NAME_USERNAME
+            = OfUser.COLUMN_NAME_USERNAME;
+
     public static final String COLUMN_NAME_VCARD = "vcard";
 
     // -------------------------------------------------------------------------
@@ -76,18 +79,18 @@ public class OfVCard implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @XmlTransient
+    @NotNull
     @Id
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfUser.COLUMN_NAME_USERNAME,
+            name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    @XmlTransient
     private OfUser ofUser;
 
-    @Column(name = COLUMN_NAME_VCARD, nullable = false)
-    @NotNull
     @XmlElement(required = true)
+    @NotNull
+    @Column(name = COLUMN_NAME_VCARD, nullable = false)
     private String vcard;
 }

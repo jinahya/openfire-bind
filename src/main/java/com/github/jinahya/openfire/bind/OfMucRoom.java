@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static com.github.jinahya.openfire.bind.OfUtils.copyOf;
+import static com.github.jinahya.openfire.bind.OfUtilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
@@ -46,10 +46,10 @@ public class OfMucRoom implements Serializable {
 
     public static final String TABLE_NAME = "ofMucRoom";
 
-    public static final String COLUMN_NAME_ROOM_ID = "roomID";
-
     public static final String COLUMN_NAME_SERVICE_ID
             = OfMucService.COLUMN_NAME_SERVICE_ID;
+
+    public static final String COLUMN_NAME_ROOM_ID = "roomID";
 
     // -------------------------------------------------------------- idInstance
     public OfMucRoomId getIdInstance() {
@@ -405,7 +405,7 @@ public class OfMucRoom implements Serializable {
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = OfMucService.COLUMN_NAME_SERVICE_ID,
+            name = COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
     private OfMucService service;
 
@@ -414,10 +414,10 @@ public class OfMucRoom implements Serializable {
     @Column(name = COLUMN_NAME_ROOM_ID, nullable = false)
     private Long roomId;
 
-    @Column(name = "creationDate", nullable = false)
-    @Convert(converter = OfDate015Converter.class)
-    @NotNull
     @XmlElement(required = true)
+    @NotNull
+    @Convert(converter = OfDate015Converter.class)
+    @Column(name = "creationDate", nullable = false)
     private Date creationDate;
 
     @XmlElement(required = true)

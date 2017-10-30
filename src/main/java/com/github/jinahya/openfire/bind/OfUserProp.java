@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -45,6 +46,11 @@ public class OfUserProp extends OfProp<OfUserProp> {
             = OfUser.COLUMN_NAME_USERNAME;
 
     // -------------------------------------------------------------- idInstance
+    /**
+     * Return the id instance of this entity instance.
+     *
+     * @return the id instance
+     */
     public OfUserPropId getIdInstance() {
         return new OfUserPropId().user(getUserUsername()).name(getName());
     }
@@ -71,11 +77,11 @@ public class OfUserProp extends OfProp<OfUserProp> {
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
+    @Id
+    @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    @ManyToOne(optional = false)
-    @Id
     private OfUser user;
 }
