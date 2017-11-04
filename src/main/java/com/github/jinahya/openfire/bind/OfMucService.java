@@ -36,9 +36,25 @@ public class OfMucService implements Serializable {
      */
     public static final String TABLE_NAME = "ofMucService";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_SERVICE_ID = "serviceID";
 
+    public static final String ATTRIBUTE_NAME_SERVICE_ID = "serviceId";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_SUBDOMAIN = "subdomain";
+
+    public static final String ATTRIBUTE_NAME_SUBDOMAIN = "subdomain";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_DESCRIPTION = "description";
+
+    public static final String ATTRIBUTE_NAME_DESCRIPTION = "description";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_IS_HIDDEN = "isHidden";
+
+    public static final String ATTRIBUTE_NAME_HIDDEN = "hidden";
 
     // --------------------------------------------------------------- serviceId
     public Long getServiceId() {
@@ -109,10 +125,10 @@ public class OfMucService implements Serializable {
     private String subdomain;
 
     @XmlElement(nillable = true)
-    @Column(name = "description")
+    @Column(name = COLUMN_NAME_DESCRIPTION)
     private String description;
 
     @XmlElement(required = true)
-    @Column(name = "isHidden", nullable = false)
+    @Column(name = COLUMN_NAME_IS_HIDDEN, nullable = false)
     private boolean hidden;
 }

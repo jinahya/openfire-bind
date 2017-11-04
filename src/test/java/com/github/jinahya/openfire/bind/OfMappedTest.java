@@ -15,25 +15,25 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.util.Date;
-import static java.util.Optional.ofNullable;
-import javax.persistence.AttributeConverter;
+import static java.util.Objects.requireNonNull;
 
 /**
- * An attribute converter for converting {@link Date} to/from {@code Long}
- * database value.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> subclass type parameter
  */
-public class OfDateMillisConverter implements AttributeConverter<Date, Long> {
+abstract class OfMappedTest<T extends OfMapped> {
 
-    @Override
-    public Long convertToDatabaseColumn(final Date attribute) {
-        return ofNullable(attribute).map(Date::getTime).orElse(null);
+    /**
+     * Creates a new instance.
+     *
+     * @param subtype subtype.
+     */
+    public OfMappedTest(final Class<T> subtype) {
+        super();
+        this.subtype = requireNonNull(subtype, "subtype is null");
     }
 
-    @Override
-    public Date convertToEntityAttribute(final Long dbData) {
-        return ofNullable(dbData).map(Date::new).orElse(null);
-    }
+    // -------------------------------------------------------------------------
+    protected final Class<T> subtype;
 }

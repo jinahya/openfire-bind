@@ -36,10 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucServicePropId.class)
 public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMucServiceProp";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_SERVICE_ID
             = OfMucService.COLUMN_NAME_SERVICE_ID;
+
+    public static final String ATTRIBUTE_NAME_SERVICE = "service";
 
     // -------------------------------------------------------------------------
     /**

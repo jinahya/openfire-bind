@@ -40,14 +40,33 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class OfPresence implements Serializable {
 
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofPresence";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
+    public static final String ATTRIBUTE_NAME_USER = "user";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_OFFLINE_PRESENCE = "offlinePresence";
 
+    public static final String ATTRIBUTE_NAME_OFFLINE_PRESENCE
+            = "offlinePresence";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_OFFLINE_DATE = "offlineDate";
+
+    public static final String ATTRIBUTE_NAME_OFFLINE_DATE = "offlineDate";
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfPresence() {
+        super();
+    }
 
     // -------------------------------------------------------------------- user
     public OfUser getUser() {
@@ -97,23 +116,23 @@ public class OfPresence implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @XmlTransient
+    @NotNull
     @Id
     @ManyToOne(optional = false)
     @PrimaryKeyJoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
-    @NotNull
-    @XmlTransient
     private OfUser user;
 
-    @Column(name = COLUMN_NAME_OFFLINE_PRESENCE)
     @XmlElement(nillable = true)
+    @Column(name = COLUMN_NAME_OFFLINE_PRESENCE)
     private String offlinePresence;
 
-    @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
-    @Convert(converter = OfDate015Converter.class)
-    @NotNull
     @XmlElement(required = true)
+    @NotNull
+    @Convert(converter = __Date015Converter.class)
+    @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
     private Date offlineDate;
 }

@@ -153,14 +153,14 @@ public class OfUser implements Serializable {
     @XmlElement(required = true)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
     private Date creationDate;
 
     @XmlElement(required = true)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
     private Date modificationDate;
 }

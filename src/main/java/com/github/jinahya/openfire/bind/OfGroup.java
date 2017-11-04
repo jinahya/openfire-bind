@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,29 +22,66 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
+ * An entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-public class OfGroup implements Serializable {
+public class OfGroup extends OfMapped {
 
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofGroup";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_GROUP_NAME = "groupName";
 
-    public static final String COLUMN_NAME_DESCRIPTION = "description";
+    public static final String ATTRIBUTE_NAME_GROUP_NAME = "groupName";
 
     // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_DESCRIPTION = "description";
+
+    public static final String ATTRIBUTE_NAME_DESCRIPTION = "description";
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfGroup() {
+        super();
+    }
+
     // --------------------------------------------------------------- groupName
+    /**
+     * Returns the current value of {@value #ATTRIBUTE_NAME_GROUP_NAME}
+     * attribute.
+     *
+     * @return the current value of {@value #ATTRIBUTE_NAME_GROUP_NAME}
+     * attribute.
+     *
+     */
     public String getGroupName() {
         return groupName;
     }
 
+    /**
+     * Replaces the value of {@value #ATTRIBUTE_NAME_GROUP_NAME} attribute with
+     * given.
+     *
+     * @param groupName new value for {@value #ATTRIBUTE_NAME_GROUP_NAME}
+     * attribute.
+     */
     public void setGroupName(final String groupName) {
         this.groupName = groupName;
     }
 
+    /**
+     * Replaces the value of {@value #ATTRIBUTE_NAME_GROUP_NAME} attribute with
+     * given.
+     *
+     * @param groupName new value for {@value #ATTRIBUTE_NAME_GROUP_NAME}
+     * attribute.
+     * @return this instance.
+     */
     public OfGroup groupName(final String groupName) {
         setGroupName(groupName);
         return this;
@@ -73,7 +109,6 @@ public class OfGroup implements Serializable {
     private String groupName;
 
     @XmlElement(nillable = true)
-    @Id
     @Column(name = COLUMN_NAME_DESCRIPTION)
     private String description;
 }

@@ -35,10 +35,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucRoomPropId.class)
 public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
 
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMucRoomProp";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ROOM_ID
             = OfMucRoom.COLUMN_NAME_ROOM_ID;
+
+    public static final String ATTRIBUTE_NAME_ROOM = "room";
 
     // -------------------------------------------------------------------------
     /**

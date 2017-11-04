@@ -15,11 +15,9 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
-import javax.persistence.AttributeConverter;
 
 /**
  * An attribute converter for converting {@link Date} to/from {@code %015d}
@@ -27,33 +25,21 @@ import javax.persistence.AttributeConverter;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfDate015Converter implements AttributeConverter<Date, String> {
+class __Date015 implements __Converter<String, Date> {
 
     @Override
-    public String convertToDatabaseColumn(final Date attribute) {
-        if (true) {
-            return ofNullable(attribute)
-                    .map(Date::getTime)
-                    .map(v -> format("%015d", v))
-                    .orElse(null);
-        }
-        if (attribute == null) {
-            return null;
-        }
-        return format("%1$015d", attribute.getTime());
+    public String toDatabaseColumn(final Date attributeValue) {
+        return ofNullable(attributeValue)
+                .map(Date::getTime)
+                .map(v -> format("%015d", v))
+                .orElse(null);
     }
 
     @Override
-    public Date convertToEntityAttribute(final String dbData) {
-        if (true) {
-            return ofNullable(dbData)
-                    .map(Long::parseLong)
-                    .map(Date::new)
-                    .orElse(null);
-        }
-        if (dbData == null) {
-            return null;
-        }
-        return new Date(parseLong(dbData));
+    public Date toEntityAttribute(final String columnValue) {
+        return ofNullable(columnValue)
+                .map(Long::parseLong)
+                .map(Date::new)
+                .orElse(null);
     }
 }

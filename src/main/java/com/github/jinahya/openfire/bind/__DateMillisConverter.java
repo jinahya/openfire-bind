@@ -15,28 +15,25 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlElement;
+import java.util.Date;
+import static java.util.Optional.ofNullable;
+import javax.persistence.AttributeConverter;
 
 /**
+ * An attribute converter for converting {@link Date} to/from {@code Long}
+ * database value.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
-public class OfRoom implements Serializable {
+class __DateMillisConverter implements AttributeConverter<Date, Long> {
 
-    public static final String TABLE_NAME = "ofRoom";
+    @Override
+    public Long convertToDatabaseColumn(final Date attribute) {
+        return ofNullable(attribute).map(Date::getTime).orElse(null);
+    }
 
-    public static final String COLUMN_NAME_ROOM_ID = "roomID";
-
-    // -------------------------------------------------------------------------
-    @Id
-    @Column(name = COLUMN_NAME_ROOM_ID)
-    @NotNull
-    @XmlElement(nillable = true)
-    private Long roomId;
+    @Override
+    public Date convertToEntityAttribute(final Long dbData) {
+        return ofNullable(dbData).map(Date::new).orElse(null);
+    }
 }

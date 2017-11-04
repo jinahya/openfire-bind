@@ -46,10 +46,15 @@ public class OfMucRoom implements Serializable {
 
     public static final String TABLE_NAME = "ofMucRoom";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_SERVICE_ID
             = OfMucService.COLUMN_NAME_SERVICE_ID;
 
+    public static final String ATTRIBUTE_NAME_SERVICE = "service";
+
     public static final String COLUMN_NAME_ROOM_ID = "roomID";
+
+    public static final String ATTRIBUTE_NAME_ROOM_ID = "roomId";
 
     // -------------------------------------------------------------- idInstance
     public OfMucRoomId getIdInstance() {
@@ -416,13 +421,13 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = "creationDate", nullable = false)
     private Date creationDate;
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = "modificationDate", nullable = false)
     private Date modificationDate;
 
@@ -443,13 +448,13 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = "lockedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lockedDate;
 
     @XmlElement(nillable = true)
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = "emptyDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date emptyDate;

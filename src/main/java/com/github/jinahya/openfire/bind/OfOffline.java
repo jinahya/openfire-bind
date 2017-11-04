@@ -44,18 +44,34 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfOfflineId.class)
 public class OfOffline implements Serializable {
 
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofOffline";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
+    public static final String ATRRIBUTE_NAME_USER = "user";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_MESSAGE_ID = "messageID";
 
-    public static final String COLUMN_NAME_CREATION_DATE = "offlineDate";
+    public static final String ATTRIBUTE_NAME_MESSAGE_ID = "messageId";
 
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CREATION_DATE = "creationDate";
+
+    public static final String ATTRIBUTE_NAME_CREATION_DATE = "creationDate";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_MESSAGE_SIZE = "messageSize";
 
+    public static final String ATTRIBUTE_NAME_MESSAGE_SIZE = "messageSize";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_STANZA = "stanza";
+
+    public static final String ATTRIBUTE_NAME_STANZA = "stanza";
 
     // -------------------------------------------------------------- idInstance
     public OfOfflineId getIdIsnstance() {
@@ -154,7 +170,7 @@ public class OfOffline implements Serializable {
     @XmlElement(required = true)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = OfDate015Converter.class)
+    @Convert(converter = __Date015Converter.class)
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
     private Date creationDate;
 

@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * An entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -38,16 +39,37 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfPrivateId.class)
 public class OfPrivate implements Serializable {
 
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofPrivate";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
+    public static final String ATTRIBUTE_NAME_USERNAME = "user";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
+    public static final String ATTRIBUTE_NAME_NAME = "name";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAMESPACE = "namespace";
 
+    public static final String ATTRIBUTE_NAME_NAMESPACE = "namespace";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_PRIVATE_DATA = "privateData";
+
+    public static final String ATTRIBUTE_NAME_PRIVATE_DATA = "privateData";
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfPrivate() {
+        super();
+    }
 
     // -------------------------------------------------------------------- user
     public OfUser getUser() {

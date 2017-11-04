@@ -15,33 +15,35 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.Date;
+import javax.persistence.AttributeConverter;
 
 /**
- * And entity for {@value #TABLE_NAME} table.
+ * An attribute converter for converting {@link Date} to/from {@code %015d}
+ * database value.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
-public class OfId implements Serializable {
+class __Date015Converter implements AttributeConverter<Date, String> {
+
+    @Override
+    public String convertToDatabaseColumn(final Date attribute) {
+        return converter().toDatabaseColumn(attribute);
+    }
+
+    @Override
+    public Date convertToEntityAttribute(final String dbData) {
+        return converter().toEntityAttribute(dbData);
+    }
 
     // -------------------------------------------------------------------------
-    public static final String TABLE_NAME = "ofID";
+    __Date015 converter() {
+        if (converter == null) {
+            converter = new __Date015();
+        }
+        return converter;
+    }
 
     // -------------------------------------------------------------------------
-    public static final String COLUMN_NAME_ID_TYPE = "idType";
-
-    // -------------------------------------------------------------------------
-    public static final String COLUMN_NAME_ID = "id";
-
-    // -------------------------------------------------------------------------
-    @Id
-    @Column(name = COLUMN_NAME_ID_TYPE)
-    private int idType;
-
-    @Column(name = COLUMN_NAME_ID, nullable = false)
-    private long id;
+    private __Date015 converter;
 }

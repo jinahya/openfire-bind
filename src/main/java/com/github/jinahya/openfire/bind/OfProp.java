@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -31,11 +30,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 @MappedSuperclass
-abstract class OfProp<T extends OfProp<T>> implements Serializable {
+abstract class OfProp<T extends OfProp<T>> extends OfMapped {
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_PROP_VALUE = "propValue";
 
     // -------------------------------------------------------------------- name

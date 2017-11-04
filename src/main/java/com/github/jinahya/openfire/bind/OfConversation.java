@@ -29,6 +29,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
+ * An entity for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -120,18 +121,18 @@ public class OfConversation implements Serializable {
     private boolean external;
 
     @NotNull
-    @Convert(converter = OfDateMillisConverter.class)
-    @Column(name = COLUMN_NAME_IS_START_DATE, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert(converter = __DateMillisConverter.class)
+    @Column(name = COLUMN_NAME_IS_START_DATE, nullable = false)
     private Date startDate;
 
     @NotNull
-    @Convert(converter = OfDateMillisConverter.class)
-    @Column(name = COLUMN_NAME_IS_LAST_ACTIVITY, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @Convert(converter = __DateMillisConverter.class)
+    @Column(name = COLUMN_NAME_IS_LAST_ACTIVITY, nullable = false)
     private Date lastActivity;
 
-    @Column(name = COLUMN_NAME_IS_MESSAGE_COUNT, nullable = false)
     @Basic(optional = false)
+    @Column(name = COLUMN_NAME_IS_MESSAGE_COUNT, nullable = false)
     private int messageCount;
 }

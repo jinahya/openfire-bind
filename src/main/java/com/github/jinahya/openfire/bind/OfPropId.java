@@ -19,6 +19,7 @@ import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
 /**
+ * An abstract class for prop classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  * @param <T> subclass type parameter

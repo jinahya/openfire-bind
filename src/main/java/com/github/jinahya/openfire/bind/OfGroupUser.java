@@ -42,13 +42,22 @@ public class OfGroupUser implements Serializable {
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofGroupUser";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_GROUP_NAME
             = OfGroup.COLUMN_NAME_GROUP_NAME;
 
+    public static final String ATTRIBUTE_NAME_GROUP = "group";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
+    public static final String ATTRIBUTE_NAME_USER = "user";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ADMINISTRATOR = "administrator";
+
+    public static final String ATTRIBUTE_NAME_ADMINISTRATOR = "administrator";
 
     // -------------------------------------------------------------- idInstance
     public OfGroupUserId getIdInstance() {

@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
 import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Optional.ofNullable;
 import java.util.logging.Logger;
@@ -31,25 +30,23 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * An entity class for {@value #TABLE_NAME} table.
+ * An entity for {@link #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@XmlRootElement
 @Entity
-@IdClass(OfMucMemberId.class)
-public class OfMucMember implements Serializable {
+@IdClass(OfMucAffiliationId.class)
+public class OfMucAffiliation extends OfMapped {
 
     // -------------------------------------------------------------------------
     private static final Logger logger
             = getLogger(lookup().lookupClass().getName());
 
     // -------------------------------------------------------------------------
-    public static final String TABLE_NAME = "ofMucMember";
+    public static final String TABLE_NAME = "ofMucAffiliation";
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ROOM_ID
@@ -62,10 +59,27 @@ public class OfMucMember implements Serializable {
 
     public static final String ATTRIBUTE_NAME_JID = "jid";
 
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_AFFILIATION = "affiliation";
+
+    public static final String ATTRIBUTE_NAME_AFFILIATION = "affiliation";
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfMucAffiliation() {
+        super();
+    }
+
     // -------------------------------------------------------------- idInstance
-    @XmlTransient
-    public OfMucMemberId getIdInstance() {
-        return new OfMucMemberId().room(getRoomRoomId()).jid(getJid());
+    /**
+     * Returns an id instance of this entity.
+     *
+     * @return an id instance.
+     */
+    public OfMucAffiliationId getIdInstance() {
+        return new OfMucAffiliationId().room(getRoomRoomId()).jid(getJid());
     }
 
     // -------------------------------------------------------------------- room
@@ -77,11 +91,16 @@ public class OfMucMember implements Serializable {
         this.room = room;
     }
 
-    public OfMucMember room(final OfMucRoom room) {
+    public OfMucAffiliation room(final OfMucRoom room) {
         setRoom(room);
         return this;
     }
 
+    /**
+     * Returns the value of {@code room.roomId}.
+     *
+     * @return the value of {@code room.roomId}
+     */
     @XmlAttribute
     public Long getRoomRoomId() {
         return ofNullable(getRoom()).map(OfMucRoom::getRoomId).orElse(null);
@@ -96,63 +115,23 @@ public class OfMucMember implements Serializable {
         this.jid = jid;
     }
 
-    // ---------------------------------------------------------------- nickname
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(final String nickname) {
-        this.nickname = nickname;
-    }
-
-    public OfMucMember nickname(final String nickname) {
-        setNickname(nickname);
+    public OfMucAffiliation jid(final String jid) {
+        setJid(jid);
         return this;
     }
 
-    // --------------------------------------------------------------- firstName
-    public String getFirstName() {
-        return firstName;
+    // ------------------------------------------------------------- affiliation
+    public int getAffiliation() {
+        return affiliation;
     }
 
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
+    public void setAffiliation(final int affiliation) {
+        this.affiliation = affiliation;
     }
 
-    // ---------------------------------------------------------------- lastName
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
-    }
-
-    // --------------------------------------------------------------------- url
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(final String url) {
-        this.url = url;
-    }
-
-    // ------------------------------------------------------------------- email
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(final String email) {
-        this.email = email;
-    }
-
-    // ---------------------------------------------------------------- faqentry
-    public String getFaqentry() {
-        return faqentry;
-    }
-
-    public void setFaqentry(final String faqentry) {
-        this.faqentry = faqentry;
+    public OfMucAffiliation affiliation(final int affiliation) {
+        setAffiliation(affiliation);
+        return this;
     }
 
     // -------------------------------------------------------------------------
@@ -172,27 +151,8 @@ public class OfMucMember implements Serializable {
     @Column(name = COLUMN_NAME_JID, nullable = false)
     private String jid;
 
-    @XmlElement(nillable = true)
-    @Column(name = "nickName")
-    private String nickname;
-
-    @XmlElement(nillable = true)
-    @Column(name = "firstName")
-    private String firstName;
-
-    @XmlElement(nillable = true)
-    @Column(name = "lastName")
-    private String lastName;
-
-    @XmlElement(nillable = true)
-    @Column(name = "url")
-    private String url;
-
-    @XmlElement(nillable = true)
-    @Column(name = "email")
-    private String email;
-
-    @XmlElement(nillable = true)
-    @Column(name = "faqentry")
-    private String faqentry;
+    @XmlElement(required = true)
+    @NotNull
+    @Column(name = COLUMN_NAME_AFFILIATION, nullable = false)
+    private int affiliation;
 }
