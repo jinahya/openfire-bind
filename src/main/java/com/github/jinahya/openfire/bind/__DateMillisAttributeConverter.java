@@ -16,23 +16,21 @@
 package com.github.jinahya.openfire.bind;
 
 import java.util.Date;
-import static java.util.Optional.ofNullable;
 
 /**
- * An attribute converter for converting {@link Date} to/from {@code Long}
- * database value.
+ * An attribute converter for converting entity attribute of {@link Date} type
+ * to/from database column of {@code Long}(milliseconds) type database value.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-class __DateMillisConverter implements __Converter<Date, Long> {
+public class __DateMillisAttributeConverter
+        extends __AttributeConverter<__DateMillisConverter, Date, Long> {
 
-    @Override
-    public Long toColumn(final Date attribute) {
-        return ofNullable(attribute).map(Date::getTime).orElse(null);
-    }
-
-    @Override
-    public Date toAttribute(final Long column) {
-        return ofNullable(column).map(Date::new).orElse(null);
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public __DateMillisAttributeConverter() {
+        super(__DateMillisConverter.class);
     }
 }

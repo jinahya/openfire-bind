@@ -132,7 +132,7 @@ public class OfPresence implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015Converter.class)
+    @Convert(converter = __Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
     private Date offlineDate;
 }

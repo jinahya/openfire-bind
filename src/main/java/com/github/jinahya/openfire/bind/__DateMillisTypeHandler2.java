@@ -16,23 +16,18 @@
 package com.github.jinahya.openfire.bind;
 
 import java.util.Date;
-import static java.util.Optional.ofNullable;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedJdbcTypes;
 
-/**
- * An attribute converter for converting {@link Date} to/from {@code Long}
- * database value.
- *
- * @author Jin Kwon &lt;onacit at gmail.com&gt;
- */
-class __DateMillisConverter implements __Converter<Date, Long> {
+@MappedJdbcTypes(JdbcType.BIGINT)
+public class __DateMillisTypeHandler2
+        extends __TypeHandler2<__DateMillisConverter2, Date, Long> {
 
-    @Override
-    public Long toColumn(final Date attribute) {
-        return ofNullable(attribute).map(Date::getTime).orElse(null);
-    }
-
-    @Override
-    public Date toAttribute(final Long column) {
-        return ofNullable(column).map(Date::new).orElse(null);
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public __DateMillisTypeHandler2() {
+        super(__DateMillisConverter2.class);
     }
 }

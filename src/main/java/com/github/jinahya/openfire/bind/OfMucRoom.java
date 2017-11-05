@@ -421,13 +421,13 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015Converter.class)
+    @Convert(converter = __Date015AttributeConverter.class)
     @Column(name = "creationDate", nullable = false)
     private Date creationDate;
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015Converter.class)
+    @Convert(converter = __Date015AttributeConverter.class)
     @Column(name = "modificationDate", nullable = false)
     private Date modificationDate;
 
@@ -448,13 +448,13 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015Converter.class)
+    @Convert(converter = __Date015AttributeConverter.class)
     @Column(name = "lockedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lockedDate;
 
     @XmlElement(nillable = true)
-    @Convert(converter = __Date015Converter.class)
+    @Convert(converter = __Date015AttributeConverter.class)
     @Column(name = "emptyDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date emptyDate;

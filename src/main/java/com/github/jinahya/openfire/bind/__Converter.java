@@ -16,13 +16,28 @@
 package com.github.jinahya.openfire.bind;
 
 /**
- * An interface for general attribute/type converter.
+ * An interface for general attribute/column converter.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <X> attribute type parameter
+ * @param <Y> column type parameter
  */
-interface __Converter<DatabaseColumnType, EntityAttributeType> {
+interface __Converter<X, Y> {
 
-    DatabaseColumnType toDatabaseColumn(EntityAttributeType attributeValue);
+    /**
+     * Converts given value of column type to a value of attribute value.
+     *
+     * @param column the value of column type to convert
+     * @return a converted value of attribute value
+     */
+    X toAttribute(Y column);
 
-    EntityAttributeType toEntityAttribute(String columnValue);
+    /**
+     * Converts given value of attribute type to a value of column type.
+     *
+     * @param attribute the value of attribute type to convert.
+     * @return a converted value of column type.
+     */
+    Y toColumn(X attribute);
+
 }

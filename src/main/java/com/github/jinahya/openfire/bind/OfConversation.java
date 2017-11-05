@@ -122,13 +122,13 @@ public class OfConversation implements Serializable {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = __DateMillisConverter.class)
+    @Convert(converter = __DateMillisAttributeConverter.class)
     @Column(name = COLUMN_NAME_IS_START_DATE, nullable = false)
     private Date startDate;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = __DateMillisConverter.class)
+    @Convert(converter = __DateMillisAttributeConverter.class)
     @Column(name = COLUMN_NAME_IS_LAST_ACTIVITY, nullable = false)
     private Date lastActivity;
 

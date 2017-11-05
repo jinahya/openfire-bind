@@ -15,24 +15,13 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.util.Date;
-import static java.util.Optional.ofNullable;
+abstract class __AbstractConverterTest<T extends __AbstractConverter<X, Y>, X, Y>
+        extends __ConverterTest<T, X, Y> {
 
-/**
- * An attribute converter for converting {@link Date} to/from {@code Long}
- * database value.
- *
- * @author Jin Kwon &lt;onacit at gmail.com&gt;
- */
-class __DateMillisConverter implements __Converter<Date, Long> {
-
-    @Override
-    public Long toColumn(final Date attribute) {
-        return ofNullable(attribute).map(Date::getTime).orElse(null);
+    // -------------------------------------------------------------------------
+    public __AbstractConverterTest(final Class<T> converterClass) {
+        super(converterClass);
     }
 
-    @Override
-    public Date toAttribute(final Long column) {
-        return ofNullable(column).map(Date::new).orElse(null);
-    }
+    // -------------------------------------------------------------------------
 }

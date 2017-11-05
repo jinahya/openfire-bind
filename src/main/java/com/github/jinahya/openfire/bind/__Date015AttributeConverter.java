@@ -15,31 +15,22 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static java.lang.String.format;
 import java.util.Date;
-import static java.util.Optional.ofNullable;
 
 /**
- * An attribute converter for converting {@link Date} to/from {@code %015d}
- * database value.
+ * An attribute converter for converting entity attributes of {@link Date} type
+ * to/from database columns of {@code %015d}-formatted {@code String} type.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-class __Date015 implements __Converter<String, Date> {
+public class __Date015AttributeConverter
+        extends __AttributeConverter<__Date015Converter, Date, String> {
 
-    @Override
-    public String toDatabaseColumn(final Date attributeValue) {
-        return ofNullable(attributeValue)
-                .map(Date::getTime)
-                .map(v -> format("%015d", v))
-                .orElse(null);
-    }
-
-    @Override
-    public Date toEntityAttribute(final String columnValue) {
-        return ofNullable(columnValue)
-                .map(Long::parseLong)
-                .map(Date::new)
-                .orElse(null);
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public __Date015AttributeConverter() {
+        super(__Date015Converter.class);
     }
 }

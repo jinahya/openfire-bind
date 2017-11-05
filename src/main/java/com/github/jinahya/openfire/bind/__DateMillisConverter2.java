@@ -16,7 +16,6 @@
 package com.github.jinahya.openfire.bind;
 
 import java.util.Date;
-import static java.util.Optional.ofNullable;
 
 /**
  * An attribute converter for converting {@link Date} to/from {@code Long}
@@ -24,15 +23,32 @@ import static java.util.Optional.ofNullable;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-class __DateMillisConverter implements __Converter<Date, Long> {
+class __DateMillisConverter2 extends __AbstractConverter<Date, Long> {
 
+    // -------------------------------------------------------------------------
+    public __DateMillisConverter2() {
+        super(Date.class, Long.class);
+    }
+
+    // -------------------------------------------------------------------------
     @Override
     public Long toColumn(final Date attribute) {
-        return ofNullable(attribute).map(Date::getTime).orElse(null);
+        return converter().toColumn(attribute);
     }
 
     @Override
     public Date toAttribute(final Long column) {
-        return ofNullable(column).map(Date::new).orElse(null);
+        return converter().toAttribute(column);
     }
+
+    // --------------------------------------------------------------- converter
+    private __Converter<Date, Long> converter() {
+        if (converter == null) {
+            converter = new __DateMillisConverter();
+        }
+        return converter;
+    }
+
+    // -------------------------------------------------------------------------
+    private __Converter<Date, Long> converter;
 }
