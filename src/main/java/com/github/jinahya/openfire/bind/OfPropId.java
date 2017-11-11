@@ -16,10 +16,11 @@
 package com.github.jinahya.openfire.bind;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.MappedSuperclass;
 
 /**
- * An abstract class for prop classes.
+ * An abstract class for prop id classes.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  * @param <T> subclass type parameter
@@ -27,41 +28,46 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 abstract class OfPropId<T extends OfPropId<T>> implements Serializable {
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 5;
-//        hash = 83 * hash + Objects.hashCode(name);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final OfPropId<?> other = (OfPropId<?>) obj;
-//        if (!Objects.equals(name, other.name)) {
-//            return false;
-//        }
-//        return true;
-//    }
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return equalsAs(obj) && getClass() == obj.getClass();
+    }
+
+    boolean equalsAs(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final OfPropId<?> other = (OfPropId<?>) obj;
+        if (!Objects.equals(name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+
     // -------------------------------------------------------------------- name
     public String getName() {
         return name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
     @SuppressWarnings("unchecked")
-    public T name(final String name) {
+    T name(final String name) {
         setName(name);
         return (T) this;
     }

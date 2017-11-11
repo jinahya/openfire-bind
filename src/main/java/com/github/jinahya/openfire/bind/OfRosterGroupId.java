@@ -29,6 +29,14 @@ public class OfRosterGroupId implements Serializable {
 
     // -------------------------------------------------------------------------
     @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "roster=" + roster
+               + ",rank=" + rank
+               + "}";
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(roster);
@@ -62,11 +70,11 @@ public class OfRosterGroupId implements Serializable {
         return roster;
     }
 
-    public void setRoster(Long roster) {
+    void setRoster(Long roster) {
         this.roster = roster;
     }
 
-    public OfRosterGroupId roster(final Long roster) {
+    OfRosterGroupId roster(final Long roster) {
         setRoster(roster);
         return this;
     }
@@ -76,11 +84,11 @@ public class OfRosterGroupId implements Serializable {
         return rank;
     }
 
-    public void setRank(final Long rank) {
+    void setRank(final Long rank) {
         this.rank = rank;
     }
 
-    public OfRosterGroupId rank(final Long rank) {
+    OfRosterGroupId rank(final Long rank) {
         setRank(rank);
         return this;
     }

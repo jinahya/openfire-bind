@@ -26,10 +26,17 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
 
     // -------------------------------------------------------------------------
     @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + "}";
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = super.hashCode();
         hash = 97 * hash + Objects.hashCode(user);
-        hash = 97 * hash + Objects.hashCode(getName());
+//        hash = 97 * hash + Objects.hashCode(getName());
         return hash;
     }
 
@@ -59,11 +66,11 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
         return user;
     }
 
-    public void setUser(final String user) {
+    void setUser(final String user) {
         this.user = user;
     }
 
-    public OfUserPropId user(final String user) {
+    OfUserPropId user(final String user) {
         setUser(user);
         return this;
     }

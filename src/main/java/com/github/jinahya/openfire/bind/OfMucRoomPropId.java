@@ -18,16 +18,17 @@ package com.github.jinahya.openfire.bind;
 import java.util.Objects;
 
 /**
+ * An id class for {@link OfMucRoom}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfMucRoomPropId extends OfPropId<OfMucRoomPropId> {
 
+    // -------------------------------------------------------------------------
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = super.hashCode();
         hash = 83 * hash + Objects.hashCode(room);
-        hash = 83 * hash + Objects.hashCode(getName());
         return hash;
     }
 
@@ -57,11 +58,11 @@ public class OfMucRoomPropId extends OfPropId<OfMucRoomPropId> {
         return room;
     }
 
-    public void setRoom(final Long room) {
+    void setRoom(final Long room) {
         this.room = room;
     }
 
-    public OfMucRoomPropId room(final Long room) {
+    OfMucRoomPropId room(final Long room) {
         setRoom(room);
         return this;
     }

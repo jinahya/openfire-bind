@@ -18,21 +18,29 @@ package com.github.jinahya.openfire.bind;
 import java.util.Objects;
 
 /**
+ * An id class for {@link OfMucServiceProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
 
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "service=" + service
+               + "}";
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = super.hashCode();
         hash = 83 * hash + Objects.hashCode(service);
-        hash = 83 * hash + Objects.hashCode(getName());
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

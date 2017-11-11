@@ -116,19 +116,23 @@ public class OfMucService implements Serializable {
     @XmlElement(required = true)
     @NotNull
     @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_SERVICE_ID)
     private Long serviceId;
 
     @XmlElement(required = true)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_SUBDOMAIN, nullable = false, unique = true)
+    @NamedAttribute(ATTRIBUTE_NAME_SUBDOMAIN)
     private String subdomain;
 
     @XmlElement(nillable = true)
     @Column(name = COLUMN_NAME_DESCRIPTION)
+    @NamedAttribute(ATTRIBUTE_NAME_DESCRIPTION)
     private String description;
 
     @XmlElement(required = true)
     @Column(name = COLUMN_NAME_IS_HIDDEN, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_HIDDEN)
     private boolean hidden;
 }

@@ -69,11 +69,11 @@ public class OfMucAffiliationId implements Serializable {
         return room;
     }
 
-    public void setRoom(final Long room) {
+    void setRoom(final Long room) {
         this.room = room;
     }
 
-    public OfMucAffiliationId room(final Long room) {
+    OfMucAffiliationId room(final Long room) {
         setRoom(room);
         return this;
     }
@@ -83,11 +83,11 @@ public class OfMucAffiliationId implements Serializable {
         return jid;
     }
 
-    public void setJid(final String jid) {
+    void setJid(final String jid) {
         this.jid = jid;
     }
 
-    public OfMucAffiliationId jid(final String jid) {
+    OfMucAffiliationId jid(final String jid) {
         setJid(jid);
         return this;
     }

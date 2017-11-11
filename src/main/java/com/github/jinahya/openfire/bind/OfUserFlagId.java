@@ -25,6 +25,15 @@ import java.util.Objects;
  */
 public class OfUserFlagId implements Serializable {
 
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",name=" + name
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -59,11 +68,11 @@ public class OfUserFlagId implements Serializable {
         return user;
     }
 
-    public void setUser(final String user) {
+    void setUser(final String user) {
         this.user = user;
     }
 
-    public OfUserFlagId user(final String user) {
+    OfUserFlagId user(final String user) {
         setUser(user);
         return this;
     }
@@ -73,11 +82,11 @@ public class OfUserFlagId implements Serializable {
         return name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
-    public OfUserFlagId name(final String name) {
+    OfUserFlagId name(final String name) {
         setName(name);
         return this;
     }

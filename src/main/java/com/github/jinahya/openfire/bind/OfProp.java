@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;

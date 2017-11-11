@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,6 +29,8 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @Entity
 public class OfGroup extends OfMapped {
+
+    private static final long serialVersionUID = 6455075545276927084L;
 
     // -------------------------------------------------------------------------
     /**
@@ -145,6 +148,7 @@ public class OfGroup extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
     @Id
@@ -152,8 +156,8 @@ public class OfGroup extends OfMapped {
     @NamedAttribute(ATTRIBUTE_NAME_GROUP_NAME)
     private String groupName;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = COLUMN_NAME_DESCRIPTION)
     @NamedAttribute(ATTRIBUTE_NAME_DESCRIPTION)
     private String description;
 }

@@ -75,11 +75,11 @@ public class OfGroupUserId implements Serializable {
         return group;
     }
 
-    public void setGroup(final String group) {
+    void setGroup(final String group) {
         this.group = group;
     }
 
-    public OfGroupUserId group(final String group) {
+    OfGroupUserId group(final String group) {
         setGroup(group);
         return this;
     }
@@ -89,11 +89,11 @@ public class OfGroupUserId implements Serializable {
         return user;
     }
 
-    public void setUser(final String user) {
+    void setUser(final String user) {
         this.user = user;
     }
 
-    public OfGroupUserId user(final String user) {
+    OfGroupUserId user(final String user) {
         setUser(user);
         return this;
     }
@@ -103,11 +103,11 @@ public class OfGroupUserId implements Serializable {
         return administrator;
     }
 
-    public void setAdministrator(final boolean administrator) {
+    void setAdministrator(final boolean administrator) {
         this.administrator = administrator;
     }
 
-    public OfGroupUserId administrator(final boolean administrator) {
+    OfGroupUserId administrator(final boolean administrator) {
         setAdministrator(administrator);
         return this;
     }
