@@ -24,6 +24,7 @@ import static java.util.Objects.requireNonNull;
  */
 abstract class OfMappedTest<T extends OfMapped> {
 
+    // -------------------------------------------------------------------------
     /**
      * Creates a new instance.
      *

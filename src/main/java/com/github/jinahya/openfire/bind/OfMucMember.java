@@ -96,6 +96,11 @@ public class OfMucMember implements Serializable {
         this.jid = jid;
     }
 
+    public OfMucMember jid(final String jid) {
+        setJid(jid);
+        return this;
+    }
+
     // ---------------------------------------------------------------- nickname
     public String getNickname() {
         return nickname;
@@ -119,6 +124,11 @@ public class OfMucMember implements Serializable {
         this.firstName = firstName;
     }
 
+    public OfMucMember firstName(final String firstName) {
+        setFirstName(firstName);
+        return this;
+    }
+
     // ---------------------------------------------------------------- lastName
     public String getLastName() {
         return lastName;
@@ -126,6 +136,11 @@ public class OfMucMember implements Serializable {
 
     public void setLastName(final String lastName) {
         this.lastName = lastName;
+    }
+
+    public OfMucMember lastName(final String lastName) {
+        setLastName(lastName);
+        return this;
     }
 
     // --------------------------------------------------------------------- url
@@ -137,6 +152,11 @@ public class OfMucMember implements Serializable {
         this.url = url;
     }
 
+    public OfMucMember url(final String url) {
+        setUrl(url);
+        return this;
+    }
+
     // ------------------------------------------------------------------- email
     public String getEmail() {
         return email;
@@ -144,6 +164,11 @@ public class OfMucMember implements Serializable {
 
     public void setEmail(final String email) {
         this.email = email;
+    }
+
+    public OfMucMember email(final String email) {
+        setEmail(email);
+        return this;
     }
 
     // ---------------------------------------------------------------- faqentry
@@ -155,6 +180,11 @@ public class OfMucMember implements Serializable {
         this.faqentry = faqentry;
     }
 
+    public OfMucMember faqentry(final String faqentry) {
+        setFaqentry(faqentry);
+        return this;
+    }
+
     // -------------------------------------------------------------------------
     @XmlTransient
     @NotNull
@@ -164,12 +194,14 @@ public class OfMucMember implements Serializable {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_ROOM_ID,
             referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
+    @NamedAttribute(ATTRIBUTE_NAME_ROOM)
     private OfMucRoom room;
 
     @XmlElement(required = true)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_JID, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_JID)
     private String jid;
 
     @XmlElement(nillable = true)

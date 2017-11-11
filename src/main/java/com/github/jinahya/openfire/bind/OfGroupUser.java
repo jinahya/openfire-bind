@@ -128,6 +128,7 @@ public class OfGroupUser implements Serializable {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
+    @NamedAttribute(ATTRIBUTE_NAME_GROUP)
     private OfGroup group;
 
     @XmlTransient
@@ -138,10 +139,12 @@ public class OfGroupUser implements Serializable {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+    @NamedAttribute(ATTRIBUTE_NAME_USER)
     private OfUser user;
 
     @XmlElement(required = true)
     @Id
     @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ADMINISTRATOR)
     private boolean administrator;
 }

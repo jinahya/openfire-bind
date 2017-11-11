@@ -25,7 +25,18 @@ import java.util.Objects;
  */
 public class OfGroupUserId implements Serializable {
 
+    private static final long serialVersionUID = -6033961814304650850L;
+
     // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "group=" + group
+               + ",user=" + user
+               + ",administrator=" + administrator
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

@@ -36,12 +36,27 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfGroupPropId.class)
 public class OfGroupProp extends OfProp<OfGroupProp> {
 
+    private static final long serialVersionUID = -8053224591064231755L;
+
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofGroupProp";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_GROUP_NAME
             = OfGroup.COLUMN_NAME_GROUP_NAME;
 
+    public static final String ATTRIBUTE_NAME_GROUP = "group";
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + ",group=" + group
+               + "}";
+    }
+
     // -------------------------------------------------------------- idInstance
+    @XmlTransient
     public OfGroupPropId getIdInstance() {
         return new OfGroupPropId().group(getGroupGroupName()).name(getName());
     }
@@ -74,5 +89,6 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_GROUP_NAME,
             referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
+    @NamedAttribute(ATTRIBUTE_NAME_GROUP)
     private OfGroup group;
 }

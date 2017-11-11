@@ -15,12 +15,19 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import java.io.Serializable;
-import javax.persistence.MappedSuperclass;
-import javax.xml.bind.annotation.XmlTransient;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@XmlTransient
-@MappedSuperclass
-abstract class OfMapped implements Serializable {
-    // empty
+/**
+ * An annotation for checking attributes' name.
+ *
+ * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+@interface NamedAttribute {
+
+    String value();
 }

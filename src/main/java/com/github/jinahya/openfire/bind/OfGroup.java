@@ -30,16 +30,36 @@ import javax.xml.bind.annotation.XmlElement;
 public class OfGroup extends OfMapped {
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the target table of this entity. The value is
+     * {@value #TABLE_NAME}.
+     */
     public static final String TABLE_NAME = "ofGroup";
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of target column to which {@value #ATTRIBUTE_NAME_GROUP_NAME}
+     * attribute is bind. The value is {@value #COLUMN_NAME_GROUP_NAME}.
+     */
     public static final String COLUMN_NAME_GROUP_NAME = "groupName";
 
+    /**
+     * The name of source attribute from which {@value #COLUMN_NAME_GROUP_NAME}
+     * column is bind. The value is {@value #ATTRIBUTE_NAME_GROUP_NAME}.
+     */
     public static final String ATTRIBUTE_NAME_GROUP_NAME = "groupName";
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of target column to which {@value #ATTRIBUTE_NAME_DESCRIPTION}
+     * attribute is bind. The value is {@value #COLUMN_NAME_DESCRIPTION}.
+     */
     public static final String COLUMN_NAME_DESCRIPTION = "description";
 
+    /**
+     * The name of source attribute from which {@value #COLUMN_NAME_DESCRIPTION}
+     * column is bind. The value is {@value #ATTRIBUTE_NAME_DESCRIPTION}.
+     */
     public static final String ATTRIBUTE_NAME_DESCRIPTION = "description";
 
     // -------------------------------------------------------------------------
@@ -57,7 +77,6 @@ public class OfGroup extends OfMapped {
      *
      * @return the current value of {@value #ATTRIBUTE_NAME_GROUP_NAME}
      * attribute.
-     *
      */
     public String getGroupName() {
         return groupName;
@@ -76,11 +95,12 @@ public class OfGroup extends OfMapped {
 
     /**
      * Replaces the value of {@value #ATTRIBUTE_NAME_GROUP_NAME} attribute with
-     * given.
+     * given and returns this instance.
      *
      * @param groupName new value for {@value #ATTRIBUTE_NAME_GROUP_NAME}
      * attribute.
      * @return this instance.
+     * @see #setGroupName(java.lang.String)
      */
     public OfGroup groupName(final String groupName) {
         setGroupName(groupName);
@@ -88,14 +108,37 @@ public class OfGroup extends OfMapped {
     }
 
     // ------------------------------------------------------------- description
+    /**
+     * Returns the current value of {@value #ATTRIBUTE_NAME_DESCRIPTION}
+     * attribute.
+     *
+     * @return the current value of {@value #ATTRIBUTE_NAME_DESCRIPTION}
+     * attribute.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Replaces the value of {@value #ATTRIBUTE_NAME_DESCRIPTION} attribute with
+     * given.
+     *
+     * @param description new value for {@value #ATTRIBUTE_NAME_DESCRIPTION}
+     * attribute.
+     */
     public void setDescription(final String description) {
         this.description = description;
     }
 
+    /**
+     * Replaces the value of {@value #ATTRIBUTE_NAME_DESCRIPTION} attribute with
+     * given and returns this instance.
+     *
+     * @param description new value for {@value #ATTRIBUTE_NAME_DESCRIPTION}
+     * attribute.
+     * @return this instance.
+     * @see #setDescription(java.lang.String)
+     */
     public OfGroup description(final String description) {
         setDescription(description);
         return this;
@@ -106,9 +149,11 @@ public class OfGroup extends OfMapped {
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_GROUP_NAME, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_GROUP_NAME)
     private String groupName;
 
     @XmlElement(nillable = true)
     @Column(name = COLUMN_NAME_DESCRIPTION)
+    @NamedAttribute(ATTRIBUTE_NAME_DESCRIPTION)
     private String description;
 }

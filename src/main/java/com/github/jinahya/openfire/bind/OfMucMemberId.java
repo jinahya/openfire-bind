@@ -25,6 +25,15 @@ import java.util.Objects;
  */
 public class OfMucMemberId implements Serializable {
 
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + ",room=" + room
+               + ",jid=" + jid
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -34,7 +43,7 @@ public class OfMucMemberId implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

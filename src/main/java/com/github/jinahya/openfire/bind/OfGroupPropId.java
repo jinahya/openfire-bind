@@ -24,6 +24,16 @@ import java.util.Objects;
  */
 public class OfGroupPropId extends OfPropId<OfGroupPropId> {
 
+    private static final long serialVersionUID = -2588878878648387490L;
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "group=" + group
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -33,7 +43,7 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

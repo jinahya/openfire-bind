@@ -57,6 +57,11 @@ public class OfMucRoom implements Serializable {
     public static final String ATTRIBUTE_NAME_ROOM_ID = "roomId";
 
     // -------------------------------------------------------------- idInstance
+    /**
+     * Returns the id instance of this entity.
+     *
+     * @return the id instance of this entity.
+     */
     public OfMucRoomId getIdInstance() {
         return new OfMucRoomId().service(getServiceServiceId()).name(getName());
     }
