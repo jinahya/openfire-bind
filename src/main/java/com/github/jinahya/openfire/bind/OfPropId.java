@@ -35,27 +35,27 @@ abstract class OfPropId<T extends OfPropId<T>> implements Serializable {
         return hash;
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return equalsAs(obj) && getClass() == obj.getClass();
-    }
-
-    boolean equalsAs(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!getClass().isAssignableFrom(obj.getClass())) {
-            return false;
-        }
-        final OfPropId<?> other = (OfPropId<?>) obj;
-        if (!Objects.equals(name, other.name)) {
-            return false;
-        }
-        return true;
-    }
+//    @Override
+//    public boolean equals(final Object obj) {
+//        return equalsAs(obj) && getClass() == obj.getClass();
+//    }
+//
+//    boolean equalsAs(final Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (!getClass().isAssignableFrom(obj.getClass())) {
+//            return false;
+//        }
+//        final OfPropId<?> other = (OfPropId<?>) obj;
+//        if (!Objects.equals(name, other.name)) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     // -------------------------------------------------------------------- name
     public String getName() {

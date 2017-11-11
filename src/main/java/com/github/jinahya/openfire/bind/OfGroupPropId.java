@@ -44,10 +44,10 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (true) {
-            return super.equals(obj);
-//            return equalsAs(obj) && getClass() == obj.getClass();
-        }
+//        if (true) {
+//            return super.equals(obj);
+////            return equalsAs(obj) && getClass() == obj.getClass();
+//        }
         if (this == obj) {
             return true;
         }
@@ -67,20 +67,20 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
         return true;
     }
 
-    @Override
-    boolean equalsAs(final Object obj) {
-        if (!super.equalsAs(obj)) {
-            return false;
-        }
-        if (!getClass().isAssignableFrom(obj.getClass())) {
-            return false;
-        }
-        final OfGroupPropId other = (OfGroupPropId) obj;
-        if (!Objects.equals(group, other.group)) {
-            return false;
-        }
-        return true;
-    }
+//    @Override
+//    boolean equalsAs(final Object obj) {
+//        if (!super.equalsAs(obj)) {
+//            return false;
+//        }
+//        if (!getClass().isAssignableFrom(obj.getClass())) {
+//            return false;
+//        }
+//        final OfGroupPropId other = (OfGroupPropId) obj;
+//        if (!Objects.equals(group, other.group)) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     // ------------------------------------------------------------------- group
     public String getGroup() {
