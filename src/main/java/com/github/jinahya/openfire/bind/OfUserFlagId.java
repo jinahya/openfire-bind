@@ -25,6 +25,8 @@ import java.util.Objects;
  */
 public class OfUserFlagId implements Serializable {
 
+    private static final long serialVersionUID = -3247336859771117180L;
+
     // -------------------------------------------------------------------------
     @Override
     public String toString() {

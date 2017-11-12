@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An id class for {@link OfRosterGroup} class.
+ * The id class of {@link OfRosterGroup} class.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

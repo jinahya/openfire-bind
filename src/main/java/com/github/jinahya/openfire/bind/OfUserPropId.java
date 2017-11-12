@@ -18,11 +18,13 @@ package com.github.jinahya.openfire.bind;
 import java.util.Objects;
 
 /**
- * An id class for {@link OfUserProp} table.
+ * The id class of {@link OfUserProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfUserPropId extends OfPropId<OfUserPropId> {
+
+    private static final long serialVersionUID = 3020858191177597147L;
 
     // -------------------------------------------------------------------------
     @Override
@@ -36,26 +38,16 @@ public class OfUserPropId extends OfPropId<OfUserPropId> {
     public int hashCode() {
         int hash = super.hashCode();
         hash = 97 * hash + Objects.hashCode(user);
-//        hash = 97 * hash + Objects.hashCode(getName());
         return hash;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!super.equals(obj)) {
             return false;
         }
         final OfUserPropId other = (OfUserPropId) obj;
         if (!Objects.equals(user, other.user)) {
-            return false;
-        }
-        if (!Objects.equals(getName(), other.getName())) {
             return false;
         }
         return true;

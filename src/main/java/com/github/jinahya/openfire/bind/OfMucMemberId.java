@@ -25,6 +25,8 @@ import java.util.Objects;
  */
 public class OfMucMemberId implements Serializable {
 
+    private static final long serialVersionUID = -2188386672709798585L;
+
     // -------------------------------------------------------------------------
     @Override
     public String toString() {
@@ -68,11 +70,11 @@ public class OfMucMemberId implements Serializable {
         return room;
     }
 
-    public void setRoom(final Long room) {
+    void setRoom(final Long room) {
         this.room = room;
     }
 
-    public OfMucMemberId room(final Long room) {
+    OfMucMemberId room(final Long room) {
         setRoom(room);
         return this;
     }
@@ -82,11 +84,11 @@ public class OfMucMemberId implements Serializable {
         return jid;
     }
 
-    public void setJid(final String jid) {
+    void setJid(final String jid) {
         this.jid = jid;
     }
 
-    public OfMucMemberId jid(final String jid) {
+    OfMucMemberId jid(final String jid) {
         setJid(jid);
         return this;
     }

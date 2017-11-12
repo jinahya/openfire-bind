@@ -22,6 +22,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 
 /**
+ * Test class for {@link OfGroup} class.
  *
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */

@@ -24,6 +24,8 @@ import java.util.Objects;
  */
 public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
 
+    private static final long serialVersionUID = 403478860013540971L;
+
     // -------------------------------------------------------------------------
     @Override
     public String toString() {
@@ -41,20 +43,11 @@ public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!super.equals(obj)) {
             return false;
         }
         final OfMucServicePropId other = (OfMucServicePropId) obj;
         if (!Objects.equals(service, other.service)) {
-            return false;
-        }
-        if (!Objects.equals(getName(), other.getName())) {
             return false;
         }
         return true;
@@ -65,11 +58,11 @@ public class OfMucServicePropId extends OfPropId<OfMucServicePropId> {
         return service;
     }
 
-    public void setService(final Long service) {
+    void setService(final Long service) {
         this.service = service;
     }
 
-    public OfMucServicePropId service(final Long service) {
+    OfMucServicePropId service(final Long service) {
         setService(service);
         return this;
     }

@@ -19,11 +19,22 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An id class for {@link OfOffline}.
+ * The id class of {@link OfOffline}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfOfflineId implements Serializable {
+
+    private static final long serialVersionUID = -7223070216575511876L;
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",messageId=" + messageId
+               + "}";
+    }
 
     @Override
     public int hashCode() {
@@ -59,11 +70,11 @@ public class OfOfflineId implements Serializable {
         return user;
     }
 
-    public void setUser(final String user) {
+    void setUser(final String user) {
         this.user = user;
     }
 
-    public OfOfflineId user(final String user) {
+    OfOfflineId user(final String user) {
         setUser(user);
         return this;
     }
@@ -73,11 +84,11 @@ public class OfOfflineId implements Serializable {
         return messageId;
     }
 
-    public void setMessageId(final Long messageId) {
+    void setMessageId(final Long messageId) {
         this.messageId = messageId;
     }
 
-    public OfOfflineId messageId(final Long messageId) {
+    OfOfflineId messageId(final Long messageId) {
         setMessageId(messageId);
         return this;
     }

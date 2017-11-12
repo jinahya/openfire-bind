@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static com.github.jinahya.openfire.bind.OfUtilities.copyOf;
+import static com.github.jinahya.openfire.bind.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;

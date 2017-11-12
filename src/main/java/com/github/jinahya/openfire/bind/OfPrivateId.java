@@ -19,11 +19,23 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An id class for {@link OfPrivate} class.
+ * The id class of {@link OfPrivate} class.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfPrivateId implements Serializable {
+
+    private static final long serialVersionUID = -8306847301505311224L;
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",name=" + name
+               + ",namespace=" + namespace
+               + "}";
+    }
 
     @Override
     public int hashCode() {
@@ -35,7 +47,7 @@ public class OfPrivateId implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -63,11 +75,11 @@ public class OfPrivateId implements Serializable {
         return user;
     }
 
-    public void setUser(final String user) {
+    void setUser(final String user) {
         this.user = user;
     }
 
-    public OfPrivateId user(final String user) {
+    OfPrivateId user(final String user) {
         setUser(user);
         return this;
     }
@@ -77,11 +89,11 @@ public class OfPrivateId implements Serializable {
         return name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
-    public OfPrivateId name(final String name) {
+    OfPrivateId name(final String name) {
         setName(name);
         return this;
     }
@@ -91,11 +103,11 @@ public class OfPrivateId implements Serializable {
         return namespace;
     }
 
-    public void setNamespace(final String namespace) {
+    void setNamespace(final String namespace) {
         this.namespace = namespace;
     }
 
-    public OfPrivateId namespace(final String namespace) {
+    OfPrivateId namespace(final String namespace) {
         setNamespace(namespace);
         return this;
     }

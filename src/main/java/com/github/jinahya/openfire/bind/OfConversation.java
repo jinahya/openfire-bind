@@ -15,9 +15,11 @@
  */
 package com.github.jinahya.openfire.bind;
 
-import static com.github.jinahya.openfire.bind.OfUtilities.copyOf;
+import static com.github.jinahya.openfire.bind.Utilities.copyOf;
+import com.github.jinahya.openfire.bind.persistence.DateMillisAttributeConverter;
 import java.io.Serializable;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -29,26 +31,48 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * An entity for {@value #TABLE_NAME} table.
+ * The entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
 public class OfConversation implements Serializable {
 
+    private static final long serialVersionUID = -8556282042062757153L;
+
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofConversation";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_CONVERSATION_ID = "conversationID";
 
+    public static final String ATTRIBUTE_NAME_CONVERSATION_ID
+            = "conversationId";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ROOM = "room";
 
+    public static final String ATTRIBUTE_NAME_ROOM = "room";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_IS_EXTERNAL = "isExternal";
 
-    public static final String COLUMN_NAME_IS_START_DATE = "startDate";
+    public static final String ATTRIBUTE_NAME_EXTERNAL = "external";
 
-    public static final String COLUMN_NAME_IS_LAST_ACTIVITY = "lastActivity";
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_START_DATE = "startDate";
 
-    public static final String COLUMN_NAME_IS_MESSAGE_COUNT = "messageCount";
+    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_LAST_ACTIVITY = "lastActivity";
+
+    public static final String ATTRIBUTE_NAME_LAST_ACTIVITY = "lastActivity";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_MESSAGE_COUNT = "messageCount";
+
+    public static final String ATTRIBUTE_NAME_MESSAGE_COUNT = "messageCount";
 
     // ---------------------------------------------------------- conversationId
     public Long getConversationId() {
@@ -105,34 +129,48 @@ public class OfConversation implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    @XmlElement(required = true)
-    @Column(name = COLUMN_NAME_CONVERSATION_ID)
+    @JsonbProperty()
+    @XmlElement()
     @Id
+    @Column(name = COLUMN_NAME_CONVERSATION_ID, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CONVERSATION_ID)
     private Long conversationId;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = COLUMN_NAME_ROOM, nullable = true)
     @Basic
+    @Column(name = COLUMN_NAME_ROOM)
+    @NamedAttribute(ATTRIBUTE_NAME_ROOM)
     private String room;
 
+    @JsonbProperty
     @XmlElement(required = true)
     @Column(name = COLUMN_NAME_IS_EXTERNAL, nullable = false)
     @Basic(optional = false)
+    @NamedAttribute(ATTRIBUTE_NAME_EXTERNAL)
     private boolean external;
 
+    @JsonbProperty()
+    @XmlElement()
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = __DateMillisAttributeConverter.class)
-    @Column(name = COLUMN_NAME_IS_START_DATE, nullable = false)
+    @Convert(converter = DateMillisAttributeConverter.class)
+    @Column(name = COLUMN_NAME_START_DATE, nullable = false)
     private Date startDate;
 
+    @JsonbProperty()
+    @XmlElement()
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = __DateMillisAttributeConverter.class)
-    @Column(name = COLUMN_NAME_IS_LAST_ACTIVITY, nullable = false)
+    @Convert(converter = DateMillisAttributeConverter.class)
+    @Column(name = COLUMN_NAME_LAST_ACTIVITY, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_LAST_ACTIVITY)
     private Date lastActivity;
 
+    @JsonbProperty()
+    @XmlElement()
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_IS_MESSAGE_COUNT, nullable = false)
+    @Column(name = COLUMN_NAME_MESSAGE_COUNT, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_MESSAGE_COUNT)
     private int messageCount;
 }

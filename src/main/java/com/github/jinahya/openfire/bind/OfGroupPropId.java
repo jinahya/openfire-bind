@@ -38,49 +38,20 @@ public class OfGroupPropId extends OfPropId<OfGroupPropId> {
     public int hashCode() {
         int hash = super.hashCode();
         hash = 97 * hash + Objects.hashCode(group);
-//        hash = 97 * hash + Objects.hashCode(getName());
         return hash;
     }
 
     @Override
     public boolean equals(final Object obj) {
-//        if (true) {
-//            return super.equals(obj);
-////            return equalsAs(obj) && getClass() == obj.getClass();
-//        }
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!super.equals(obj)) {
             return false;
         }
         final OfGroupPropId other = (OfGroupPropId) obj;
         if (!Objects.equals(group, other.group)) {
             return false;
         }
-        if (!Objects.equals(getName(), other.getName())) {
-            return false;
-        }
         return true;
     }
-
-//    @Override
-//    boolean equalsAs(final Object obj) {
-//        if (!super.equalsAs(obj)) {
-//            return false;
-//        }
-//        if (!getClass().isAssignableFrom(obj.getClass())) {
-//            return false;
-//        }
-//        final OfGroupPropId other = (OfGroupPropId) obj;
-//        if (!Objects.equals(group, other.group)) {
-//            return false;
-//        }
-//        return true;
-//    }
 
     // ------------------------------------------------------------------- group
     public String getGroup() {

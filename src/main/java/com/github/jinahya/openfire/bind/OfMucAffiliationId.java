@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 
 /**
- * An id class for {@link OfMucAffiliation} class.
+ * The id class of {@link OfMucAffiliation}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -35,6 +35,14 @@ public class OfMucAffiliationId implements Serializable {
             = getLogger(lookup().lookupClass().getName());
 
     // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return toString() + "{"
+               + "room=" + room
+               + ",jid=" + jid
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

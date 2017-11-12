@@ -24,7 +24,16 @@ import java.util.Objects;
  */
 public class OfMucRoomPropId extends OfPropId<OfMucRoomPropId> {
 
+    private static final long serialVersionUID = -9119364363025882196L;
+
     // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "room=" + room
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = super.hashCode();
@@ -34,20 +43,11 @@ public class OfMucRoomPropId extends OfPropId<OfMucRoomPropId> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!super.equals(obj)) {
             return false;
         }
         final OfMucRoomPropId other = (OfMucRoomPropId) obj;
         if (!Objects.equals(room, other.room)) {
-            return false;
-        }
-        if (!Objects.equals(getName(), other.getName())) {
             return false;
         }
         return true;

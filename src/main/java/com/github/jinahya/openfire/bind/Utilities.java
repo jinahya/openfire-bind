@@ -23,7 +23,7 @@ import static java.util.Optional.ofNullable;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-final class OfUtilities {
+final class Utilities {
 
     // -------------------------------------------------------------------------
     /**
@@ -40,7 +40,7 @@ final class OfUtilities {
     /**
      * Creates a new instance.
      */
-    private OfUtilities() {
+    private Utilities() {
         super();
     }
 }
