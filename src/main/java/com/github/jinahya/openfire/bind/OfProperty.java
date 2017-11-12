@@ -18,12 +18,14 @@ package com.github.jinahya.openfire.bind;
 import javax.persistence.Entity;
 
 /**
- * An abstract class for {@code Prop} classes.
+ * The entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
 public class OfProperty extends OfProp<OfProperty> {
+
+    private static final long serialVersionUID = 9105858876328594537L;
 
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofProperty";

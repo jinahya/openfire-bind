@@ -22,5 +22,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlTransient
 @MappedSuperclass
 abstract class OfMapped implements Serializable {
-    // empty
+
+    private static final long serialVersionUID = 5644043894030439172L;
 }

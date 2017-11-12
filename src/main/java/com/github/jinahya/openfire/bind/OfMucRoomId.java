@@ -25,6 +25,17 @@ import java.util.Objects;
  */
 public class OfMucRoomId implements Serializable {
 
+    private static final long serialVersionUID = -5080981096088817540L;
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "service=" + service
+               + ",name=" + name
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -59,11 +70,11 @@ public class OfMucRoomId implements Serializable {
         return service;
     }
 
-    public void setService(final Long service) {
+    void setService(final Long service) {
         this.service = service;
     }
 
-    public OfMucRoomId service(final Long service) {
+    OfMucRoomId service(final Long service) {
         setService(service);
         return this;
     }
@@ -73,11 +84,11 @@ public class OfMucRoomId implements Serializable {
         return name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
-    public OfMucRoomId name(final String name) {
+    OfMucRoomId name(final String name) {
         setName(name);
         return this;
     }

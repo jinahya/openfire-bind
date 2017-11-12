@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 public class OfMucService implements Serializable {
 
+    private static final long serialVersionUID = -3116060010690646853L;
+
     // -------------------------------------------------------------------------
     /**
      * The name of the target table of this entity.

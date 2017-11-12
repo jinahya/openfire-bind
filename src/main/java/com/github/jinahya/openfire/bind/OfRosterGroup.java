@@ -52,10 +52,12 @@ public class OfRosterGroup extends OfMapped {
 
     public static final String ATTRIBUTE_NAME_ROSTER = "roster";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_RANK = "rank";
 
     public static final String ATTRIBUTE_NAME_RANK = "rank";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_GROUP_NAME = "groupName";
 
     public static final String ATTRIBUTE_NAME_GROUP_NAME = "groupName";

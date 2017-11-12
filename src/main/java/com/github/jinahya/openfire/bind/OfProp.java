@@ -45,7 +45,7 @@ abstract class OfProp<T extends OfProp<T>> extends OfMapped {
     // -------------------------------------------------------------------------
     @Override
     public String toString() {
-        return toString() + "{"
+        return super.toString() + "{"
                + "name=" + name
                + ",propValue=" + propValue
                + "}";

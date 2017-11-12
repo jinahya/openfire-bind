@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.bind;
 
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -36,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucServicePropId.class)
 public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
+    private static final long serialVersionUID = -8764347967513782358L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMucServiceProp";
 
@@ -53,9 +56,18 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
         super();
     }
 
+    // -------------------------------------------------------- java.lang.Object
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "service=" + service
+               + "}";
+    }
+
     // -------------------------------------------------------------- idInstance
     public OfMucServicePropId getIdInstance() {
-        return new OfMucServicePropId().service(getServiceServiceId())
+        return new OfMucServicePropId()
+                .service(getServiceServiceId())
                 .name(getName());
     }
 
@@ -73,12 +85,14 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
         return this;
     }
 
+    @JsonbProperty
     @XmlAttribute
     public Long getServiceServiceId() {
         return ofNullable(getService()).map(OfMucService::getServiceId)
                 .orElse(null);
     }
 
+    @JsonbProperty
     @XmlAttribute
     public String getServiceSubdomain() {
         return ofNullable(getService()).map(OfMucService::getSubdomain)
@@ -94,5 +108,6 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_SERVICE_ID,
             referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
+    @NamedAttribute(ATTRIBUTE_NAME_SERVICE)
     private OfMucService service;
 }

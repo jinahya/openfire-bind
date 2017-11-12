@@ -34,14 +34,20 @@ public class OfId implements Serializable {
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ID_TYPE = "idType";
 
+    public static final String ATTRIBUTE_NAME_ID_TYPE = "idType";
+
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ID = "id";
+
+    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // -------------------------------------------------------------------------
     @Id
     @Column(name = COLUMN_NAME_ID_TYPE)
+    @NamedAttribute(ATTRIBUTE_NAME_ID_TYPE)
     private int idType;
 
     @Column(name = COLUMN_NAME_ID, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ID)
     private long id;
 }

@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * An entity class for {@value #TABLE_NAME} table.
+ * The entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

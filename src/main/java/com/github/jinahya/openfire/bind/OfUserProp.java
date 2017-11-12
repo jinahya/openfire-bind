@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * An entity for {@value #TABLE_NAME} table.
+ * The entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -36,12 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfUserPropId.class)
 public class OfUserProp extends OfProp<OfUserProp> {
 
+    // -------------------------------------------------------------------------
     /**
      * The name of the table to which this entity class is bound. The value is
      * {@value #TABLE_NAME}.
      */
     public static final String TABLE_NAME = "ofUserProp";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 

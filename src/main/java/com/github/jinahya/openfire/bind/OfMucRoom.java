@@ -44,6 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucRoomId.class)
 public class OfMucRoom implements Serializable {
 
+    private static final long serialVersionUID = 7178837689865627613L;
+
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMucRoom";
 
     // -------------------------------------------------------------------------
@@ -52,6 +55,7 @@ public class OfMucRoom implements Serializable {
 
     public static final String ATTRIBUTE_NAME_SERVICE = "service";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ROOM_ID = "roomID";
 
     public static final String ATTRIBUTE_NAME_ROOM_ID = "roomId";

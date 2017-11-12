@@ -37,7 +37,7 @@ public class OfMucAffiliationId implements Serializable {
     // -------------------------------------------------------------------------
     @Override
     public String toString() {
-        return toString() + "{"
+        return super.toString() + "{"
                + "room=" + room
                + ",jid=" + jid
                + "}";

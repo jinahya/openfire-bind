@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucRoomPropId.class)
 public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
 
+    private static final long serialVersionUID = -6469468042118345539L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMucRoomProp";
 
@@ -85,5 +87,6 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_ROOM_ID,
             referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
+    @NamedAttribute(ATTRIBUTE_NAME_ROOM)
     private OfMucRoom room;
 }

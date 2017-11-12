@@ -30,10 +30,21 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 public class OfVersion implements Serializable {
 
+    private static final long serialVersionUID = -8672734544040136059L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofVersion";
 
     // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_NAME = "name";
+
+    public static final String ATTRIBUTE_NAME_NAME = "name";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_VERSION = "version";
+
+    public static final String ATTRIBUTE_NAME_VERSION = "version";
+
     // -------------------------------------------------------------------- name
     public String getName() {
         return name;
@@ -42,7 +53,7 @@ public class OfVersion implements Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-    
+
     public OfVersion name(final String name) {
         setName(name);
         return this;
@@ -56,7 +67,7 @@ public class OfVersion implements Serializable {
     public void setVersion(final int version) {
         this.version = version;
     }
-    
+
     public OfVersion version(final int version) {
         setVersion(version);
         return this;

@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * The entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -43,15 +44,22 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfUserFlagId.class)
 public class OfUserFlag implements Serializable {
 
+    private static final long serialVersionUID = 3723852856041333841L;
+
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofUserFlag";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
+    // -------------------------------------------------------------------------    
     public static final String COLUMN_NAME_START_TIME = "startTime";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_END_TIME = "endTime";
 
     // -------------------------------------------------------------- idInstance
