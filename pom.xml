@@ -19,8 +19,8 @@
   <inceptionYear>2017</inceptionYear>
 
   <scm>
-    <connection>scm:git:git@github.com:jinahya/${project.artifactId}.git</connection>
-    <developerConnection>scm:git:git@github.com:jinahya/${project.artifactId}.git</developerConnection>
+    <connection>scm:git:https://github.com/jinahya/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:https://github.com/jinahya/${project.artifactId}.git</developerConnection>
     <url>https://github.com:jinahya/${project.artifactId}</url>
     <tag>HEAD</tag>
   </scm>
