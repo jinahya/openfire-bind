@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.bind;
 
 import static com.github.jinahya.openfire.bind.Utilities.copyOf;
+import com.github.jinahya.openfire.bind.persistence.Date015AttributeConverter;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
@@ -430,13 +431,13 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = "creationDate", nullable = false)
     private Date creationDate;
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = "modificationDate", nullable = false)
     private Date modificationDate;
 
@@ -457,13 +458,13 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = "lockedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lockedDate;
 
     @XmlElement(nillable = true)
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = "emptyDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date emptyDate;

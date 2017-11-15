@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.bind;
 
 import static com.github.jinahya.openfire.bind.Utilities.copyOf;
+import com.github.jinahya.openfire.bind.persistence.Date015AttributeConverter;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
@@ -132,7 +133,7 @@ public class OfPresence implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
     private Date offlineDate;
 }

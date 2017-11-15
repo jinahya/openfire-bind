@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.bind;
 
 import static com.github.jinahya.openfire.bind.Utilities.copyOf;
+import com.github.jinahya.openfire.bind.persistence.Date015AttributeConverter;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -153,14 +154,14 @@ public class OfUser implements Serializable {
     @XmlElement(required = true)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
     private Date creationDate;
 
     @XmlElement(required = true)
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = __Date015AttributeConverter.class)
+    @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
     private Date modificationDate;
 }
