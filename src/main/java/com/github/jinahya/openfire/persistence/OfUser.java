@@ -36,11 +36,22 @@ import javax.xml.bind.annotation.XmlElement;
 public class OfUser implements Serializable {
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the target table. The value is {@value #TABLE_NAME}.
+     */
     public static final String TABLE_NAME = "ofUser";
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the column to which {@value #ATTRIBUTE_NAME_USERNAME}
+     * attribute is bound. The value is {@value #COLUMN_NAME_USERNAME}.
+     */
     public static final String COLUMN_NAME_USERNAME = "username";
 
+    /**
+     * The name of the attribute from which {@value #COLUMN_NAME_USERNAME}
+     * column is bound. The value is {@value #ATTRIBUTE_NAME_USERNAME}.
+     */
     public static final String ATTRIBUTE_NAME_USERNAME = "username";
 
     // -------------------------------------------------------------------------
