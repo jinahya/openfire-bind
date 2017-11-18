@@ -247,7 +247,6 @@
           -hide com.github.jinahya.openfire.bind.OfProp
           -collapsible -horizontal
           -inferdep
-          <!---inferdepinpackage-->
           -inferrel
           -outputencoding UTF-8
         </additionalparam>
