@@ -243,8 +243,9 @@
       <properties>
         <additionalparam>
           -hide java.*
-          -hide com.github.jinahya.openfire.bind.OfMapped
-          -hide com.github.jinahya.openfire.bind.OfProp
+          -hide com.github.jinahya.openfire.persistence.OfMapped
+          -hide com.github.jinahya.openfire.persistence.OfProp
+          -hide com.github.jinahya.openfire.persistence.OfPropId
           -collapsible -horizontal
           -inferdep
           -inferrel
