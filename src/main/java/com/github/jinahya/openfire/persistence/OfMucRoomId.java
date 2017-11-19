@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * The id class for {@link OfMucRoom} entity.
+ * Id class for {@link OfMucRoom} entity.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

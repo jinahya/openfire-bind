@@ -23,8 +23,8 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
@@ -89,10 +89,14 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_GROUP_NAME,
-            referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
+//    @PrimaryKeyJoinColumn(
+//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//            name = COLUMN_NAME_GROUP_NAME,
+//            referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_GROUP_NAME,
+                nullable = false,
+                updatable = false)
     @NamedAttribute(ATTRIBUTE_NAME_GROUP)
     private OfGroup group;
 }

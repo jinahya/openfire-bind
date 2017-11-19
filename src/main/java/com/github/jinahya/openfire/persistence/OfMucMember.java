@@ -27,8 +27,8 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * An entity class for {@value #TABLE_NAME} table.
+ * Entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -52,6 +52,10 @@ public class OfMucMember extends OfMapped {
             = getLogger(lookup().lookupClass().getName());
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the target table of this entity. The value is
+     * {@value #TABLE_NAME}.
+     */
     public static final String TABLE_NAME = "ofMucMember";
 
     // -------------------------------------------------------------------------
@@ -64,6 +68,36 @@ public class OfMucMember extends OfMapped {
     public static final String COLUMN_NAME_JID = "jid";
 
     public static final String ATTRIBUTE_NAME_JID = "jid";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_NICKNAME = "nickname";
+
+    public static final String ATTRIBUTE_NAME_NICKNAME = "nickname";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_FIRST_NAME = "firstName";
+
+    public static final String ATTRIBUTE_NAME_FIRST_NAME = "firstName";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_LAST_NAME = "lastName";
+
+    public static final String ATTRIBUTE_NAME_LAST_NAME = "lastName";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_URL = "url";
+
+    public static final String ATTRIBUTE_NAME_URL = "url";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_EMAIL = "email";
+
+    public static final String ATTRIBUTE_NAME_EMAIL = "email";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_FAQENTRY = "faqentry";
+
+    public static final String ATTRIBUTE_NAME_FAQENTRY = "faqentry";
 
     // -------------------------------------------------------------- idInstance
     @XmlTransient
@@ -85,6 +119,7 @@ public class OfMucMember extends OfMapped {
         return this;
     }
 
+    @JsonbProperty
     @XmlAttribute
     public Long getRoomRoomId() {
         return ofNullable(getRoom()).map(OfMucRoom::getRoomId).orElse(null);
@@ -194,10 +229,15 @@ public class OfMucMember extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_ROOM_ID,
-            referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
+//    @PrimaryKeyJoinColumn(
+//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//            name = COLUMN_NAME_ROOM_ID,
+//            referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_ROOM_ID,
+                nullable = false,
+                referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID,
+                updatable = false)
     @NamedAttribute(ATTRIBUTE_NAME_ROOM)
     private OfMucRoom room;
 
@@ -211,31 +251,37 @@ public class OfMucMember extends OfMapped {
 
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "nickName")
+    @Column(name = COLUMN_NAME_NICKNAME)
+    @NamedAttribute(ATTRIBUTE_NAME_NICKNAME)
     private String nickname;
 
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "firstName")
+    @Column(name = COLUMN_NAME_FIRST_NAME)
+    @NamedAttribute(ATTRIBUTE_NAME_FIRST_NAME)
     private String firstName;
 
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "lastName")
+    @Column(name = COLUMN_NAME_LAST_NAME)
+    @NamedAttribute(ATTRIBUTE_NAME_LAST_NAME)
     private String lastName;
 
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "url")
+    @Column(name = COLUMN_NAME_URL)
+    @NamedAttribute(ATTRIBUTE_NAME_URL)
     private String url;
 
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "email")
+    @Column(name = COLUMN_NAME_EMAIL)
+    @NamedAttribute(ATTRIBUTE_NAME_EMAIL)
     private String email;
 
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "faqentry")
+    @Column(name = COLUMN_NAME_FAQENTRY)
+    @NamedAttribute(ATTRIBUTE_NAME_FAQENTRY)
     private String faqentry;
 }

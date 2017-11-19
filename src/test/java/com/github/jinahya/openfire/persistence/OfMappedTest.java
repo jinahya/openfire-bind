@@ -15,12 +15,14 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import static java.lang.String.format;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.lang.reflect.Field;
 import static java.util.Objects.requireNonNull;
 import org.apache.ibatis.javassist.Modifier;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
+import static org.testng.FileAssert.fail;
 import org.testng.annotations.Test;
 
 /**
@@ -48,8 +50,11 @@ abstract class OfMappedTest<T extends OfMapped> {
                 continue;
             }
             if (!field.getName().endsWith(annotation.value())) {
-                logger.warn("{} is not named as annotated: {}", field,
-                            annotation);
+                final String message = format(
+                        "%1$s is not named as annoated: %2$s", field,
+                        annotation);
+                logger.error(message);
+                fail(message);
             }
         }
         final Class<?> superClass = currentClass.getSuperclass();
@@ -62,26 +67,26 @@ abstract class OfMappedTest<T extends OfMapped> {
     /**
      * Creates a new instance.
      *
-     * @param subclass subtype.
+     * @param type subtype.
      */
-    public OfMappedTest(final Class<T> subclass) {
+    public OfMappedTest(final Class<T> type) {
         super();
-        this.subclass = requireNonNull(subclass, "subtype is null");
+        this.type = requireNonNull(type, "type is null");
     }
 
     // -------------------------------------------------------------------------
     /**
-     * Checks all fields of {@link #subclass}, including those of super classes,
-     * for {@link NamedAttribute}.
+     * Checks all fields of {@link #type}, including those of super classes, for
+     * {@link NamedAttribute}.
      */
     @Test
     public void checkNamedAttributes() {
-        checkNamedAttributes(subclass);
+        checkNamedAttributes(type);
     }
 
     // -------------------------------------------------------------------------
     /**
      * The subclass.
      */
-    protected final Class<T> subclass;
+    protected final Class<T> type;
 }

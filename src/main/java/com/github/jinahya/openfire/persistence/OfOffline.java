@@ -19,6 +19,8 @@ import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Convert;
@@ -26,8 +28,8 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -151,20 +153,27 @@ public class OfOffline implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id
     @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_USERNAME,
-            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+//    @PrimaryKeyJoinColumn(
+//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//            name = COLUMN_NAME_USERNAME,
+//            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_USERNAME,
+                nullable = false,
+                referencedColumnName = OfUser.COLUMN_NAME_USERNAME,
+                updatable = false)
     private OfUser user;
 
+    @JsonbProperty
     @XmlElement(required = true)
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_MESSAGE_ID, nullable = false)
+    @Column(name = COLUMN_NAME_MESSAGE_ID, nullable = false, updatable = false)
     private Long messageId;
 
     @XmlElement(required = true)

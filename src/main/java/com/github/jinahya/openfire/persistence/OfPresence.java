@@ -25,8 +25,8 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -120,10 +120,15 @@ public class OfPresence implements Serializable {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_USERNAME,
-            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+//    @PrimaryKeyJoinColumn(
+//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//            name = COLUMN_NAME_USERNAME,
+//            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_USERNAME,
+                nullable = false,
+                referencedColumnName = OfUser.COLUMN_NAME_USERNAME,
+                updatable = false)
     private OfUser user;
 
     @XmlElement(nillable = true)

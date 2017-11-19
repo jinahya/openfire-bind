@@ -27,8 +27,8 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -70,14 +70,137 @@ public class OfMucRoom extends OfMapped {
     public static final String ATTRIBUTE_NAME_ROOM_ID = "roomId";
 
     // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CREATION_DATE = "creationDate";
+
+    public static final String ATTRIBUTE_NAME_CREATION_DATE = "creationDate";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_MODIFICATION_DATE
+            = "modificationDate";
+
+    public static final String ATTRIBUTE_NAME_MODIFICATION_DATE
+            = "modificationDate";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
     public static final String ATTRIBUTE_NAME_NAME = "name";
 
     // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_NATURAL_NAME = "naturalName";
+
+    public static final String ATTRIBUTE_NAME_NATURAL_NAME = "naturalName";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_DESCRIPTION = "description";
+
+    public static final String ATTRIBUTE_NAME_DESCRIPTION = "description";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_LOCKED_DATE = "lockedDate";
+
+    public static final String ATTRIBUTE_NAME_LOCKED_DATE = "lockedDate";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_EMPTY_DATE = "emptyDate";
+
+    public static final String ATTRIBUTE_NAME_EMPTY_DATE = "emptyDate";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CAN_CHANGE_SUBJECT
+            = "canChangeSubject";
+
+    public static final String ATTRIBUTE_NAME_CAN_CHANGE_SUBJECT
+            = "canChangeSubject";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_MAX_USERS = "maxUsers";
+
+    public static final String ATTRIBUTE_NAME_MAX_USERS = "maxUsers";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_PUBLIC_ROOM = "publicRoom";
+
+    public static final String ATTRIBUTE_NAME_PUBLIC_ROOM = "publicRoom";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_MODERATED = "moderated";
+
+    public static final String ATTRIBUTE_NAME_MODERATED = "moderated";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_MEMBERS_ONLY = "membersOnly";
+
+    public static final String ATTRIBUTE_NAME_MEMBERS_ONLY = "membersOnly";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CAN_INVITE = "canInvite";
+
+    public static final String ATTRIBUTE_NAME_CAN_INVITE = "canInvite";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_ROOM_PASSWORD = "roomPassword";
+
+    public static final String ATTRIBUTE_NAME_ROOM_PASSWORD = "roomPassword";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CAN_DISCOVER_JID = "canDiscoverJID";
+
+    public static final String ATTRIBUTE_NAME_CAN_DISCOVER_JID
+            = "canDiscoverJid";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_LOG_ENABLED = "logEnabled";
+
+    public static final String ATTRIBUTE_NAME_LOG_ENABLED = "logEnabled";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_SUBJECT = "subject";
+
+    public static final String ATTRIBUTE_NAME_SUBJECT = "subject";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_USE_RESERVED_NICK
+            = "useReservedNick";
+
+    public static final String ATTRIBUTE_NAME_USE_RESERVED_NICK
+            = "useReservedNick";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_ROLES_TO_BROADCAST
+            = "rolesToBroadcast";
+
+    public static final String ATTRIBUTE_NAME_ROLES_TO_BROADCAST
+            = "rolesToBroadcast";
+
+    public static final int ROLES_TO_BROADCAST_MODERATOR = 0x04;
+
+    public static final int ROLES_TO_BROADCAST_PARTICIPANT = 0x02;
+
+    public static final int ROLES_TO_BROADCAST_VISITOR = 0x01;
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CAN_CHANGE_NICK = "canChangeNick";
+
+    public static final String ATTRIBUTE_NAME_CAN_CHANGE_NICK = "canChangeNick";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_CAN_REGISTER = "canRegister";
+
+    public static final String ATTRIBUTE_NAME_CAN_REGISTER = "canRegister";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_ALLOWPM = "allowpm";
 
     public static final String ATTRIBUTE_NAME_ALLOWPM = "allowpm";
+
+    public static final int ALLOWPM_NONE = 3;
+
+    public static final int ALLOWPM_MODERATOR = 2;
+
+    public static final int ALLOWPM_PARTICIPATN = 1;
+
+    public static final int ALLOWPM_ANYONE = 0;
 
     // -------------------------------------------------------------- idInstance
     /**
@@ -362,15 +485,15 @@ public class OfMucRoom extends OfMapped {
     }
 
     // -------------------------------------------------------- rolesToBroadcast
-    public boolean isRolesToBroadcast() {
+    public int isRolesToBroadcast() {
         return rolesToBroadcast;
     }
 
-    public void setRolesToBroadcast(final boolean rolesToBroadcast) {
+    public void setRolesToBroadcast(final int rolesToBroadcast) {
         this.rolesToBroadcast = rolesToBroadcast;
     }
 
-    public OfMucRoom rolesToBroadcast(final boolean rolesToBroadcast) {
+    public OfMucRoom rolesToBroadcast(final int rolesToBroadcast) {
         setRolesToBroadcast(rolesToBroadcast);
         return this;
     }
@@ -418,15 +541,15 @@ public class OfMucRoom extends OfMapped {
     }
 
     // ----------------------------------------------------------------- allowpm
-    public Boolean getAllowpm() {
+    public Integer getAllowpm() {
         return allowpm;
     }
 
-    public void setAllowpm(final Boolean allowpm) {
+    public void setAllowpm(final Integer allowpm) {
         this.allowpm = allowpm;
     }
 
-    public OfMucRoom allowpm(final Boolean allowpm) {
+    public OfMucRoom allowpm(final Integer allowpm) {
         setAllowpm(allowpm);
         return this;
     }
@@ -437,29 +560,41 @@ public class OfMucRoom extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_SERVICE_ID,
-            referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
+//    @PrimaryKeyJoinColumn(
+//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//            name = COLUMN_NAME_SERVICE_ID,
+//            referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_SERVICE_ID,
+                nullable = false,
+                updatable = false)
     private OfMucService service;
 
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
-    @Column(name = COLUMN_NAME_ROOM_ID, nullable = false)
+    @Column(name = COLUMN_NAME_ROOM_ID, nullable = false, updatable = false)
     private Long roomId;
 
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
     @Convert(converter = Date015AttributeConverter.class)
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false,
+            updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CREATION_DATE)
     private Date creationDate;
 
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
     @Convert(converter = Date015AttributeConverter.class)
-    @Column(name = "modificationDate", nullable = false)
+    @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false,
+            updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_MODIFICATION_DATE)
     private Date modificationDate;
 
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
     @Id
@@ -467,87 +602,140 @@ public class OfMucRoom extends OfMapped {
     @NamedAttribute(ATTRIBUTE_NAME_NAME)
     private String name;
 
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
-    @Column(name = "naturalName", nullable = false)
+    @Column(name = COLUMN_NAME_NATURAL_NAME, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_NATURAL_NAME)
     private String naturalName;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "description")
+    @Column(name = COLUMN_NAME_DESCRIPTION)
+    @NamedAttribute(ATTRIBUTE_NAME_DESCRIPTION)
     private String description;
 
-    @XmlElement(required = true)
-    @NotNull
+    //@JsonbProperty()
+    //@XmlElement()
+    @JsonbTransient
+    @XmlTransient
+    //@NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
-    @Column(name = "lockedDate", nullable = false)
+    @Column(name = COLUMN_NAME_LOCKED_DATE, nullable = false, updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_LOCKED_DATE)
     private Date lockedDate;
 
-    @XmlElement(nillable = true)
+    //@JsonbProperty(nillable = true)
+    //@XmlElement(nillable = true)
+    @JsonbTransient
+    @XmlTransient
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
-    @Column(name = "emptyDate")
+    @Column(name = COLUMN_NAME_EMPTY_DATE, updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_EMPTY_DATE)
     private Date emptyDate;
 
-    @XmlElement(required = true)
-    @Column(name = "canChangeSubject", nullable = false)
+    // Room Settings / Room Options / Allow Occupants to change Subject
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_CAN_CHANGE_SUBJECT, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CAN_CHANGE_SUBJECT)
     private boolean canChangeSubject;
 
-    @XmlElement(required = true)
-    @Column(name = "maxUsers", nullable = false)
+    // Room Settings / Maximum Room Occupants
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_MAX_USERS, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_MAX_USERS)
     private int maxUsers;
 
+    // Room Settings / Room Options / List Room in Directory
     @XmlElement(required = true)
-    @Column(name = "publicRoom", nullable = false)
+    @Column(name = COLUMN_NAME_PUBLIC_ROOM, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_PUBLIC_ROOM)
     private boolean publicRoom;
 
-    @XmlElement(required = true)
-    @Column(name = "moderated", nullable = false)
+    // Room Settings / Room Options / Make Room Moderated
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_MODERATED, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_MODERATED)
     private boolean moderated;
 
-    @XmlElement(required = true)
-    @Column(name = "membersOnly", nullable = false)
+    // Room Settings / Room Options / Make Room Members-only
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_MEMBERS_ONLY, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_MEMBERS_ONLY)
     private boolean membersOnly;
 
-    @XmlElement(required = true)
-    @Column(name = "canInvite", nullable = false)
+    // Room Settings / Room Options / Allow Occupants to invite Others
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_CAN_INVITE, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CAN_INVITE)
     private boolean canInvite;
 
-    @XmlElement
-    @Column(name = "roomPassword")
+    // Room Settings / Password Required to Enter:
+    // Room Settings / Confirm Password:
+    @JsonbProperty(nillable = true)
+    @XmlElement(nillable = true)
+    @Column(name = COLUMN_NAME_ROOM_PASSWORD)
+    @NamedAttribute(ATTRIBUTE_NAME_ROOM_PASSWORD)
     private String roomPassword;
 
-    @XmlElement(required = true)
-    @Column(name = "canDiscoverJid", nullable = false)
+    // Room Settings / Show Real JIDs of Occupants to == Anyone
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_CAN_DISCOVER_JID, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CAN_DISCOVER_JID)
     private boolean canDiscoverJid;
 
-    @XmlElement(required = true)
-    @Column(name = "logEnabled", nullable = false)
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_LOG_ENABLED, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_LOG_ENABLED)
     private boolean logEnabled;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "subject")
+    @Column(name = COLUMN_NAME_SUBJECT)
+    @NamedAttribute(ATTRIBUTE_NAME_SUBJECT)
     private String subject;
 
-    @XmlElement(required = true)
-    @Column(name = "rolesToBroadcast", nullable = false)
-    private boolean rolesToBroadcast;
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_ROLES_TO_BROADCAST, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ROLES_TO_BROADCAST)
+    private int rolesToBroadcast;
 
-    @XmlElement(required = true)
-    @Column(name = "useReservedNick", nullable = false)
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_USE_RESERVED_NICK, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_USE_RESERVED_NICK)
     private boolean useReservedNick;
 
-    @XmlElement(required = true)
-    @Column(name = "canChangeNick", nullable = false)
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_CAN_CHANGE_NICK, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CAN_CHANGE_NICK)
     private boolean canChangeNick;
 
-    @XmlElement(required = true)
-    @Column(name = "canRegister", nullable = false)
+    @JsonbProperty()
+    @XmlElement()
+    @Column(name = COLUMN_NAME_CAN_REGISTER, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CAN_REGISTER)
     private boolean canRegister;
 
+    // Room Settings / Allowed to Send Private Messages
+    // None:        3 
+    // Moderator:   2
+    // Participant: 1
+    // Anyone:      0
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = COLUMN_NAME_ALLOWPM)
     @NamedAttribute(ATTRIBUTE_NAME_ALLOWPM)
-    private Boolean allowpm;
+    private Integer allowpm;
 }

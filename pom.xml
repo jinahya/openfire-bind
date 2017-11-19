@@ -208,6 +208,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <links>
+            <link>https://static.javadoc.io/javax/javaee-api/8.0</link>
+            <link>https://static.javadoc.io/org.mybatis/mybatis/3.4.5</link>
+          </links>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -243,6 +249,7 @@
       <properties>
         <additionalparam>
           -hide java.*
+          -hide javax.*
           -hide com.github.jinahya.openfire.persistence.OfMapped
           -hide com.github.jinahya.openfire.persistence.OfProp
           -hide com.github.jinahya.openfire.persistence.OfPropId

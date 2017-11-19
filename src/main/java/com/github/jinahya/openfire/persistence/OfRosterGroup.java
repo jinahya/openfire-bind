@@ -25,8 +25,8 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -121,10 +121,15 @@ public class OfRosterGroup extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-    @PrimaryKeyJoinColumn(
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-            name = COLUMN_NAME_ROSTER_ID,
-            referencedColumnName = OfRoster.COLUMN_NAME_ROSTER_ID)
+//    @PrimaryKeyJoinColumn(
+//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//            name = COLUMN_NAME_ROSTER_ID,
+//            referencedColumnName = OfRoster.COLUMN_NAME_ROSTER_ID)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_ROSTER_ID,
+                nullable = false,
+                referencedColumnName = OfRoster.COLUMN_NAME_ROSTER_ID,
+                updatable = false)
     private OfRoster roster;
 
     @XmlElement
