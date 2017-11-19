@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.persistence;
 
-import java.io.Serializable;
 import static java.util.Optional.ofNullable;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -39,7 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @Entity
 @IdClass(OfGroupUserId.class)
-public class OfGroupUser implements Serializable {
+public class OfGroupUser extends OfMapped {
+
+    private static final long serialVersionUID = -4240253293616689097L;
 
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofGroupUser";

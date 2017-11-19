@@ -34,25 +34,27 @@ abstract class OfMappedTest<T extends OfMapped> {
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    private static void checkNamedAttribute(final Class<?> currentClass) {
+    private static void checkNamedAttributes(final Class<?> currentClass) {
         for (final Field field : currentClass.getDeclaredFields()) {
             final NamedAttribute annotation
                     = field.getAnnotation(NamedAttribute.class);
             if (annotation == null) {
                 final int modifiers = field.getModifiers();
-                if (!Modifier.isStatic(modifiers)) {
-                    logger.warn("{} is not annotated with {}", field,
-                                NamedAttribute.class);
+                if (Modifier.isStatic(modifiers)) {
+                    continue;
                 }
+                logger.warn("{} is not annotated with {}", field,
+                            NamedAttribute.class);
                 continue;
             }
             if (!field.getName().endsWith(annotation.value())) {
-                logger.warn("{} is not named correctly: {}", field, annotation);
+                logger.warn("{} is not named as annotated: {}", field,
+                            annotation);
             }
         }
         final Class<?> superClass = currentClass.getSuperclass();
         if (superClass != null) {
-            checkNamedAttribute(superClass);
+            checkNamedAttributes(superClass);
         }
     }
 
@@ -73,8 +75,8 @@ abstract class OfMappedTest<T extends OfMapped> {
      * for {@link NamedAttribute}.
      */
     @Test
-    public void checkNamedAttribute() {
-        checkNamedAttribute(subclass);
+    public void checkNamedAttributes() {
+        checkNamedAttributes(subclass);
     }
 
     // -------------------------------------------------------------------------

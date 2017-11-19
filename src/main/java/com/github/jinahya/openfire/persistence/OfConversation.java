@@ -48,6 +48,9 @@ public class OfConversation implements Serializable {
     private static final long serialVersionUID = -8556282042062757153L;
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the target table. The value is {@value #TABLE_NAME}.
+     */
     public static final String TABLE_NAME = "ofConversation";
 
     // -------------------------------------------------------------------------

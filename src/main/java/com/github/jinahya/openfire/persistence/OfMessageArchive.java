@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class OfMessageArchive extends OfMapped {
 
+    private static final long serialVersionUID = 3127709560770704106L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofMessageArchive";
 
@@ -100,6 +102,11 @@ public class OfMessageArchive extends OfMapped {
         this.messageId = messageId;
     }
 
+    public OfMessageArchive messageId(final Long messageId) {
+        setMessageId(messageId);
+        return this;
+    }
+
     // ----------------------------------------------------------- conversaionId
     public Long getConversationId() {
         return conversationId;
@@ -107,6 +114,11 @@ public class OfMessageArchive extends OfMapped {
 
     public void setConversationId(final Long conversationId) {
         this.conversationId = conversationId;
+    }
+
+    public OfMessageArchive conversationId(final Long conversationId) {
+        setConversationId(conversationId);
+        return this;
     }
 
     // ----------------------------------------------------------------- fromJid

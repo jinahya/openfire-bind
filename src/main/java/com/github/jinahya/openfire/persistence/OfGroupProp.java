@@ -16,6 +16,8 @@
 package com.github.jinahya.openfire.persistence;
 
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -75,12 +77,14 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
         return this;
     }
 
+    @JsonbProperty
     @XmlAttribute
     public String getGroupGroupName() {
         return ofNullable(getGroup()).map(OfGroup::getGroupName).orElse(null);
     }
 
     // -------------------------------------------------------------------------
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id

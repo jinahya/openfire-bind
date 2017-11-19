@@ -58,13 +58,13 @@ public class OfGroupUserId implements Serializable {
             return false;
         }
         final OfGroupUserId other = (OfGroupUserId) obj;
-        if (administrator != other.administrator) {
-            return false;
-        }
         if (!Objects.equals(group, other.group)) {
             return false;
         }
         if (!Objects.equals(user, other.user)) {
+            return false;
+        }
+        if (administrator != other.administrator) {
             return false;
         }
         return true;

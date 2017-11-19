@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -36,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfUserPropId.class)
 public class OfUserProp extends OfProp<OfUserProp> {
 
+    private static final long serialVersionUID = -5913174203870238072L;
+
     // -------------------------------------------------------------------------
     /**
      * The name of the table to which this entity class is bound. The value is
@@ -44,8 +47,17 @@ public class OfUserProp extends OfProp<OfUserProp> {
     public static final String TABLE_NAME = "ofUserProp";
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the column to which {@value #ATTRIBUTE_NAME_USER} is bound.
+     */
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
+
+    /**
+     * The name of the attribute from which {@value #COLUMN_NAME_USERNAME}
+     * column is bound.
+     */
+    public static final String ATTRIBUTE_NAME_USER = "user";
 
     // -------------------------------------------------------------- idInstance
     /**
@@ -77,6 +89,7 @@ public class OfUserProp extends OfProp<OfUserProp> {
     }
 
     // -------------------------------------------------------------------------
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id
@@ -85,5 +98,6 @@ public class OfUserProp extends OfProp<OfUserProp> {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_USERNAME,
             referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+    @NamedAttribute(ATTRIBUTE_NAME_USER)
     private OfUser user;
 }

@@ -145,7 +145,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <compilerArgs>
-            <arg>-Xlint</arg>
+            <arg>-Xlint:all</arg>
           </compilerArgs>
         </configuration>
       </plugin>

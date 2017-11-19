@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfMucAffiliationId.class)
 public class OfMucAffiliation extends OfMapped {
 
+    private static final long serialVersionUID = -5426962290876256599L;
+
     // -------------------------------------------------------------------------
     private static final Logger logger
             = getLogger(lookup().lookupClass().getName());

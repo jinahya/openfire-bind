@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.persistence;
 
-import java.io.Serializable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,13 +28,14 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Entity
-public class OfMucService implements Serializable {
+public class OfMucService extends OfMapped {
 
     private static final long serialVersionUID = -3116060010690646853L;
 
     // -------------------------------------------------------------------------
     /**
-     * The name of the target table of this entity.
+     * The name of the target table of this entity. The value is
+     * {@value #TABLE_NAME}.
      */
     public static final String TABLE_NAME = "ofMucService";
 
@@ -118,8 +118,7 @@ public class OfMucService implements Serializable {
     // -------------------------------------------------------------------------
     @JsonbProperty()
     @XmlElement()
-    //@NotNull
-    @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false)
+    @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false, unique = true)
     @NamedAttribute(ATTRIBUTE_NAME_SERVICE_ID)
     private Long serviceId;
 

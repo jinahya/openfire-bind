@@ -15,11 +15,12 @@
  */
 package com.github.jinahya.openfire.persistence;
 
-import java.io.Serializable;
 import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Optional.ofNullable;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -42,7 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @Entity
 @IdClass(OfMucMemberId.class)
-public class OfMucMember implements Serializable {
+public class OfMucMember extends OfMapped {
+
+    private static final long serialVersionUID = -526903256883348399L;
 
     // -------------------------------------------------------------------------
     private static final Logger logger
@@ -186,6 +189,7 @@ public class OfMucMember implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id
@@ -197,6 +201,7 @@ public class OfMucMember implements Serializable {
     @NamedAttribute(ATTRIBUTE_NAME_ROOM)
     private OfMucRoom room;
 
+    @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
     @Id
@@ -204,26 +209,32 @@ public class OfMucMember implements Serializable {
     @NamedAttribute(ATTRIBUTE_NAME_JID)
     private String jid;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = "nickName")
     private String nickname;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = "firstName")
     private String firstName;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = "lastName")
     private String lastName;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = "url")
     private String url;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = "email")
     private String email;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @Column(name = "faqentry")
     private String faqentry;

@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -79,6 +80,7 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     }
 
     // -------------------------------------------------------------------------
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id

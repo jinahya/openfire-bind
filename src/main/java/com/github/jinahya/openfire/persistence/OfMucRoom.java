@@ -16,9 +16,10 @@
 package com.github.jinahya.openfire.persistence;
 
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
-import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Convert;
@@ -42,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @IdClass(OfMucRoomId.class)
-public class OfMucRoom implements Serializable {
+public class OfMucRoom extends OfMapped {
 
     private static final long serialVersionUID = 7178837689865627613L;
 
@@ -50,9 +51,17 @@ public class OfMucRoom implements Serializable {
     public static final String TABLE_NAME = "ofMucRoom";
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the column to which {@value #ATTRIBUTE_NAME_SERVICE}
+     * attribute is bound.
+     */
     public static final String COLUMN_NAME_SERVICE_ID
             = OfMucService.COLUMN_NAME_SERVICE_ID;
 
+    /**
+     * The name of the attribute from which {@value #COLUMN_NAME_SERVICE_ID}
+     * column is bound.
+     */
     public static final String ATTRIBUTE_NAME_SERVICE = "service";
 
     // -------------------------------------------------------------------------
@@ -64,6 +73,11 @@ public class OfMucRoom implements Serializable {
     public static final String COLUMN_NAME_NAME = "name";
 
     public static final String ATTRIBUTE_NAME_NAME = "name";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_ALLOWPM = "allowpm";
+
+    public static final String ATTRIBUTE_NAME_ALLOWPM = "allowpm";
 
     // -------------------------------------------------------------- idInstance
     /**
@@ -418,6 +432,7 @@ public class OfMucRoom implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id
@@ -463,15 +478,15 @@ public class OfMucRoom implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = "lockedDate", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date lockedDate;
 
     @XmlElement(nillable = true)
+    @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = "emptyDate")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date emptyDate;
 
     @XmlElement(required = true)
@@ -530,7 +545,9 @@ public class OfMucRoom implements Serializable {
     @Column(name = "canRegister", nullable = false)
     private boolean canRegister;
 
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = "allowpm")
+    @Column(name = COLUMN_NAME_ALLOWPM)
+    @NamedAttribute(ATTRIBUTE_NAME_ALLOWPM)
     private Boolean allowpm;
 }

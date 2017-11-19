@@ -22,7 +22,7 @@ import javax.persistence.AttributeConverter;
 
 /**
  * An attribute converter for converting {@code Date} attributes to/from
- * {@code %015d}-formatted {code String} columns.
+ * {@code %015d}-formatted milliseconds character columns.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

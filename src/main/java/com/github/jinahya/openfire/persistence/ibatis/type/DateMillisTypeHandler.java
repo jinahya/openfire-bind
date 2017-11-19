@@ -26,7 +26,7 @@ import org.apache.ibatis.type.JdbcType;
 
 /**
  * An attribute converter for converting {@code Date} attribute to/from
- * milliseconds columns.
+ * milliseconds numerics columns.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

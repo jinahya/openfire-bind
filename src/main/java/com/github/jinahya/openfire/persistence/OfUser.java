@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 public class OfUser implements Serializable {
 
+    private static final long serialVersionUID = -5654310275875222680L;
+
     // -------------------------------------------------------------------------
     /**
      * The name of the target table. The value is {@value #TABLE_NAME}.
