@@ -15,20 +15,27 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.util.Date;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -51,8 +58,11 @@ public class OfMessageArchive extends OfMapped {
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_CONVERSATION_ID = "conversationID";
 
-    public static final String ATTRIBUTE_NAME_CONVERSATION_JID
+    public static final String ATTRIBUTE_NAME_CONVERSATION_ID
             = "conversationId";
+
+    public static final String ATTRIBUTE_NAME_CONVERSATION
+            = "conversation";
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_FROM_JID = "fromJID";
@@ -107,17 +117,31 @@ public class OfMessageArchive extends OfMapped {
         return this;
     }
 
-    // ----------------------------------------------------------- conversaionId
-    public Long getConversationId() {
-        return conversationId;
+//    // ----------------------------------------------------------- conversaionId
+//    public Long getConversationId() {
+//        return conversationId;
+//    }
+//
+//    public void setConversationId(final Long conversationId) {
+//        this.conversationId = conversationId;
+//    }
+//
+//    public OfMessageArchive conversationId(final Long conversationId) {
+//        setConversationId(conversationId);
+//        return this;
+//    }
+
+    // ------------------------------------------------------------ conversation
+    public OfConversation getConversation() {
+        return conversation;
     }
 
-    public void setConversationId(final Long conversationId) {
-        this.conversationId = conversationId;
+    public void setConversation(final OfConversation conversation) {
+        this.conversation = conversation;
     }
 
-    public OfMessageArchive conversationId(final Long conversationId) {
-        setConversationId(conversationId);
+    public OfMessageArchive conversation(final OfConversation conversation) {
+        setConversation(conversation);
         return this;
     }
 
@@ -226,11 +250,21 @@ public class OfMessageArchive extends OfMapped {
     @Column(name = COLUMN_NAME_MESSAGE_ID)
     private Long messageId;
 
-    @JsonbProperty()
-    @XmlElement()
+//    @JsonbProperty()
+//    @XmlElement()
+//    @NotNull
+//    @Column(name = COLUMN_NAME_CONVERSATION_ID, nullable = false)
+//    private Long conversationId;
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     @NotNull
-    @Column(name = COLUMN_NAME_CONVERSATION_ID, nullable = false)
-    private Long conversationId;
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+                name = COLUMN_NAME_CONVERSATION_ID,
+                nullable = false,
+                referencedColumnName = OfConversation.COLUMN_NAME_CONVERSATION_ID)
+    private OfConversation conversation;
 
     @JsonbProperty
     @XmlElement

@@ -19,22 +19,16 @@ import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The entity class for {@value #TABLE_NAME} table.
@@ -115,25 +109,30 @@ public class OfConversation implements Serializable {
     }
 
     // -------------------------------------------------------------------- room
-//    public String getRoom() {
-//        return room;
-//    }
-//
-//    public void setRoom(final String room) {
-//        this.room = room;
-//    }
-    public OfMucRoom getRoom() {
+    public String getRoom() {
         return room;
     }
 
-    public void setRoom(final OfMucRoom room) {
+    public void setRoom(final String room) {
         this.room = room;
     }
 
-    public OfConversation room(final OfMucRoom room) {
+    public OfConversation room(final String room) {
         setRoom(room);
         return this;
     }
+//    public OfMucRoom getRoom() {
+//        return room;
+//    }
+//
+//    public void setRoom(final OfMucRoom room) {
+//        this.room = room;
+//    }
+//
+//    public OfConversation room(final OfMucRoom room) {
+//        setRoom(room);
+//        return this;
+//    }
 
     // ---------------------------------------------------------------- external
     public boolean isExternal() {
@@ -179,20 +178,20 @@ public class OfConversation implements Serializable {
     @NamedAttribute(ATTRIBUTE_NAME_CONVERSATION_ID)
     private Long conversationId;
 
-//    @JsonbProperty(nillable = true)
-//    @XmlElement(nillable = true)
-//    @Basic
-//    @Column(name = COLUMN_NAME_ROOM)
-//    @NamedAttribute(ATTRIBUTE_NAME_ROOM)
-//    private String room;
-    @JsonbTransient
-    @XmlTransient
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-                name = COLUMN_NAME_ROOM,
-                referencedColumnName = OfMucRoom.COLUMN_NAME_NAME)
+    @JsonbProperty(nillable = true)
+    @XmlElement(nillable = true)
+    @Basic
+    @Column(name = COLUMN_NAME_ROOM)
     @NamedAttribute(ATTRIBUTE_NAME_ROOM)
-    private OfMucRoom room;
+    private String room;
+//    @JsonbTransient
+//    @XmlTransient
+//    @ManyToOne
+//    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+//                name = COLUMN_NAME_ROOM,
+//                referencedColumnName = OfMucRoom.COLUMN_NAME_NAME)
+//    @NamedAttribute(ATTRIBUTE_NAME_ROOM)
+//    private OfMucRoom room;
 
     @JsonbProperty
     @XmlElement(required = true)
