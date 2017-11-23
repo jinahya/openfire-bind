@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 @MappedSuperclass
-abstract class OfPropId<T extends OfPropId<T>> implements Serializable {
+public abstract class OfPropId<T extends OfPropId<T>> implements Serializable {
 
     private static final long serialVersionUID = 4260941240090074184L;
 

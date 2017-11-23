@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlTransient
 @MappedSuperclass
-abstract class OfProp<T extends OfProp<T>> extends OfMapped {
+public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
+
+    private static final long serialVersionUID = -1750574068804750182L;
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
