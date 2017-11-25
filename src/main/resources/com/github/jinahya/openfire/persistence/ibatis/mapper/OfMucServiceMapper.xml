@@ -51,10 +51,13 @@ limitations under the License.
     SELECT
     <include refid="sqlColumns">
       <property name="alias" value=""/>
-      <property name="prefix" value = "">
+      <property name="prefix" value = ""/>
     </include>
     FROM
-    ${catalog}${schema}ofMucService
+    <!-- ${catalog}${schema}ofMucService -->
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofMucService"/>
+    </include>
     WHERE
     1 = 1
     <if test="serviceId != null">

@@ -41,7 +41,8 @@ limitations under the License.
             typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.DateMillisTypeHandler"/>
     <result column="ofMessageArchive_stanza" property="stanza"/>
     <result column="ofMessageArchive_body" property="body"/>
-    <association column="ofMessageArchive_conversaionID" property="conversation" columnPrefix="ofConversation_"
+    <association column="ofMessageArchive_conversaionID" property="conversation"
+                 columnPrefix="ofConversation_"
                  resultMap="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper.resultMap"/>
   </resultMap>
 

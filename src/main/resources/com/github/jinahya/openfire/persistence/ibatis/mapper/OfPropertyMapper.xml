@@ -36,9 +36,15 @@ limitations under the License.
     SELECT
     <include refid="sqlColumns">
       <property name="alias" value=""/>
-      <property name="prefix" value="prefix"/>
+      <property name="prefix" value=""/>
     </include>
     FROM
+    <if test="schema != null">
+      <if test="catalog != null">
+        #{catalog}.
+      </if>
+      #{schema}.
+    </if>
     ${catalog}${schema}ofProperty
     WHERE name = #{name}
   </select>
@@ -47,7 +53,7 @@ limitations under the License.
     SELECT
     <include refid="sqlColumns">
       <property name="alias" value=""/>
-      <property name="prefix" value="prefix"/>
+      <property name="prefix" value=""/>
     </include>
     FROM
     ${catalog}${schema}ofProperty

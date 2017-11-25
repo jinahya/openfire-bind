@@ -19,6 +19,14 @@ limitations under the License.
 
 <mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper">
 
+  <sql id="sqlTable">
+    <if test="schema != null">
+      <if test="catalog != null">#{catalog}.
+      </if>#{schema}.
+    </if>
+    ${table}
+  </sql>
+
   <sql id="sqlAscending">
     <choose>
       <when test="ascending">

@@ -73,7 +73,8 @@ limitations under the License.
     <result column="ofMucRoom_canChangeNick" property="canChangeNick"/>
     <result column="ofMucRoom_canRegister" property="canRegister"/>
     <result column="ofMucRoom_allowpm" property="allowpm"/>
-    <association column="ofMucRoom_serviceID" property="service" columnPrefix="ofMucService_"
+    <association column="ofMucRoom_serviceID" property="service"
+                 columnPrefix="ofMucService_"
                  resultMap="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper.resultMap"/>
   </resultMap>
 
