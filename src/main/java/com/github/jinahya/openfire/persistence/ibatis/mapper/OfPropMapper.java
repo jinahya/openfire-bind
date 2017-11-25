@@ -15,7 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence.ibatis.mapper;
 
-import com.github.jinahya.openfire.persistence.OfProperty;
+import com.github.jinahya.openfire.persistence.OfProp;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.PARAM_CATALOG;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.PARAM_SCHEMA;
 import java.util.List;
@@ -26,20 +26,19 @@ import org.apache.ibatis.session.RowBounds;
 /**
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> ofProp type parameter
  */
-//public interface OfPropertyMapper extends OfMappedMapper<OfProperty> {
-public interface OfPropertyMapper extends OfPropMapper<OfProperty> {
+public interface OfPropMapper<T extends OfProp<T>> extends OfMappedMapper<T> {
 
-    //String PARAM_NAME = "name";
+    String PARAM_NAME = "name";
+
     // -------------------------------------------------------------------------
-//    @Override
-//    OfProperty selectOne01(@Param(PARAM_CATALOG) String catalog,
-//                           @Param(PARAM_SCHEMA) String schema,
-//                           @NotNull @Param(PARAM_NAME) String name);
-//
-//    @Override
-//    List<OfProperty> selectList01(@Param(PARAM_CATALOG) String catalog,
-//                                  @Param(PARAM_SCHEMA) String schema,
-//                                  @Param(PARAM_ASCENDING) boolean ascending,
-//                                  RowBounds rowBounds);
+    T selectOne01(@Param(PARAM_CATALOG) String catalog,
+                  @Param(PARAM_SCHEMA) String schema,
+                  @NotNull @Param(PARAM_NAME) String name);
+
+    List<T> selectList01(@Param(PARAM_CATALOG) String catalog,
+                         @Param(PARAM_SCHEMA) String schema,
+                         @Param(PARAM_ASCENDING) boolean ascending,
+                         RowBounds rowBounds);
 }
