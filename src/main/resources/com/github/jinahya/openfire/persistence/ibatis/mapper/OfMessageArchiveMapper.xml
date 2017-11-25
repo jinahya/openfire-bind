@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2017 Jin Kwon &lt;onacit at gmail.com&gt;.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchive">
+    
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchive">
+    <id column="messageID" property="messageId"/>
+    <result column="fromJID" property="fromJid"/>
+    <result column="fromJIDResource" property="fromJidResource"/>
+    <result column="toJID" property="toJid"/>
+    <result column="toJIDResource" property="toJidResource"/>
+    <result column="sentDate" property="sentDate"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.DateMillisTypeHandler"/>
+    <result column="stanza" property="stanza"/>
+    <result column="body" property="body"/>
+  </resultMap>
+
+  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchive">
+    <id column="ofMessageArchive_messageID" property="messageId"/>
+    <result column="ofMessageArchive_fromJID" property="fromJid"/>
+    <result column="ofMessageArchive_fromJIDResource" property="fromJidResource"/>
+    <result column="ofMessageArchive_toJID" property="toJid"/>
+    <result column="ofMessageArchive_toJIDResource" property="toJidResource"/>
+    <result column="ofMessageArchive_sentDate" property="sentDate"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.DateMillisTypeHandler"/>
+    <result column="ofMessageArchive_stanza" property="stanza"/>
+    <result column="ofMessageArchive_body" property="body"/>
+    <association column="ofMessageArchive_conversaionID" property="conversation" columnPrefix="ofConversation_"
+                 resultMap="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper.resultMap"/>
+  </resultMap>
+
+  <sql id="sqlColumns">
+    ${alias}messageID       AS ${prefix}messageID,
+    ${alias}conversationID  AS ${prefix}conversationID,
+    ${alias}fromJID         AS ${prefix}fromJID,
+    ${alias}fromJIDResource AS ${prefix}fromJIDResource,
+    ${alias}toJID           AS ${prefix}toJID,
+    ${alias}toJIDResource   AS ${prefix}toJIDResource,
+    ${alias}sentDate        AS ${prefix}sentDate,
+    ${alias}stanza          AS ${prefix}stanza,
+    ${alias}body            AS ${prefix}body
+  </sql>
+
+  <select id="selectOne01" resultMap="resultMapAssociative" fetchSize="1">
+    SELECT
+    <include refid="sqlColumns">
+      <property name="alias" value="ofMessageArchive."/>
+      <property name="prefix" value="ofMessageArchive_"/>
+    </include>
+    ,
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper.sqlColumns">
+      <property name="alias" value="ofConversation."/>
+      <property name="prefix" value="ofConversation_"/>
+    </include>
+    FROM
+    ${catalog}${schema}ofMessageArchive AS ofMessageArchive
+    INNER JOIN ${catalog}${schema}ofConversation AS ofMessageArchive
+    ON ofMessageArchive.conversationID = ofConversation.conversationID
+    WHERE
+    ofMessageArchive.messageID = #{messageId}
+    <if test="conversationId != null">
+      AND ofMessageArchive.conversationID = #{conversationId}
+    </if>
+  </select>
+
+  <select id="selectList01" resultMap="resultMapAssociative">
+    SELECT
+    <include refid="sqlColumns">
+      <property name="alias" value="ofMessageArchive."/>
+      <property name="prefix" value="ofMessageArchive_"/>
+    </include>
+    ,
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper.sqlColumns">
+      <property name="alias" value="ofConversation."/>
+      <property name="prefix" value="ofConversation_"/>
+    </include>
+    FROM
+    ${catalog}${schema}ofMessageArchive AS ofMessageArchive
+    INNER JOIN ${catalog}${schema}ofConversation AS ofMessageArchive
+    ON ofMessageArchive.conversationID = ofConversation.conversationID
+    WHERE 1 = 1
+    <if test="conversationId != null">
+      AND ofMessageArchive.conversationID = #{conversationId}
+    </if>
+    ORDER BY
+    <choose>
+      <when test="natural">
+        <if test="conversationId == null">
+          ofConversation.startDate
+          <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          ,
+        </if>
+        ofMucRoom.sentDate
+        <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+      </when>
+      <otherwise>
+        <if test="conversationId == null">
+          ofMessageArchive.conversationID
+          <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          ,
+        </if>
+        ofMessageArchive.messageID
+        <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+      </otherwise>
+    </choose>
+  </select>
+
+</mapper>

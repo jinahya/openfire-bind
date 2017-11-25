@@ -15,8 +15,8 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
-import java.io.Serializable;
 import java.util.Date;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Basic;
@@ -29,6 +29,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import static com.github.jinahya.openfire.persistence.Utilities.isozOf;
+import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * The entity class for {@value #TABLE_NAME} table.
@@ -37,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @Entity
-public class OfConversation implements Serializable {
+public class OfConversation extends OfMapped {
 
     private static final long serialVersionUID = -8556282042062757153L;
 
@@ -88,6 +90,38 @@ public class OfConversation implements Serializable {
 
     // -------------------------------------------------------------------------
     /**
+     * Returns the value for {@value #ATTRIBUTE_NAME_ROOM} attribute from given
+     * arguments. The result is
+     * {@code <room.name>@<room.service.subdomain>.<domain>}.
+     *
+     * @param room the room
+     * @param domain the XMPP domain
+     * @return the value for {@value #ATTRIBUTE_NAME_ROOM} attribute.
+     */
+    public static String room(final OfMucRoom room, final String domain) {
+        if (room == null) {
+            throw new NullPointerException("room is null");
+        }
+        if (room.getName() == null) {
+            throw new IllegalArgumentException("room.name is null");
+        }
+        if (room.getService() == null) {
+            throw new IllegalArgumentException("room.service is null");
+        }
+        if (room.getService().getSubdomain() == null) {
+            throw new IllegalArgumentException(
+                    "room.service.subdomain is null");
+        }
+        if (domain == null) {
+            throw new NullPointerException("domain is null");
+        }
+        return room.getName()
+               + "@" + room.getService().getSubdomain()
+               + "." + domain;
+    }
+
+    // -------------------------------------------------------------------------
+    /**
      * Creates a new instance.
      */
     public OfConversation() {
@@ -121,18 +155,6 @@ public class OfConversation implements Serializable {
         setRoom(room);
         return this;
     }
-//    public OfMucRoom getRoom() {
-//        return room;
-//    }
-//
-//    public void setRoom(final OfMucRoom room) {
-//        this.room = room;
-//    }
-//
-//    public OfConversation room(final OfMucRoom room) {
-//        setRoom(room);
-//        return this;
-//    }
 
     // ---------------------------------------------------------------- external
     public boolean isExternal() {
@@ -141,6 +163,11 @@ public class OfConversation implements Serializable {
 
     public void setExternal(final boolean external) {
         this.external = external;
+    }
+
+    public OfConversation external(final boolean external) {
+        setExternal(external);
+        return this;
     }
 
     // --------------------------------------------------------------- startDate
@@ -152,6 +179,18 @@ public class OfConversation implements Serializable {
         this.startDate = copyOf(startDate);
     }
 
+    public OfConversation startDate(final Date startDate) {
+        setStartDate(startDate);
+        return this;
+    }
+
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getStartDateIsoz() {
+        return isozOf(getStartDate());
+    }
+
     // ------------------------------------------------------------ lastActivity
     public Date getLastActivity() {
         return copyOf(lastActivity);
@@ -161,6 +200,18 @@ public class OfConversation implements Serializable {
         this.lastActivity = copyOf(lastActivity);
     }
 
+    public OfConversation lastActivity(final Date lastActivity) {
+        setLastActivity(lastActivity);
+        return this;
+    }
+
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getLastActivityIsoz() {
+        return isozOf(getLastActivity());
+    }
+
     // ------------------------------------------------------------ messageCount
     public int getMessageCount() {
         return messageCount;
@@ -168,6 +219,11 @@ public class OfConversation implements Serializable {
 
     public void setMessageCount(final int messageCount) {
         this.messageCount = messageCount;
+    }
+
+    public OfConversation messageCount(final int messageCount) {
+        setMessageCount(messageCount);
+        return this;
     }
 
     // -------------------------------------------------------------------------
@@ -184,14 +240,6 @@ public class OfConversation implements Serializable {
     @Column(name = COLUMN_NAME_ROOM)
     @NamedAttribute(ATTRIBUTE_NAME_ROOM)
     private String room;
-//    @JsonbTransient
-//    @XmlTransient
-//    @ManyToOne
-//    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//                name = COLUMN_NAME_ROOM,
-//                referencedColumnName = OfMucRoom.COLUMN_NAME_NAME)
-//    @NamedAttribute(ATTRIBUTE_NAME_ROOM)
-//    private OfMucRoom room;
 
     @JsonbProperty
     @XmlElement(required = true)

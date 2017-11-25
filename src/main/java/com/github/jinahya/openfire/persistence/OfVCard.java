@@ -15,7 +15,9 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -79,6 +81,8 @@ public class OfVCard implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id

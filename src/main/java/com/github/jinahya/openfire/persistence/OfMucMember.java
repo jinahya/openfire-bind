@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Optional.ofNullable;
 import java.util.logging.Logger;
@@ -100,6 +101,8 @@ public class OfMucMember extends OfMapped {
     public static final String ATTRIBUTE_NAME_FAQENTRY = "faqentry";
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     public OfMucMemberId getIdInstance() {
         return new OfMucMemberId().room(getRoomRoomId()).jid(getJid());
@@ -224,6 +227,7 @@ public class OfMucMember extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     @NotNull

@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
 
@@ -34,6 +35,19 @@ final class Utilities {
      */
     static Date copyOf(final Date date) {
         return ofNullable(date).map(v -> new Date(v.getTime())).orElse(null);
+    }
+
+    /**
+     * Formats given date using {@link DateTimeFormatter#ISO_INSTANT}.
+     *
+     * @param date the value for format
+     * @return formatted result; {@code null} if the {@code date} is null.
+     */
+    static String isozOf(final Date date) {
+        return ofNullable(date)
+                .map(Date::toInstant)
+                .map(DateTimeFormatter.ISO_INSTANT::format)
+                .orElse(null);
     }
 
     // -------------------------------------------------------------------------    

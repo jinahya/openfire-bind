@@ -15,15 +15,21 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Abstract test class for {@link OfProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-abstract class OfPropTest<T extends OfProp<T>> extends OfMappedTest<T> {
+abstract class OfPropIdTest<T extends OfPropId<T>> {
 
     // -------------------------------------------------------------------------
-    public OfPropTest(final Class<T> subclass) {
-        super(subclass);
+    public OfPropIdTest(final Class<T> subclass) {
+        super();
+        this.subclass = requireNonNull(subclass, "subclass is null");
     }
+
+    // -------------------------------------------------------------------------
+    protected final Class<T> subclass;
 }

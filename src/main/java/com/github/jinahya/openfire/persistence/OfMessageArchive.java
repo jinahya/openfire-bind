@@ -117,20 +117,6 @@ public class OfMessageArchive extends OfMapped {
         return this;
     }
 
-//    // ----------------------------------------------------------- conversaionId
-//    public Long getConversationId() {
-//        return conversationId;
-//    }
-//
-//    public void setConversationId(final Long conversationId) {
-//        this.conversationId = conversationId;
-//    }
-//
-//    public OfMessageArchive conversationId(final Long conversationId) {
-//        setConversationId(conversationId);
-//        return this;
-//    }
-
     // ------------------------------------------------------------ conversation
     public OfConversation getConversation() {
         return conversation;
@@ -260,10 +246,11 @@ public class OfMessageArchive extends OfMapped {
     @XmlTransient
     @NotNull
     @ManyToOne(optional = false)
-    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-                name = COLUMN_NAME_CONVERSATION_ID,
-                nullable = false,
-                referencedColumnName = OfConversation.COLUMN_NAME_CONVERSATION_ID)
+    @JoinColumn(
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+            name = COLUMN_NAME_CONVERSATION_ID,
+            nullable = false,
+            referencedColumnName = OfConversation.COLUMN_NAME_CONVERSATION_ID)
     private OfConversation conversation;
 
     @JsonbProperty

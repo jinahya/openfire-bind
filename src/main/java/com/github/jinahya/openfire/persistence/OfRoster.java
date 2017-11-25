@@ -15,9 +15,11 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.ForeignKey;
@@ -186,6 +188,8 @@ public class OfRoster extends OfMapped {
     @Column(name = COLUMN_NAME_ROSTER_ID)
     private Long rosterId;
 
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     @ManyToOne(optional = false)
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT),

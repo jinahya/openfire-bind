@@ -13,17 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.openfire.persistence;
+package com.github.jinahya.openfire.persistence.ibatis.mapper;
+
+import com.github.jinahya.openfire.persistence.OfMapped;
 
 /**
- * Abstract test class for {@link OfProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> ofMapped type parameter
  */
-abstract class OfPropTest<T extends OfProp<T>> extends OfMappedTest<T> {
+public interface OfMappedMapper<T extends OfMapped> {
+
+    String PARAM_CATALOG = "catalog";
+
+    String PARAM_SCHEMA = "schema";
+
+    String PARAM_ENTITY = "entity";
+
+    String PARAM_NATURAL = "natural";
+
+    String PARAM_ASCENDING = "ascending";
 
     // -------------------------------------------------------------------------
-    public OfPropTest(final Class<T> subclass) {
-        super(subclass);
-    }
 }

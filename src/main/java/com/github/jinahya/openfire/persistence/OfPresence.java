@@ -15,10 +15,12 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Convert;
@@ -116,6 +118,8 @@ public class OfPresence implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id

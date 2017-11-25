@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
@@ -34,6 +35,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -41,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@XmlRootElement
 @Entity
 @IdClass(OfMucRoomId.class)
 public class OfMucRoom extends OfMapped {
@@ -555,6 +558,7 @@ public class OfMucRoom extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     @NotNull
@@ -617,6 +621,7 @@ public class OfMucRoom extends OfMapped {
 
     //@JsonbProperty()
     //@XmlElement()
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     //@NotNull
@@ -628,6 +633,7 @@ public class OfMucRoom extends OfMapped {
 
     //@JsonbProperty(nillable = true)
     //@XmlElement(nillable = true)
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     @Temporal(TemporalType.TIMESTAMP)

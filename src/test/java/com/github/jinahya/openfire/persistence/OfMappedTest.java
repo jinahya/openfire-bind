@@ -15,10 +15,14 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.lang.String.format;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import static java.util.Objects.requireNonNull;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.xml.bind.annotation.XmlTransient;
 import org.apache.ibatis.javassist.Modifier;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -36,7 +40,7 @@ abstract class OfMappedTest<T extends OfMapped> {
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    private static void checkNamedAttributes(final Class<?> currentClass) {
+    private static void checkNamedAttribute(final Class<?> currentClass) {
         for (final Field field : currentClass.getDeclaredFields()) {
             final NamedAttribute annotation
                     = field.getAnnotation(NamedAttribute.class);
@@ -59,7 +63,63 @@ abstract class OfMappedTest<T extends OfMapped> {
         }
         final Class<?> superClass = currentClass.getSuperclass();
         if (superClass != null) {
-            checkNamedAttributes(superClass);
+            checkNamedAttribute(superClass);
+        }
+    }
+
+    private static void checkXmlTransient(final Class<?> currentClass) {
+        for (final Field field : currentClass.getDeclaredFields()) {
+            final XmlTransient annotation
+                    = field.getAnnotation(XmlTransient.class);
+            if (annotation == null) {
+                continue;
+            }
+            final JsonbTransient jsonbTransient
+                    = field.getAnnotation(JsonbTransient.class);
+            if (jsonbTransient == null) {
+                final String message = format(
+                        "%1$s is not annotated with %2$s", field,
+                        JsonbTransient.class);
+                logger.error(message);
+                fail(message);
+            }
+            final JsonIgnore jsonIgnore = field.getAnnotation(JsonIgnore.class);
+            if (jsonIgnore == null) {
+                final String message = format(
+                        "%1$s is not annotated with %2$s", field,
+                        JsonIgnore.class);
+                logger.error(message);
+                fail(message);
+            }
+        }
+        for (final Method method : currentClass.getDeclaredMethods()) {
+            final XmlTransient annotation
+                    = method.getAnnotation(XmlTransient.class);
+            if (annotation == null) {
+                continue;
+            }
+            final JsonbTransient jsonbTransient
+                    = method.getAnnotation(JsonbTransient.class);
+            if (jsonbTransient == null) {
+                final String message = format(
+                        "%1$s is not annotated with %2$s", method,
+                        JsonbTransient.class);
+                logger.error(message);
+                fail(message);
+            }
+            final JsonIgnore jsonIgnore
+                    = method.getAnnotation(JsonIgnore.class);
+            if (jsonIgnore == null) {
+                final String message = format(
+                        "%1$s is not annotated with %2$s", method,
+                        JsonIgnore.class);
+                logger.error(message);
+                fail(message);
+            }
+        }
+        final Class<?> superClass = currentClass.getSuperclass();
+        if (superClass != null) {
+            checkXmlTransient(superClass);
         }
     }
 
@@ -67,26 +127,31 @@ abstract class OfMappedTest<T extends OfMapped> {
     /**
      * Creates a new instance.
      *
-     * @param type subtype.
+     * @param subclass subclass.
      */
-    public OfMappedTest(final Class<T> type) {
+    public OfMappedTest(final Class<T> subclass) {
         super();
-        this.type = requireNonNull(type, "type is null");
+        this.subclass = requireNonNull(subclass, "subclass is null");
     }
 
     // -------------------------------------------------------------------------
     /**
-     * Checks all fields of {@link #type}, including those of super classes, for
-     * {@link NamedAttribute}.
+     * Checks all fields of {@link #subclass}, including those of super classes,
+     * for {@link NamedAttribute}.
      */
     @Test
-    public void checkNamedAttributes() {
-        checkNamedAttributes(type);
+    public void checkNamedAttribute() {
+        checkNamedAttribute(subclass);
+    }
+
+    @Test
+    public void checkXmlTransient() {
+        checkXmlTransient(subclass);
     }
 
     // -------------------------------------------------------------------------
     /**
      * The subclass.
      */
-    protected final Class<T> type;
+    protected final Class<T> subclass;
 }

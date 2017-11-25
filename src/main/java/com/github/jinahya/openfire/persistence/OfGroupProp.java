@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -58,6 +59,8 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     }
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     public OfGroupPropId getIdInstance() {
         return new OfGroupPropId().group(getGroupGroupName()).name(getName());
@@ -84,15 +87,12 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_GROUP_NAME,
-//            referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_GROUP_NAME,
                 nullable = false,

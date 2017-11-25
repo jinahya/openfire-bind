@@ -7,3 +7,5 @@ OfGroupUser
 #OfId
 #OfMapped
 OfMessageArchive
+OfMucService
+OfMucRoom

@@ -15,7 +15,9 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -123,6 +125,8 @@ public class OfGroupUser extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id

@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -101,6 +102,7 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     @NotNull

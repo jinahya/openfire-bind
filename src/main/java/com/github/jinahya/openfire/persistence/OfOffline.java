@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
@@ -153,6 +154,7 @@ public class OfOffline implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
     @JsonbTransient
     @XmlTransient
     @NotNull

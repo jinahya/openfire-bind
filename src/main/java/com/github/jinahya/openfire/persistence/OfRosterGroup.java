@@ -15,10 +15,12 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Optional.ofNullable;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -117,6 +119,8 @@ public class OfRosterGroup extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id

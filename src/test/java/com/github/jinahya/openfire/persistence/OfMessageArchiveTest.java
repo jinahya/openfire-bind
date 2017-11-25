@@ -16,14 +16,17 @@
 package com.github.jinahya.openfire.persistence;
 
 /**
- * Abstract test class for {@link OfProp}.
+ * Test class for {@link OfMessageArchive}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-abstract class OfPropTest<T extends OfProp<T>> extends OfMappedTest<T> {
+public class OfMessageArchiveTest extends OfMappedTest<OfMessageArchive> {
 
     // -------------------------------------------------------------------------
-    public OfPropTest(final Class<T> subclass) {
-        super(subclass);
+    /**
+     * Creates a new instance.
+     */
+    public OfMessageArchiveTest() {
+        super(OfMessageArchive.class);
     }
 }
