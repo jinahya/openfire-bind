@@ -16,17 +16,24 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.jinahya.openfire.inject.ValidatorFactoryModule;
+import com.github.jinahya.openfire.inject.ValidatorModule;
+import com.google.inject.Inject;
 import static java.lang.String.format;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import static java.util.Objects.requireNonNull;
+import java.util.Set;
 import javax.json.bind.annotation.JsonbTransient;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import javax.xml.bind.annotation.XmlTransient;
 import org.apache.ibatis.javassist.Modifier;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.FileAssert.fail;
+import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
 /**
@@ -35,7 +42,8 @@ import org.testng.annotations.Test;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  * @param <T> subclass type parameter
  */
-abstract class OfMappedTest<T extends OfMapped> {
+@Guice(modules = {ValidatorFactoryModule.class, ValidatorModule.class})
+public abstract class OfMappedTest<T extends OfMapped> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
 
@@ -123,35 +131,48 @@ abstract class OfMappedTest<T extends OfMapped> {
         }
     }
 
+    protected static <T> void validate(final Validator validator,
+                                       final T bean) {
+        final Set<ConstraintViolation<T>> violations = validator.validate(bean);
+        violations.stream().findAny().ifPresent(violation -> {
+            final String message = format("violation: %1$s", violation);
+            logger.error(message);
+            fail(message);
+        });
+    }
+
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.
      *
-     * @param subclass subclass.
+     * @param mapepdClass subclass.
      */
-    public OfMappedTest(final Class<T> subclass) {
+    public OfMappedTest(final Class<T> mapepdClass) {
         super();
-        this.subclass = requireNonNull(subclass, "subclass is null");
+        this.mappedClass = requireNonNull(mapepdClass, "mappedclass is null");
     }
 
     // -------------------------------------------------------------------------
     /**
-     * Checks all fields of {@link #subclass}, including those of super classes,
-     * for {@link NamedAttribute}.
+     * Checks all fields of {@link #mappedClass}, including those of super
+     * classes, for {@link NamedAttribute}.
      */
     @Test
     public void checkNamedAttribute() {
-        checkNamedAttribute(subclass);
+        checkNamedAttribute(mappedClass);
     }
 
     @Test
     public void checkXmlTransient() {
-        checkXmlTransient(subclass);
+        checkXmlTransient(mappedClass);
     }
 
     // -------------------------------------------------------------------------
     /**
      * The subclass.
      */
-    protected final Class<T> subclass;
+    protected final Class<T> mappedClass;
+
+    @Inject
+    protected Validator validator;
 }

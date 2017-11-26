@@ -254,6 +254,7 @@ public class OfConversation extends OfMapped {
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = DateMillisAttributeConverter.class)
     @Column(name = COLUMN_NAME_START_DATE, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_START_DATE)
     private Date startDate;
 
     @JsonbProperty()

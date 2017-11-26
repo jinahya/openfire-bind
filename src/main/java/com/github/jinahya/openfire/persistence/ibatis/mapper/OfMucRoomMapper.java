@@ -18,7 +18,6 @@ package com.github.jinahya.openfire.persistence.ibatis.mapper;
 import com.github.jinahya.openfire.persistence.OfMucRoom;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.PARAM_CATALOG;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.PARAM_SCHEMA;
-import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper.PARAM_SUBDOMAIN;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Param;
@@ -41,7 +40,7 @@ public interface OfMucRoomMapper extends OfMappedMapper<OfMucRoom> {
     OfMucRoom selectOne01(@Param(PARAM_CATALOG) String catalog,
                           @Param(PARAM_SCHEMA) String schema,
                           @Param(PARAM_SERVICE_ID) long serviceId,
-                          @NotNull @Param(PARAM_SUBDOMAIN) String name);
+                          @NotNull @Param(PARAM_NAME) String name);
 
     List<OfMucRoom> selectList01(@Param(PARAM_CATALOG) String catalog,
                                  @Param(PARAM_SCHEMA) String schema,

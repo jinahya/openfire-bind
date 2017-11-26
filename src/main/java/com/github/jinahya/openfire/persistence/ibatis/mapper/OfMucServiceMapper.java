@@ -23,6 +23,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 /**
+ * A mapper interface for {@link OfMucService}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -33,20 +34,17 @@ public interface OfMucServiceMapper extends OfMappedMapper<OfMucService> {
     String PARAM_SUBDOMAIN = "subdomain";
 
     // -------------------------------------------------------------------------
-//    void insert(@Param(PARAM_CATALOG) String catalog,
-//                @Param(PARAM_SCHEMA) String schema,
-//                @Param(PARAM_ENTITY) OfMucService entity);
     /**
      * Selects an entity. Note that either {@code serviceId} or
      * {@code subdomain} must be specified.
      *
-     * @param catalog the value for database catalog
-     * @param schema the value for database schema
+     * @param catalog the value for database catalog; may be {@code null}.
+     * @param schema the value for database schema; may be {@code null}.
      * @param serviceId the value for
-     * {@value OfMucService#ATTRIBUTE_NAME_SERVICE_ID} attribute.
+     * {@value OfMucService#COLUMN_NAME_SERVICE_ID} column.
      * @param subdomain the value for
-     * {@value OfMucService#ATTRIBUTE_NAME_SUBDOMAIN} attribute.
-     * @return found entity or {@code null} if not found
+     * {@value OfMucService#COLUMN_NAME_SUBDOMAIN} column.
+     * @return selected entity or {@code null} if not found
      */
     OfMucService selectOne01(@Param(PARAM_CATALOG) String catalog,
                              @Param(PARAM_SCHEMA) String schema,

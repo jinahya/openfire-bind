@@ -39,13 +39,9 @@ limitations under the License.
       <property name="prefix" value=""/>
     </include>
     FROM
-    <if test="schema != null">
-      <if test="catalog != null">
-        #{catalog}.
-      </if>
-      #{schema}.
-    </if>
-    ${catalog}${schema}ofProperty
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofProperty"/>
+    </include>
     WHERE name = #{name}
   </select>
 
@@ -56,10 +52,12 @@ limitations under the License.
       <property name="prefix" value=""/>
     </include>
     FROM
-    ${catalog}${schema}ofProperty
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofProperty"/>
+    </include>
     ORDER BY
     name
-    <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
   </select>
 
 </mapper>

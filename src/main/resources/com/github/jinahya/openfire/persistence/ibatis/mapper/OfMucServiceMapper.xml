@@ -19,9 +19,9 @@ limitations under the License.
 
 <mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper">
     
-  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucService">
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfMucService">
     <id column="serviceID" property="serviceId"/>
-    <result column="sudbomain" property="subdomain"/>
+    <result column="subdomain" property="subdomain"/>
     <result column="description" property="description"/>
     <result column="isHidden" property="hidden"/>
   </resultMap>
@@ -33,20 +33,6 @@ limitations under the License.
     ${alias}isHidden    AS ${prefix}isHidden
   </sql>
 
-  <!--  
-  <insert id="insert" useGeneratedKeys="true" keyColumn="serviceID" keyProperty="entity.serviceId">
-    INSERT INTO ${catalog}${schema}ofMucService (
-    subdomain,
-    description,
-    idHidden
-    ) VALUES (
-    #{entity}.subdomain,
-    #{entity}.description,
-    #{entity}.hidden
-    )
-  </insert>
-  -->
-
   <select id="selectOne01" resultMap="resultMap" fetchSize="1">
     SELECT
     <include refid="sqlColumns">
@@ -54,39 +40,31 @@ limitations under the License.
       <property name="prefix" value = ""/>
     </include>
     FROM
-    <!-- ${catalog}${schema}ofMucService -->
     <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
       <property name="table" value="ofMucService"/>
     </include>
     WHERE
     1 = 1
-    <if test="serviceId != null">
-      AND serviceID = #{serviceId}
-    </if>
-    <if test="subdomain != null">
-      AND subdomain = #{subdomain}
-    </if>
+    <if test="serviceId != null">AND serviceID = #{serviceId}</if>
+    <if test="subdomain != null">AND subdomain = #{subdomain}</if>
   </select>
 
   <select id="selectList01" resultMap="resultMap">
-    SELECT * FROM ${catalog}${schema}ofMucService
-    WHERE 1 = 1
-    <if test="serviceId != null">
-      AND serviceID = #{serviceId}
-    </if>
-    <if test="subdomain != null">
-      AND subdomain = #{subdomain}
-    </if>
+    SELECT
+    <include refid="sqlColumns">
+      <property name="alias" value=""/>
+      <property name="prefix" value=""/>
+    </include>
+    FROM
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofMucService"/>
+    </include>
     ORDER BY
     <choose>
-      <when test="natural">
-        subdomain
-      </when>
-      <otherwise>
-        serviceID
-      </otherwise>
+      <when test="natural">subdomain</when>
+      <otherwise>serviceID</otherwise>
     </choose>
-    <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
   </select>
 
 </mapper>

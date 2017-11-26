@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.openfire.persistence.ibatis.mapper;
+package com.github.jinahya.openfire.inject;
 
-import com.github.jinahya.openfire.persistence.OfProperty;
+import javax.inject.Provider;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 
-/**
- * A mapper interface for {@link OfPropMapper}.
- *
- * @author Jin Kwon &lt;onacit at gmail.com&gt;
- */
-public interface OfPropertyMapper extends OfPropMapper<OfProperty> {
+public class ValidatorFactoryProvider implements Provider<ValidatorFactory> {
+
+    private static final ValidatorFactory VALIDATOR_FACTORY
+            = Validation.buildDefaultValidatorFactory();
+
+    // -------------------------------------------------------------------------
+    @Override
+    public ValidatorFactory get() {
+        return VALIDATOR_FACTORY;
+    }
 }

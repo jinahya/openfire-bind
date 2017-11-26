@@ -572,12 +572,14 @@ public class OfMucRoom extends OfMapped {
                 name = COLUMN_NAME_SERVICE_ID,
                 nullable = false,
                 updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_SERVICE)
     private OfMucService service;
 
     @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
     @Column(name = COLUMN_NAME_ROOM_ID, nullable = false, updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ROOM_ID)
     private Long roomId;
 
     @JsonbProperty()

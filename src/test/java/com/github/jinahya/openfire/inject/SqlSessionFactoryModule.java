@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.openfire.persistence.ibatis.mapper;
+package com.github.jinahya.openfire.inject;
 
-import com.github.jinahya.openfire.persistence.OfProperty;
+import com.google.inject.AbstractModule;
+import org.apache.ibatis.session.SqlSessionFactory;
 
-/**
- * A mapper interface for {@link OfPropMapper}.
- *
- * @author Jin Kwon &lt;onacit at gmail.com&gt;
- */
-public interface OfPropertyMapper extends OfPropMapper<OfProperty> {
+public class SqlSessionFactoryModule extends AbstractModule {
+
+    @Override
+    protected void configure() {
+        bind(SqlSessionFactory.class)
+                .toProvider(SqlSessionFactoryProvider.class);
+    }
 }

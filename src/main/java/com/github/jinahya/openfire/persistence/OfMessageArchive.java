@@ -234,6 +234,7 @@ public class OfMessageArchive extends OfMapped {
     @XmlElement()
     @Id // not specified!!!
     @Column(name = COLUMN_NAME_MESSAGE_ID)
+    @NamedAttribute(ATTRIBUTE_NAME_MESSAGE_ID)
     private Long messageId;
 
 //    @JsonbProperty()
@@ -251,6 +252,7 @@ public class OfMessageArchive extends OfMapped {
             name = COLUMN_NAME_CONVERSATION_ID,
             nullable = false,
             referencedColumnName = OfConversation.COLUMN_NAME_CONVERSATION_ID)
+    @NamedAttribute(ATTRIBUTE_NAME_CONVERSATION)
     private OfConversation conversation;
 
     @JsonbProperty

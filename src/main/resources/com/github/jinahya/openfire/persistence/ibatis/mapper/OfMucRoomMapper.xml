@@ -19,7 +19,7 @@ limitations under the License.
 
 <mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoomMapper">
     
-  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoom">
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfMucRoom">
     <id column="roomID" property="roomId"/>
     <result column="creationDate" property="creationDate"
             typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.Date015TypeHandler"/>
@@ -49,15 +49,19 @@ limitations under the License.
     <result column="allowpm" property="allowpm"/>
   </resultMap>
 
-  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoom">
+  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.OfMucRoom">
     <id column="ofMucRoom_roomID" property="roomId"/>
-    <result column="ofMucRoom_creationDate" property="creationDate"/>
-    <result column="ofMucRoom_modificationDate" property="modificationDate"/>
+    <result column="ofMucRoom_creationDate" property="creationDate"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.Date015TypeHandler"/>
+    <result column="ofMucRoom_modificationDate" property="modificationDate"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.Date015TypeHandler"/>
     <result column="ofMucRoom_name" property="name"/>
     <result column="ofMucRoom_naturalName" property="naturalName"/>
     <result column="ofMucRoom_description" property="description"/>
-    <result column="ofMucRoom_lockedDate" property="lockedDate"/>
-    <result column="ofMucRoom_emptyDate" property="emptyDate"/>
+    <result column="ofMucRoom_lockedDate" property="lockedDate"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.Date015TypeHandler"/>
+    <result column="ofMucRoom_emptyDate" property="emptyDate"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.Date015TypeHandler"/>
     <result column="ofMucRoom_canChangeSubject" property="canChangeSubject"/>
     <result column="ofMucRoom_maxUsers" property="maxUsers"/>
     <result column="ofMucRoom_publicRoom" property="publicRoom"/>
@@ -79,6 +83,7 @@ limitations under the License.
   </resultMap>
 
   <sql id="sqlColumns">
+    ${alias}roomID           AS ${prefix}roomID,
     ${alias}creationDate     AS ${prefix}creationDate,
     ${alias}modificationDate AS ${prefix}modificationDate,
     ${alias}name             AS ${prefix}name,
@@ -134,8 +139,13 @@ limitations under the License.
       <property name="prefix" value="ofMucService_"/>
     </include>
     FROM
-    ${catalog}${schema}ofMucRoom AS ofMucRoom
-    INNER JOIN ${catalog}${schema}ofMucService AS ofMucService
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofMucRoom"/>
+    </include> AS ofMucRoom
+    INNER JOIN
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofMucService"/>
+    </include> AS ofMucService
     ON ofMucRoom.serviceID = ofMucService.serviceID
     WHERE 1 = 1
     <if test="serviceId != null">
@@ -146,20 +156,20 @@ limitations under the License.
       <when test="natural">
         <if test="serviceId == null">
           ofMucService.subdomain
-          <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
           ,
         </if>
         ofMucRoom.name
-        <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
       </when>
       <otherwise>
         <if test="serviceId == null">
           ofMucRoom.serviceID
-          <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
           ,
         </if>
         ofMucRoom.roomID
-        <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
       </otherwise>
     </choose>
   </select>

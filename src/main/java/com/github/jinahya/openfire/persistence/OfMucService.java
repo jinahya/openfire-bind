@@ -61,6 +61,17 @@ public class OfMucService extends OfMapped {
 
     public static final String ATTRIBUTE_NAME_HIDDEN = "hidden";
 
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "serviceId=" + serviceId
+               + ",subdomain=" + subdomain
+               + ",description=" + description
+               + ",hidden=" + hidden
+               + "}";
+    }
+
     // --------------------------------------------------------------- serviceId
     public Long getServiceId() {
         return serviceId;

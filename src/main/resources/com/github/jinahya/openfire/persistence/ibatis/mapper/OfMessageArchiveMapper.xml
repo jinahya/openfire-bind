@@ -104,20 +104,20 @@ limitations under the License.
       <when test="natural">
         <if test="conversationId == null">
           ofConversation.startDate
-          <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
           ,
         </if>
         ofMucRoom.sentDate
-        <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
       </when>
       <otherwise>
         <if test="conversationId == null">
           ofMessageArchive.conversationID
-          <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
           ,
         </if>
         ofMessageArchive.messageID
-        <include refid="com.github.jinahya.opnefire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
       </otherwise>
     </choose>
   </select>
