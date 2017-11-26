@@ -19,9 +19,8 @@ limitations under the License.
 
 <mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper">
     
-  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversation">
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfConversation">
     <id column="conversationID" property="conversationId"/>
-    <result column="creationDate" property="creationDate"/>
     <result column="room" property="room"/>
     <result column="isExternal" property="external"/>
     <result column="startDate" property="startDate"
@@ -32,7 +31,6 @@ limitations under the License.
 
   <sql id="sqlColumns">
     ${alias}conversationID AS ${prefix}conversationID,
-    ${alias}creationDate   AS ${prefix}creationDate,
     ${alias}room           AS ${prefix}room,
     ${alias}isExternal     AS ${prefix}isExternal,
     ${alias}startDate      AS ${prefix}startDate,
@@ -47,7 +45,9 @@ limitations under the License.
       <property name="prefix" value=""/>
     </include>
     FROM
-    ${catalog}${schema}ofConversation
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofConversation"/>
+    </include>
     WHERE
     conversationID = #{conversationId}
   </select>
@@ -59,7 +59,9 @@ limitations under the License.
       <property name="prefix" value=""/>
     </include>
     FROM
-    ${catalog}${schema}ofConversation
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofConversation"/>
+    </include>
     WHERE 1 = 1
     <if test="room != null">
       AND room = #{room}
@@ -67,13 +69,13 @@ limitations under the License.
     ORDER BY
     <if test="room == null">
       room
-      <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+      <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
       ,
     </if>
     <choose>
       <when test="natural">
         startDate
-        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
         <!--
         <choose>
           <when test="ascending">
@@ -87,7 +89,7 @@ limitations under the License.
       </when>
       <otherwise>
         conversationID
-        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
       </otherwise>
     </choose>
   </select>

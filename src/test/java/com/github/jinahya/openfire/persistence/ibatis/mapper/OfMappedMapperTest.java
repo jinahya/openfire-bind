@@ -41,9 +41,9 @@ public abstract class OfMappedMapperTest<T extends OfMapped, U extends OfMappedM
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static final String CATALOG = System.getProperty("jdbc.catalog");
+    protected static final String CATALOG = System.getProperty("jdbc.catalog");
 
-    static final String SCHEMA = System.getProperty("jdbc.schema");
+    protected static final String SCHEMA = System.getProperty("jdbc.schema");
 
     public static final String RESOURCE_NAME = "/META-INF/mybatis-config.xml";
 
@@ -56,19 +56,21 @@ public abstract class OfMappedMapperTest<T extends OfMapped, U extends OfMappedM
 
     @BeforeClass
     void beforeClass() {
-        logger.debug("sqlSession: {}", sqlSession);
+        logger.debug("sqlSession: {} / {}", sqlSession,
+                     getClass().getSimpleName());
         mappedMapper = sqlSession.getMapper(mapperClass);
-        logger.debug("mappedMapper: {}", mappedMapper);
+        logger.debug("mappedMapper: {} / {}", mappedMapper,
+                     getClass().getSimpleName());
     }
 
     @AfterClass
     void afterClass() {
         mappedMapper = null;
-        logger.debug("mappedMapper nullified");
-        sqlSession.close();;
-        logger.debug("sqlSession closed");
+        logger.debug("mappedMapper nullified / {}", getClass().getSimpleName());
+        sqlSession.close();
+        logger.debug("sqlSession closed / {}", getClass().getSimpleName());
         sqlSession = null;
-        logger.debug("sqlSession nullified");
+        logger.debug("sqlSession nullified / {}", getClass().getSimpleName());
     }
 
     // -------------------------------------------------------------------------

@@ -23,6 +23,7 @@ import static java.lang.String.format;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import static java.util.Objects.requireNonNull;
 import java.util.Set;
 import javax.json.bind.annotation.JsonbTransient;
@@ -46,6 +47,9 @@ import org.testng.annotations.Test;
 public abstract class OfMappedTest<T extends OfMapped> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
+
+    // -------------------------------------------------------------------------
+    protected static final String DOMAIN = System.getProperty("xmpp.domain");
 
     // -------------------------------------------------------------------------
     private static void checkNamedAttribute(final Class<?> currentClass) {
@@ -131,16 +135,6 @@ public abstract class OfMappedTest<T extends OfMapped> {
         }
     }
 
-    protected static <T> void validate(final Validator validator,
-                                       final T bean) {
-        final Set<ConstraintViolation<T>> violations = validator.validate(bean);
-        violations.stream().findAny().ifPresent(violation -> {
-            final String message = format("violation: %1$s", violation);
-            logger.error(message);
-            fail(message);
-        });
-    }
-
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.
@@ -165,6 +159,19 @@ public abstract class OfMappedTest<T extends OfMapped> {
     @Test
     public void checkXmlTransient() {
         checkXmlTransient(mappedClass);
+    }
+
+    protected void validate(final T bean) {
+        final Set<ConstraintViolation<T>> violations = validator.validate(bean);
+        violations.stream().findAny().ifPresent(violation -> {
+            final String message = format("violation: %1$s", violation);
+            logger.error(message);
+            fail(message);
+        });
+    }
+
+    protected void validate(final Collection<? extends T> beans) {
+        beans.forEach(this::validate);
     }
 
     // -------------------------------------------------------------------------

@@ -15,59 +15,56 @@
  */
 package com.github.jinahya.openfire.persistence.ibatis.mapper;
 
+import com.github.jinahya.openfire.persistence.OfConversation;
 import com.github.jinahya.openfire.persistence.OfMucRoom;
-import com.github.jinahya.openfire.persistence.OfMucService;
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
+import static java.util.Optional.ofNullable;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
-import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
-public class OfMucRoomMapperTest
-        extends OfMappedMapperTest<OfMucRoom, OfMucRoomMapper> {
+public class OfConversationMapperTest
+        extends OfMappedMapperTest<OfConversation, OfConversationMapper> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    public OfMucRoomMapperTest() {
-        super(OfMucRoom.class, OfMucRoomMapper.class);
+    public OfConversationMapperTest() {
+        super(OfConversation.class, OfConversationMapper.class);
     }
 
-    @Test
-    public void selectList01WithServiceId() {
-        final List<OfMucService> services = ofMucServiceMapper.selectList01(
-                CATALOG, SCHEMA, true, true, RowBounds.DEFAULT);
-        services.forEach(service -> {
-            final Long serviceId = service.getServiceId();
-            assertNotNull(serviceId);
-            final List<OfMucRoom> rooms = mappedMapper.selectList01(
-                    CATALOG, SCHEMA, serviceId, true, true,
-                    RowBounds.DEFAULT);
-            validate(rooms);
+    private void testSelectList01(final OfMucRoom ofMucRoom) {
+        final String room = ofNullable(ofMucRoom)
+                .map(v -> OfConversation.room(v, DOMAIN))
+                .orElse(null);
+        final List<OfConversation> conversations = mappedMapper.selectList01(
+                CATALOG, SCHEMA, room, true, true, RowBounds.DEFAULT);
+        validate(conversations);
+        conversations.forEach(conversation -> {
+            final OfConversation one = mappedMapper.selectOne01(
+                    CATALOG, SCHEMA, conversation.getConversationId(), room);
+            validate(one);
         });
     }
 
     @Test
-    public void selectList01WithoutServiceId() {
-        final List<OfMucRoom> rooms = mappedMapper.selectList01(
+    public void selectList01WithRoom() {
+        final List<OfMucRoom> rooms = ofMucRoomMapper.selectList01(
                 CATALOG, SCHEMA, null, true, true, RowBounds.DEFAULT);
         rooms.forEach(room -> {
-            validate(room);
-            final OfMucService service = room.getService();
-            assertNotNull(service);
-            final Long serviceId = service.getServiceId();
-            assertNotNull(serviceId);
-            final OfMucRoom one = mappedMapper.selectOne01(
-                    CATALOG, SCHEMA, serviceId, room.getName());
-            assertNotNull(room);
-            validate(rooms);
+            testSelectList01(room);
         });
+    }
+
+    @Test
+    public void selectList01WithoutRoom() {
+        testSelectList01(null);
     }
 
     // -------------------------------------------------------------------------
     @Inject
-    private OfMucServiceMapper ofMucServiceMapper;
+    private OfMucRoomMapper ofMucRoomMapper;
 }

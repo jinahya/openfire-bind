@@ -18,13 +18,10 @@ package com.github.jinahya.openfire.persistence.ibatis.mapper;
 import com.github.jinahya.openfire.persistence.OfMucService;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.fail;
 import org.testng.annotations.Test;
 
 /**
@@ -43,33 +40,27 @@ public class OfMucServiceMapperTest
     }
 
     // -------------------------------------------------------------------------
-    @Test(groups = "mybatis")
+    @Test
     public void test() {
         final List<OfMucService> services = mappedMapper.selectList01(
                 CATALOG, SCHEMA, true, true, RowBounds.DEFAULT);
-        logger.debug("services: {}", services);
         services.forEach(service -> {
-            final Set<ConstraintViolation<OfMucService>> violations
-                    = validator.validate(service);
-            violations.forEach(violation -> {
-                logger.error("violation: {}", violation);
-                fail();
-            });
+            validate(service);
         });
         services.forEach(v -> {
             final Long serviceId = v.getServiceId();
             assertNotNull(serviceId);
             {
-                final OfMucService oneByServiceId
-                        = mappedMapper.selectOne01(CATALOG, SCHEMA, serviceId, null);
+                final OfMucService oneByServiceId = mappedMapper.selectOne01(
+                        CATALOG, SCHEMA, serviceId, null);
                 logger.debug("oneByServiceId: {}", oneByServiceId);
                 assertNotNull(oneByServiceId);
             }
             final String subdomain = v.getSubdomain();
             assertNotNull(subdomain);
             {
-                final OfMucService oneBySubdomain
-                        = mappedMapper.selectOne01(CATALOG, SCHEMA, null, subdomain);
+                final OfMucService oneBySubdomain = mappedMapper.selectOne01(
+                        CATALOG, SCHEMA, null, subdomain);
                 logger.debug("oneBySubdomain: {}", oneBySubdomain);
                 assertNotNull(oneBySubdomain);
             }

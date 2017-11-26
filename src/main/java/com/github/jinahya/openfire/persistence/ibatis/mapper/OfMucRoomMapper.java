@@ -34,9 +34,6 @@ public interface OfMucRoomMapper extends OfMappedMapper<OfMucRoom> {
     String PARAM_NAME = "name";
 
     // -------------------------------------------------------------------------
-//    void insert(@Param(PARAM_CATALOG) String catalog,
-//                @Param(PARAM_SCHEMA) String schema,
-//                @Param(PARAM_ENTITY) OfMucRoom entity);
     OfMucRoom selectOne01(@Param(PARAM_CATALOG) String catalog,
                           @Param(PARAM_SCHEMA) String schema,
                           @Param(PARAM_SERVICE_ID) long serviceId,

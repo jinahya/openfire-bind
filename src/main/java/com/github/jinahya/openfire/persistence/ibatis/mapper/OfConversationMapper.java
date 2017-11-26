@@ -19,9 +19,7 @@ import com.github.jinahya.openfire.persistence.OfConversation;
 import com.github.jinahya.openfire.persistence.OfMucRoom;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.PARAM_CATALOG;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.PARAM_SCHEMA;
-import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper.PARAM_SUBDOMAIN;
 import java.util.List;
-import javax.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -41,10 +39,10 @@ public interface OfConversationMapper extends OfMappedMapper<OfConversation> {
                                @Param(PARAM_CONVERSATION_ID) long conversaionId,
                                @Param(PARAM_ROOM) String room);
 
-    List<OfMucRoom> selectList01(@Param(PARAM_CATALOG) String catalog,
-                                 @Param(PARAM_SCHEMA) String schema,
-                                 @Param(PARAM_ROOM) String room,
-                                 @Param(PARAM_NATURAL) boolean natural,
-                                 @Param(PARAM_ASCENDING) boolean ascending,
-                                 RowBounds rowBounds);
+    List<OfConversation> selectList01(@Param(PARAM_CATALOG) String catalog,
+                                      @Param(PARAM_SCHEMA) String schema,
+                                      @Param(PARAM_ROOM) String room,
+                                      @Param(PARAM_NATURAL) boolean natural,
+                                      @Param(PARAM_ASCENDING) boolean ascending,
+                                      RowBounds rowBounds);
 }
