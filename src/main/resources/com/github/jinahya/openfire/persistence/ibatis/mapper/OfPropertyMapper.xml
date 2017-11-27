@@ -19,7 +19,7 @@ limitations under the License.
 
 <mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfPropertyMapper">
     
-  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfProperty"
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfProperty"
              extends="com.github.jinahya.openfire.persistence.ibatis.mapper.OfPropMapper.resultMap">
     <!--
     <id column="name" property="name"/>
@@ -27,14 +27,16 @@ limitations under the License.
     -->
   </resultMap>
 
+  <!--
   <sql id="sqlColumns">
     ${alias}name      AS ${prefix}name,
     ${alias}propValue AS ${prefix}propValue
   </sql>
+  -->
 
   <select id="selectOne01" resultMap="resultMap" fetchSize="1">
     SELECT
-    <include refid="sqlColumns">
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfPropMapper.sqlColumns">
       <property name="alias" value=""/>
       <property name="prefix" value=""/>
     </include>
@@ -47,7 +49,7 @@ limitations under the License.
 
   <select id="selectList01" resultMap="resultMap">
     SELECT
-    <include refid="sqlColumns">
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfPropMapper.sqlColumns">
       <property name="alias" value=""/>
       <property name="prefix" value=""/>
     </include>
@@ -57,7 +59,7 @@ limitations under the License.
     </include>
     ORDER BY
     name
-    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
   </select>
 
 </mapper>

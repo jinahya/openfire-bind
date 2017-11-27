@@ -65,6 +65,9 @@ public class OfGroupUser extends OfMapped {
     public static final String ATTRIBUTE_NAME_ADMINISTRATOR = "administrator";
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfGroupUserId getIdInstance() {
         return new OfGroupUserId()
                 .group(getGroupGroupName())

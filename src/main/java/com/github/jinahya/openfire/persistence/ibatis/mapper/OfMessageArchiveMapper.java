@@ -35,12 +35,12 @@ public interface OfMessageArchiveMapper
     String PARAM_MESSAGE_ID = "messageId";
 
     // -------------------------------------------------------------------------
-    OfConversation selectOne01(@Param(PARAM_CATALOG) String catalog,
-                               @Param(PARAM_SCHEMA) String schema,
-                               @Param(PARAM_MESSAGE_ID) long messageId,
-                               @Param(PARAM_CONVERSATION_ID) Long serviceId);
+    OfMessageArchive selectOne01(@Param(PARAM_CATALOG) String catalog,
+                                 @Param(PARAM_SCHEMA) String schema,
+                                 @Param(PARAM_MESSAGE_ID) long messageId,
+                                 @Param(PARAM_CONVERSATION_ID) Long serviceId);
 
-    List<OfConversation> selectList01(
+    List<OfMessageArchive> selectList01(
             @Param(PARAM_CATALOG) String catalog,
             @Param(PARAM_SCHEMA) String schema,
             @Param(PARAM_CONVERSATION_ID) Long conversationId,

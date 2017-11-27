@@ -16,15 +16,16 @@
 package com.github.jinahya.openfire.persistence.ibatis.mapper;
 
 import com.github.jinahya.openfire.persistence.OfConversation;
-import com.github.jinahya.openfire.persistence.OfMucRoom;
+import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapperTest.CATALOG;
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
-import static java.util.Optional.ofNullable;
+import java.util.function.Consumer;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
+import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
 
 public class OfConversationMapperTest
         extends OfMappedMapperTest<OfConversation, OfConversationMapper> {
@@ -32,36 +33,63 @@ public class OfConversationMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
+    static void acceptMucConversationsPaginated(
+            final OfConversationMapper mapper,
+            final String room,
+            final Consumer<List<OfConversation>> consumer) {
+        final int limit = 4;
+        for (int offset = 0; offset <= 16; offset += limit) {
+            final List<OfConversation> ofConversations = mapper.selectList01(
+                    CATALOG, SCHEMA, room, false, false,
+                    new RowBounds(offset, limit));
+            if (ofConversations.isEmpty()) {
+                break;
+            }
+            ofConversations.forEach(ofConversation -> {
+                logger.debug("ofConversation: {}", ofConversation);
+            });
+            consumer.accept(ofConversations);
+        }
+    }
+
+    // -------------------------------------------------------------------------
     public OfConversationMapperTest() {
         super(OfConversation.class, OfConversationMapper.class);
     }
 
-    private void testSelectList01(final OfMucRoom ofMucRoom) {
-        final String room = ofNullable(ofMucRoom)
-                .map(v -> OfConversation.room(v, DOMAIN))
-                .orElse(null);
-        final List<OfConversation> conversations = mappedMapper.selectList01(
-                CATALOG, SCHEMA, room, true, true, RowBounds.DEFAULT);
-        validate(conversations);
-        conversations.forEach(conversation -> {
-            final OfConversation one = mappedMapper.selectOne01(
-                    CATALOG, SCHEMA, conversation.getConversationId(), room);
-            validate(one);
-        });
+    private void test(final String room) {
+        acceptMucConversationsPaginated(
+                mappedMapper,
+                room,
+                ofMucConversations -> {
+                    validate(ofMucConversations);
+                    ofMucConversations.forEach(ofMucConversation -> {
+                        final OfConversation one = mappedMapper.selectOne01(
+                                CATALOG, SCHEMA,
+                                ofMucConversation.getConversationId(),
+                                room);
+                        validate(one);
+                    });
+                });
     }
 
     @Test
     public void selectList01WithRoom() {
-        final List<OfMucRoom> rooms = ofMucRoomMapper.selectList01(
-                CATALOG, SCHEMA, null, true, true, RowBounds.DEFAULT);
-        rooms.forEach(room -> {
-            testSelectList01(room);
-        });
+        acceptOfMucRoomsPaginated(
+                ofMucRoomMapper,
+                null,
+                ofMucRooms -> {
+                    ofMucRooms.forEach(ofMucRoom -> {
+                        final String room
+                                = OfConversation.room(ofMucRoom, DOMAIN);
+                        test(room);
+                    });
+                });
     }
 
     @Test
     public void selectList01WithoutRoom() {
-        testSelectList01(null);
+        test(null);
     }
 
     // -------------------------------------------------------------------------

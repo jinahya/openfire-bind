@@ -82,6 +82,9 @@ public class OfMucAffiliation extends OfMapped {
      *
      * @return an id instance.
      */
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfMucAffiliationId getIdInstance() {
         return new OfMucAffiliationId().room(getRoomRoomId()).jid(getJid());
     }

@@ -16,8 +16,11 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
+import static com.github.jinahya.openfire.persistence.Utilities.isozOf;
 import java.util.Date;
+import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
@@ -33,11 +36,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Entity for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -104,6 +109,23 @@ public class OfMessageArchive extends OfMapped {
     public static final String ATTRIBUTE_NAME_BODY = "body";
 
     // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "messageId=" + messageId
+               + ",conversationId=" + getConversationConversationId()
+               + ",fromJid=" + fromJid
+               + ",fromJidResource=" + fromJidResource
+               + ",toJid=" + toJid
+               + ",toJidResource=" + toJidResource
+               + ",sentDate=" + sentDate
+               + ",sentDateIsoz=" + getSentDateIsoz()
+               + ",stanza=" + stanza
+               + ",body=" + body
+               + "}";
+    }
+
+    // -------------------------------------------------------------------------
     public Long getMessageId() {
         return messageId;
     }
@@ -129,6 +151,15 @@ public class OfMessageArchive extends OfMapped {
     public OfMessageArchive conversation(final OfConversation conversation) {
         setConversation(conversation);
         return this;
+    }
+
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public Long getConversationConversationId() {
+        return ofNullable(getConversation())
+                .map(OfConversation::getConversationId)
+                .orElse(null);
     }
 
     // ----------------------------------------------------------------- fromJid
@@ -199,6 +230,13 @@ public class OfMessageArchive extends OfMapped {
     public OfMessageArchive sentDate(final Date sentDate) {
         setSentDate(sentDate);
         return this;
+    }
+
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getSentDateIsoz() {
+        return isozOf(getSentDate());
     }
 
     // ------------------------------------------------------------------ stanza

@@ -18,6 +18,7 @@ package com.github.jinahya.openfire.persistence.ibatis.mapper;
 import com.github.jinahya.openfire.persistence.OfMucService;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
+import java.util.function.Consumer;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -35,6 +36,25 @@ public class OfMucServiceMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
+    static void acceptOfMucServicesPaginated(
+            final OfMucServiceMapper mapper,
+            final Consumer<List<OfMucService>> consumer) {
+        final int limit = 2;
+        for (int offset = 0; offset <= 4; offset += limit) {
+            final List<OfMucService> ofMucServices = mapper.selectList01(
+                    CATALOG, SCHEMA, false, false,
+                    new RowBounds(offset, limit));
+            if (ofMucServices.isEmpty()) {
+                break;
+            }
+            ofMucServices.forEach(ofMucService -> {
+                logger.debug("ofMucServcie: {}", ofMucService);
+            });
+            consumer.accept(ofMucServices);
+        }
+    }
+
+    // -------------------------------------------------------------------------
     public OfMucServiceMapperTest() {
         super(OfMucService.class, OfMucServiceMapper.class);
     }
@@ -42,28 +62,31 @@ public class OfMucServiceMapperTest
     // -------------------------------------------------------------------------
     @Test
     public void test() {
-        final List<OfMucService> services = mappedMapper.selectList01(
-                CATALOG, SCHEMA, true, true, RowBounds.DEFAULT);
-        services.forEach(service -> {
-            validate(service);
-        });
-        services.forEach(v -> {
-            final Long serviceId = v.getServiceId();
-            assertNotNull(serviceId);
-            {
-                final OfMucService oneByServiceId = mappedMapper.selectOne01(
-                        CATALOG, SCHEMA, serviceId, null);
-                logger.debug("oneByServiceId: {}", oneByServiceId);
-                assertNotNull(oneByServiceId);
-            }
-            final String subdomain = v.getSubdomain();
-            assertNotNull(subdomain);
-            {
-                final OfMucService oneBySubdomain = mappedMapper.selectOne01(
-                        CATALOG, SCHEMA, null, subdomain);
-                logger.debug("oneBySubdomain: {}", oneBySubdomain);
-                assertNotNull(oneBySubdomain);
-            }
-        });
+        acceptOfMucServicesPaginated(
+                mappedMapper,
+                ofMucServices -> {
+                    validate(ofMucServices);
+                    ofMucServices.forEach(ofMucService -> {
+                        final Long serviceId = ofMucService.getServiceId();
+                        assertNotNull(serviceId);
+                        {
+                            final OfMucService one
+                                    = mappedMapper.selectOne01(
+                                            CATALOG, SCHEMA, serviceId, null);
+                            logger.debug("oneByServiceId: {}", one);
+                            assertNotNull(one);
+                        }
+                        final String subdomain = ofMucService.getSubdomain();
+                        assertNotNull(subdomain);
+                        {
+                            final OfMucService one
+                                    = mappedMapper.selectOne01(
+                                            CATALOG, SCHEMA, null, subdomain);
+                            logger.debug("oneBySubdomain: {}", one);
+                            assertNotNull(one);
+                        }
+                    });
+
+                });
     }
 }

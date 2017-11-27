@@ -16,7 +16,9 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -59,6 +61,18 @@ public class OfUserProp extends OfProp<OfUserProp> {
      * column is bound.
      */
     public static final String ATTRIBUTE_NAME_USER = "user";
+    
+    
+    // -------------------------------------------------------------------------
+
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + "}";
+    }
+    
+    
 
     // -------------------------------------------------------------- idInstance
     /**
@@ -66,6 +80,9 @@ public class OfUserProp extends OfProp<OfUserProp> {
      *
      * @return the id instance
      */
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfUserPropId getIdInstance() {
         return new OfUserPropId().user(getUserUsername()).name(getName());
     }
@@ -84,6 +101,8 @@ public class OfUserProp extends OfProp<OfUserProp> {
         return this;
     }
 
+    @JsonProperty
+    @JsonbProperty
     @XmlAttribute
     public String getUserUsername() {
         return ofNullable(getUser()).map(OfUser::getUsername).orElse(null);

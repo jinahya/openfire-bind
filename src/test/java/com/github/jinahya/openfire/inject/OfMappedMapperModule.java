@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.inject;
 
+import com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper;
 import com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoomMapper;
 import com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper;
 import com.google.inject.AbstractModule;
@@ -25,10 +26,6 @@ public class OfMappedMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
-//        bind(OfMucServiceMapper.class).to.toProvider(this);
-////                .toInstance(sqlSession.getMapper(OfMucServiceMapper.class));
-//        bind(OfMucRoomMapper.class)
-//                .toInstance(sqlSession.getMapper(OfMucRoomMapper.class));
     }
 
     @Provides
@@ -39,6 +36,12 @@ public class OfMappedMapperModule extends AbstractModule {
     @Provides
     public OfMucRoomMapper ofMucRoomMapper(final SqlSession sqlSession) {
         return sqlSession.getMapper(OfMucRoomMapper.class);
+    }
+
+    @Provides
+    public OfConversationMapper ofConversationMapper(
+            final SqlSession sqlSession) {
+        return sqlSession.getMapper(OfConversationMapper.class);
     }
 
     // -------------------------------------------------------------------------

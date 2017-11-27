@@ -25,7 +25,8 @@ limitations under the License.
     <result column="isExternal" property="external"/>
     <result column="startDate" property="startDate"
             typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.DateMillisTypeHandler"/>
-    <result column="lastActivity" property="lastActivity"/>
+    <result column="lastActivity" property="lastActivity"
+            typeHandler="com.github.jinahya.openfire.persistence.ibatis.type.DateMillisTypeHandler"/>
     <result column="messageCount" property="messageCount"/>
   </resultMap>
 
@@ -34,7 +35,7 @@ limitations under the License.
     ${alias}room           AS ${prefix}room,
     ${alias}isExternal     AS ${prefix}isExternal,
     ${alias}startDate      AS ${prefix}startDate,
-    ${alias}lastActivity   AS ${prefix}lastActivty,
+    ${alias}lastActivity   AS ${prefix}lastActivity,
     ${alias}messageCount   AS ${prefix}messageCount
   </sql>
 

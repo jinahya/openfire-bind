@@ -16,7 +16,9 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
+import static com.github.jinahya.openfire.persistence.Utilities.isozOf;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
@@ -205,12 +207,49 @@ public class OfMucRoom extends OfMapped {
 
     public static final int ALLOWPM_ANYONE = 0;
 
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "service=" + service
+               + ",roomId=" + roomId
+               + ",creationDate=" + creationDate
+               + ",creationDateIsoz=" + getCreationDateIsoz()
+               + ",modificationDate=" + modificationDate
+               + ",modificationDateIsoz=" + getModificationDateIsoz()
+               + ",name=" + name
+               + ",naturalName=" + naturalName
+               + ",description=" + description
+               + ",lockedDate=" + lockedDate
+               + ",lockedDateIsoz=" + getLockedDateIsoz()
+               + ",emptyDate=" + emptyDate
+               + ",emptyDateIsoz=" + getEmptyDateIsoz()
+               + ",canChangeSubject=" + canChangeSubject
+               + ",maxUsers=" + maxUsers
+               + ",publicRoom=" + publicRoom
+               + ",moderated=" + moderated
+               + ",membersOnly=" + membersOnly
+               + ",canInvite=" + canInvite
+               + ",roomPassword=" + roomPassword
+               + ",canDiscoverJid=" + canDiscoverJid
+               + ",logEnabled=" + logEnabled
+               + ",subject=" + subject
+               + ",rolesToBroadcast=" + rolesToBroadcast
+               + ",useReservedNick=" + useReservedNick
+               + ",canChangeNick=" + canChangeNick
+               + ",canRegister=" + canRegister
+               + ",allowpm=" + allowpm + '}';
+    }
+
     // -------------------------------------------------------------- idInstance
     /**
      * Returns the id instance of this entity.
      *
      * @return the id instance of this entity.
      */
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfMucRoomId getIdInstance() {
         return new OfMucRoomId().service(getServiceServiceId()).name(getName());
     }
@@ -263,6 +302,13 @@ public class OfMucRoom extends OfMapped {
         return this;
     }
 
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getCreationDateIsoz() {
+        return isozOf(getCreationDate());
+    }
+
     // -------------------------------------------------------- modificationDate
     public Date getModificationDate() {
         return copyOf(modificationDate);
@@ -275,6 +321,13 @@ public class OfMucRoom extends OfMapped {
     public OfMucRoom modificationDate(final Date modificationDate) {
         setModificationDate(modificationDate);
         return this;
+    }
+
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getModificationDateIsoz() {
+        return isozOf(getModificationDate());
     }
 
     // -------------------------------------------------------------------- name
@@ -333,6 +386,13 @@ public class OfMucRoom extends OfMapped {
         return this;
     }
 
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getLockedDateIsoz() {
+        return isozOf(getLockedDate());
+    }
+
     // --------------------------------------------------------------- emptyDate
     public Date getEmptyDate() {
         return copyOf(emptyDate);
@@ -345,6 +405,13 @@ public class OfMucRoom extends OfMapped {
     public OfMucRoom emptyDate(final Date emptyDate) {
         setEmptyDate(emptyDate);
         return this;
+    }
+
+    @JsonProperty
+    @JsonbProperty
+    @XmlAttribute
+    public String getEmptyDateIsoz() {
+        return isozOf(getEmptyDate());
     }
 
     // -------------------------------------------------------- canChangeSubject

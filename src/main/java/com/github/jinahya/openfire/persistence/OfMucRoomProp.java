@@ -57,6 +57,9 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     }
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfMucServicePropId getIdInstance() {
         return new OfMucServicePropId()
                 .service(getRoomRoomId())

@@ -67,6 +67,9 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
     }
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfMucServicePropId getIdInstance() {
         return new OfMucServicePropId()
                 .service(getServiceServiceId())

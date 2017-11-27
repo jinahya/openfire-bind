@@ -17,9 +17,9 @@ limitations under the License.
 
 <!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 
-<mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchive">
+<mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchiveMapper">
     
-  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchive">
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfMessageArchive">
     <id column="messageID" property="messageId"/>
     <result column="fromJID" property="fromJid"/>
     <result column="fromJIDResource" property="fromJidResource"/>
@@ -31,7 +31,7 @@ limitations under the License.
     <result column="body" property="body"/>
   </resultMap>
 
-  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchive">
+  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.OfMessageArchive">
     <id column="ofMessageArchive_messageID" property="messageId"/>
     <result column="ofMessageArchive_fromJID" property="fromJid"/>
     <result column="ofMessageArchive_fromJIDResource" property="fromJidResource"/>
@@ -70,8 +70,15 @@ limitations under the License.
       <property name="prefix" value="ofConversation_"/>
     </include>
     FROM
-    ${catalog}${schema}ofMessageArchive AS ofMessageArchive
-    INNER JOIN ${catalog}${schema}ofConversation AS ofMessageArchive
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofMessageArchive"/>
+    </include>
+    AS ofMessageArchive
+    INNER JOIN
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofConversation"/>
+    </include>
+    AS ofConversation
     ON ofMessageArchive.conversationID = ofConversation.conversationID
     WHERE
     ofMessageArchive.messageID = #{messageId}
@@ -92,8 +99,15 @@ limitations under the License.
       <property name="prefix" value="ofConversation_"/>
     </include>
     FROM
-    ${catalog}${schema}ofMessageArchive AS ofMessageArchive
-    INNER JOIN ${catalog}${schema}ofConversation AS ofMessageArchive
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofMessageArchive"/>
+    </include>
+    AS ofMessageArchive
+    INNER JOIN
+    <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofConversation"/>
+    </include>
+    AS ofConversation
     ON ofMessageArchive.conversationID = ofConversation.conversationID
     WHERE 1 = 1
     <if test="conversationId != null">
@@ -104,20 +118,20 @@ limitations under the License.
       <when test="natural">
         <if test="conversationId == null">
           ofConversation.startDate
-          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
           ,
         </if>
-        ofMucRoom.sentDate
-        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        ofMessageArchive.sentDate
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
       </when>
       <otherwise>
         <if test="conversationId == null">
           ofMessageArchive.conversationID
-          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+          <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
           ,
         </if>
         ofMessageArchive.messageID
-        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMapper.sqlAscending"/>
+        <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlAscending"/>
       </otherwise>
     </choose>
   </select>

@@ -19,7 +19,7 @@ limitations under the License.
 
 <mapper namespace="com.github.jinahya.openfire.persistence.ibatis.mapper.OfPropMapper">
     
-  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.ibatis.mapper.OfProp">
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfProp">
     <id column="name" property="name"/>
     <result column="propValue" property="propValue"/>
   </resultMap>

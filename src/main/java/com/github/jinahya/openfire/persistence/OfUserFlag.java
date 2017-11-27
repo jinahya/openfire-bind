@@ -65,6 +65,9 @@ public class OfUserFlag implements Serializable {
     public static final String COLUMN_NAME_END_TIME = "endTime";
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfUserFlagId getIdInstance() {
         return new OfUserFlagId().user(getUserUsername()).name(getName());
     }

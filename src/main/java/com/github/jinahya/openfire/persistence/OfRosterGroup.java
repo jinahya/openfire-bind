@@ -65,6 +65,9 @@ public class OfRosterGroup extends OfMapped {
     public static final String ATTRIBUTE_NAME_GROUP_NAME = "groupName";
 
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfRosterGroupId getIdInstance() {
         return new OfRosterGroupId()
                 .roster(getRosterRosterId())

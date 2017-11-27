@@ -92,32 +92,33 @@ public class OfConversation extends OfMapped {
     /**
      * Returns the value for {@value #ATTRIBUTE_NAME_ROOM} attribute from given
      * arguments. The result is
-     * {@code <room.name>@<room.service.subdomain>.<domain>}.
+     * {@code <ofMucRoom.name>@<ofMucRoom.service.subdomain>.<xmppDomain>}.
      *
-     * @param room the room
-     * @param domain the XMPP domain
+     * @param ofMucRoom the room
+     * @param xmppDomain the XMPP domain
      * @return the value for {@value #ATTRIBUTE_NAME_ROOM} attribute.
      */
-    public static String room(final OfMucRoom room, final String domain) {
-        if (room == null) {
+    public static String room(final OfMucRoom ofMucRoom,
+                              final String xmppDomain) {
+        if (ofMucRoom == null) {
             throw new NullPointerException("room is null");
         }
-        if (room.getName() == null) {
+        if (ofMucRoom.getName() == null) {
             throw new IllegalArgumentException("room.name is null");
         }
-        if (room.getService() == null) {
+        if (ofMucRoom.getService() == null) {
             throw new IllegalArgumentException("room.service is null");
         }
-        if (room.getService().getSubdomain() == null) {
+        if (ofMucRoom.getService().getSubdomain() == null) {
             throw new IllegalArgumentException(
                     "room.service.subdomain is null");
         }
-        if (domain == null) {
+        if (xmppDomain == null) {
             throw new NullPointerException("domain is null");
         }
-        return room.getName()
-               + "@" + room.getService().getSubdomain()
-               + "." + domain;
+        return ofMucRoom.getName()
+               + "@" + ofMucRoom.getService().getSubdomain()
+               + "." + xmppDomain;
     }
 
     // -------------------------------------------------------------------------
@@ -126,6 +127,20 @@ public class OfConversation extends OfMapped {
      */
     public OfConversation() {
         super();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "conversationId=" + conversationId
+               + ",room=" + room
+               + ",external=" + external
+               + ",startDate=" + startDate
+               + ",startDateIsoz=" + getStartDateIsoz()
+               + ",lastActivity=" + lastActivity
+               + ",lastActivityIsoz=" + getLastActivityIsoz()
+               + ",messageCount=" + messageCount
+               + "}";
     }
 
     // ---------------------------------------------------------- conversationId
