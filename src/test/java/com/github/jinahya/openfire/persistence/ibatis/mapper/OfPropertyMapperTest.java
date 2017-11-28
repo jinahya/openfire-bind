@@ -31,7 +31,8 @@ import org.testng.annotations.Test;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfPropertyMapperTest extends OfPropMapperTest<OfProperty, OfPropertyMapper> {
+public class OfPropertyMapperTest
+        extends OfPropMapperTest<OfProperty, OfPropertyMapper> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
 

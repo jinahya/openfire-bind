@@ -15,8 +15,9 @@
  */
 package com.github.jinahya.openfire.persistence.ibatis.mapper;
 
-import com.github.jinahya.openfire.persistence.OfMucRoom;
+import com.github.jinahya.openfire.persistence.OfMucMember;
 import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapperTest.CATALOG;
+import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
@@ -26,70 +27,70 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
-import static com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapperTest.acceptOfMucServicesPaginated;
 
-public class OfMucRoomMapperTest
-        extends OfMappedMapperTest<OfMucRoom, OfMucRoomMapper> {
+public class OfMucMemberMapperTest
+        extends OfMappedMapperTest<OfMucMember, OfMucMemberMapper> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMucRoomsPaginated(
-            final OfMucRoomMapper mapper, final Long serviceId,
-            final Consumer<List<OfMucRoom>> consumer) {
+    static void acceptOfMucMembersPaginated(
+            final OfMucMemberMapper mapper, final Long roomId,
+            final Consumer<List<OfMucMember>> consumer) {
         final int limit = 3;
         for (int offset = 0; offset <= 8; offset += limit) {
-            final List<OfMucRoom> ofMucRooms = mapper.selectList01(
-                    CATALOG, SCHEMA, serviceId, false, false,
+            final List<OfMucMember> ofMucMembers = mapper.selectList01(
+                    CATALOG, SCHEMA, roomId, false, false,
                     new RowBounds(offset, limit));
-            if (ofMucRooms.isEmpty()) {
+            if (ofMucMembers.isEmpty()) {
                 break;
             }
-            ofMucRooms.forEach(ofMucRoom -> {
-                logger.debug("ofMucRoom: {}", ofMucRoom);
+            ofMucMembers.forEach(ofMucMember -> {
+                logger.debug("ofMucMember: {}", ofMucMember);
             });
-            consumer.accept(ofMucRooms);
+            consumer.accept(ofMucMembers);
         }
     }
 
     // -------------------------------------------------------------------------
-    public OfMucRoomMapperTest() {
-        super(OfMucRoom.class, OfMucRoomMapper.class);
+    public OfMucMemberMapperTest() {
+        super(OfMucMember.class, OfMucMemberMapper.class);
     }
 
-    private void test(final long serviceId) {
-        acceptOfMucRoomsPaginated(
+    private void test(final Long roomId) {
+        acceptOfMucMembersPaginated(
                 mappedMapper,
-                serviceId,
-                ofMucRooms -> {
-                    validate(ofMucRooms);
-                    ofMucRooms.forEach(ofMucRoom -> {
-                        final OfMucRoom one = mappedMapper.selectOne01(
-                                CATALOG, SCHEMA, serviceId,
-                                ofMucRoom.getName());
-                        assertNotNull(ofMucRoom);
-                        validate(ofMucRooms);
+                roomId,
+                ofMucMembers -> {
+                    validate(ofMucMembers);
+                    ofMucMembers.forEach(ofMucMember -> {
+                        final OfMucMember one = mappedMapper.selectOne01(
+                                CATALOG, SCHEMA, ofMucMember.getRoomRoomId(),
+                                ofMucMember.getJid());
+                        assertNotNull(ofMucMember);
+                        validate(ofMucMembers);
                     });
                 });
     }
 
     @Test
-    public void selectWithService() {
-        acceptOfMucServicesPaginated(
-                ofMucServiceMapper,
-                services -> {
-                    services.forEach(service -> {
-                        test(service.getServiceId());
+    public void selectWithRoom() {
+        acceptOfMucRoomsPaginated(
+                ofMucRoomMapper,
+                null,
+                ofMucRooms -> {
+                    ofMucRooms.forEach(ofMucRoom -> {
+                        test(ofMucRoom.getRoomId());
                     });
                 });
     }
 
     //@Test
     public void testWithoutService() {
-        //test(null);
+        test(null);
     }
 
     // -------------------------------------------------------------------------
     @Inject
-    private OfMucServiceMapper ofMucServiceMapper;
+    private OfMucRoomMapper ofMucRoomMapper;
 }

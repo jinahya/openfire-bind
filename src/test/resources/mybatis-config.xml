@@ -34,6 +34,7 @@ limitations under the License.
   <mappers>
     <mapper class="com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper"/>
     <mapper class="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMessageArchiveMapper"/>
+    <mapper class="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucMemberMapper"/>
     <mapper class="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper"/>
     <mapper class="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoomMapper"/>
     <mapper class="com.github.jinahya.openfire.persistence.ibatis.mapper.OfPropertyMapper"/>

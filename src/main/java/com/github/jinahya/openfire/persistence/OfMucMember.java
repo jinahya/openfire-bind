@@ -100,6 +100,21 @@ public class OfMucMember extends OfMapped {
 
     public static final String ATTRIBUTE_NAME_FAQENTRY = "faqentry";
 
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "room=" + room
+               + ",jid=" + jid
+               + ",nickname=" + nickname
+               + ",firstName=" + firstName
+               + ",lastName=" + lastName
+               + ",url=" + url
+               + ",email=" + email
+               + ",faqentry=" + faqentry
+               + "}";
+    }
+
     // -------------------------------------------------------------- idInstance
     @JsonIgnore
     @JsonbTransient

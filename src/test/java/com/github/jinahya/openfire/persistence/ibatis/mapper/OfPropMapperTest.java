@@ -20,8 +20,8 @@ import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public abstract class OfPropMapperTest<T extends OfProp<T>, U extends OfPropMapper<T>>
-        extends OfMappedMapperTest<T, U> {
+public abstract class OfPropMapperTest<PropType extends OfProp<PropType>, MapperType extends OfPropMapper<PropType>>
+        extends OfMappedMapperTest<PropType, MapperType> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
 
@@ -47,8 +47,8 @@ public abstract class OfPropMapperTest<T extends OfProp<T>, U extends OfPropMapp
 //    }
 
     // -------------------------------------------------------------------------
-    public OfPropMapperTest(final Class<T> mappedType,
-                            final Class<U> mapperType) {
+    public OfPropMapperTest(final Class<PropType> mappedType,
+                            final Class<MapperType> mapperType) {
         super(mappedType, mapperType);
     }
 
