@@ -43,10 +43,14 @@ limitations under the License.
     <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
       <property name="table" value="ofMucService"/>
     </include>
-    WHERE
-    1 = 1
-    <if test="serviceId != null">AND serviceID = #{serviceId}</if>
-    <if test="subdomain != null">AND subdomain = #{subdomain}</if>
+    <where>
+      <if test="serviceId != null">
+        serviceID = #{serviceId}
+      </if>
+      <if test="subdomain != null">
+        subdomain = #{subdomain}
+      </if>
+    </where>
   </select>
 
   <select id="selectList01" resultMap="resultMap">

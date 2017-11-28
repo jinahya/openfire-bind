@@ -63,10 +63,9 @@ limitations under the License.
     <include refid="com.github.jinahya.openfire.persistence.ibatis.mapper.OfMappedMapper.sqlTable">
       <property name="table" value="ofConversation"/>
     </include>
-    WHERE 1 = 1
-    <if test="room != null">
-      AND room = #{room}
-    </if>
+    <where>
+      <if test="room != null">room = #{room}</if>
+    </where>
     ORDER BY
     <if test="room == null">
       room

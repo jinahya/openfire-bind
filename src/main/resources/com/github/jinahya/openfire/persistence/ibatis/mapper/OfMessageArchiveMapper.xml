@@ -109,10 +109,11 @@ limitations under the License.
     </include>
     AS ofConversation
     ON ofMessageArchive.conversationID = ofConversation.conversationID
-    WHERE 1 = 1
-    <if test="conversationId != null">
-      AND ofMessageArchive.conversationID = #{conversationId}
-    </if>
+    <where>
+      <if test="conversationId != null">
+        ofMessageArchive.conversationID = #{conversationId}
+      </if>
+    </where>
     ORDER BY
     <choose>
       <when test="natural">

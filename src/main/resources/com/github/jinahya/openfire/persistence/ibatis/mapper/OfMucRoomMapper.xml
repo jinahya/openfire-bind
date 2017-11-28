@@ -147,10 +147,11 @@ limitations under the License.
       <property name="table" value="ofMucService"/>
     </include> AS ofMucService
     ON ofMucRoom.serviceID = ofMucService.serviceID
-    WHERE 1 = 1
-    <if test="serviceId != null">
-      AND ofMucRoom.serviceID = #{serviceId}
-    </if>
+    <where>
+      <if test="serviceId != null">
+        ofMucRoom.serviceID = #{serviceId}
+      </if>
+    </where>
     ORDER BY
     <choose>
       <when test="natural">
