@@ -15,6 +15,9 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -81,6 +84,27 @@ public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
     public T propValue(final String propValue) {
         setPropValue(propValue);
         return (T) this;
+    }
+
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    public Boolean getPropValueAsBoolean() {
+        return ofNullable(getPropValue()).map(Boolean::valueOf).orElse(null);
+    }
+
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    public Integer getPropValueAsInteger() {
+        return ofNullable(getPropValue()).map(Integer::valueOf).orElse(null);
+    }
+
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    public Long getPropValueAsLong() {
+        return ofNullable(getPropValue()).map(Long::valueOf).orElse(null);
     }
 
     // -------------------------------------------------------------------------
