@@ -37,7 +37,7 @@ public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
-    public static final String ATTRIBUTE_VALUE_NAME = "name";
+    public static final String ATTRIBUTE_NAME_NAME = "name";
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_PROP_VALUE = "propValue";
@@ -88,7 +88,7 @@ public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_NAME, nullable = false)
-    @NamedAttribute(ATTRIBUTE_VALUE_NAME)
+    @NamedAttribute(ATTRIBUTE_NAME_NAME)
     private String name;
 
     @XmlElement(required = true)
