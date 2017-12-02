@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * The id class of {@link OfOffline}.
+ * An id class for {@link OfOffline}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

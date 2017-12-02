@@ -16,8 +16,10 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import static java.util.Optional.ofNullable;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -186,6 +188,8 @@ public class OfGroupUser extends OfMapped {
     @NamedAttribute(ATTRIBUTE_NAME_GROUP)
     private OfGroup group;
 
+    @JsonIgnore
+    @JsonbTransient
     @XmlTransient
     @NotNull
     @Id
@@ -198,6 +202,8 @@ public class OfGroupUser extends OfMapped {
     @NamedAttribute(ATTRIBUTE_NAME_USER)
     private OfUser user;
 
+    @JsonProperty(required = true)
+    @JsonbProperty()
     @XmlElement(required = true)
     @Id
     @Column(name = COLUMN_NAME_ADMINISTRATOR, nullable = false)
