@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
@@ -54,6 +55,35 @@ public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
                + "name=" + name
                + ",propValue=" + propValue
                + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(name);
+        hash = 89 * hash + Objects.hashCode(propValue);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfProp<?> other = (OfProp<?>) obj;
+        if (!Objects.equals(name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(propValue, other.propValue)) {
+            return false;
+        }
+        return true;
     }
 
     // -------------------------------------------------------------------- name

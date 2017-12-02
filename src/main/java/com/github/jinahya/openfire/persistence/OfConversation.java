@@ -50,8 +50,16 @@ public class OfConversation extends OfMapped {
     public static final String TABLE_NAME = "ofConversation";
 
     // -------------------------------------------------------------------------
+    /**
+     * The target column name to which {@value #ATTRIBUTE_NAME_CONVERSATION_ID}
+     * attribute is bound.
+     */
     public static final String COLUMN_NAME_CONVERSATION_ID = "conversationID";
 
+    /**
+     * The source attribute name from which
+     * {@value #COLUMN_NAME_CONVERSATION_ID} column is bound.
+     */
     public static final String ATTRIBUTE_NAME_CONVERSATION_ID
             = "conversationId";
 
@@ -77,14 +85,14 @@ public class OfConversation extends OfMapped {
 
     // -------------------------------------------------------------------------
     /**
-     * The name of the column to which {@value #ATTRIBUTE_NAME_MESSAGE_COUNT}
-     * attribute is bound.
+     * The name of the target column to which
+     * {@value #ATTRIBUTE_NAME_MESSAGE_COUNT} attribute is bound.
      */
     public static final String COLUMN_NAME_MESSAGE_COUNT = "messageCount";
 
     /**
-     * The name of the attribute from which {@value #COLUMN_NAME_MESSAGE_COUNT}
-     * column is bound.
+     * The name of the source attribute from which
+     * {@value #COLUMN_NAME_MESSAGE_COUNT} column is bound.
      */
     public static final String ATTRIBUTE_NAME_MESSAGE_COUNT = "messageCount";
 

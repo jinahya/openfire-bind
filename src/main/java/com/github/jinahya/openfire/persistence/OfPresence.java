@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
@@ -68,6 +69,41 @@ public class OfPresence implements Serializable {
      */
     public OfPresence() {
         super();
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",offlinePresence=" + offlinePresence
+               + ",offlineDate=" + offlineDate
+               + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(user);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfPresence other = (OfPresence) obj;
+        if (!Objects.equals(user, other.user)) {
+            return false;
+        }
+        return true;
     }
 
     // -------------------------------------------------------------------- user
@@ -124,10 +160,6 @@ public class OfPresence implements Serializable {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_USERNAME,
-//            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_USERNAME,
                 nullable = false,

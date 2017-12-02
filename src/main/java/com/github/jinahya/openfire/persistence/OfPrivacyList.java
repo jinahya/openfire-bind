@@ -17,6 +17,7 @@ package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -48,6 +49,54 @@ public class OfPrivacyList implements Serializable {
     public static final String COLUMN_NAME_IS_DEFAULT = "isDefault";
 
     public static final String COLUMN_NAME_LIST = "list";
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfPrivacyList() {
+        super();
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",name=" + name
+               + ",default=" + default__
+               + ",list=" + list
+               + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(user);
+        hash = 29 * hash + Objects.hashCode(name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfPrivacyList other = (OfPrivacyList) obj;
+        if (!Objects.equals(name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(user, other.user)) {
+            return false;
+        }
+        return true;
+    }
 
     // -------------------------------------------------------------------- user
     public OfUser getUser() {

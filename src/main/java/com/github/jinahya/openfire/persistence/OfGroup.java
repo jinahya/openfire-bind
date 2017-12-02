@@ -15,6 +15,8 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -73,6 +75,32 @@ public class OfGroup extends OfMapped {
      */
     public OfGroup() {
         super();
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(groupName);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfGroup other = (OfGroup) obj;
+        if (!Objects.equals(groupName, other.groupName)) {
+            return false;
+        }
+        return true;
     }
 
     // --------------------------------------------------------------- groupName
@@ -150,6 +178,7 @@ public class OfGroup extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonProperty(required = true)
     @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
@@ -158,6 +187,7 @@ public class OfGroup extends OfMapped {
     @NamedAttribute(ATTRIBUTE_NAME_GROUP_NAME)
     private String groupName;
 
+    @JsonProperty()
     @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
     @NamedAttribute(ATTRIBUTE_NAME_DESCRIPTION)

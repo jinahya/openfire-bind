@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -56,6 +57,25 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
         return super.toString() + "{"
                + ",group=" + group
                + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        hash = 67 * hash + Objects.hashCode(group);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final OfGroupProp other = (OfGroupProp) obj;
+        if (!Objects.equals(group, other.group)) {
+            return false;
+        }
+        return true;
     }
 
     // -------------------------------------------------------------- idInstance

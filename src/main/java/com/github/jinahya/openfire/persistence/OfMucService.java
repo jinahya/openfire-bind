@@ -15,6 +15,7 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,6 +71,31 @@ public class OfMucService extends OfMapped {
                + ",description=" + description
                + ",hidden=" + hidden
                + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(subdomain);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfMucService other = (OfMucService) obj;
+        if (!Objects.equals(subdomain, other.subdomain)) {
+            return false;
+        }
+        return true;
     }
 
     // --------------------------------------------------------------- serviceId

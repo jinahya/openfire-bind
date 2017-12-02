@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -43,8 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
 @IdClass(OfOfflineId.class)
+@Entity
 public class OfOffline implements Serializable {
 
     // -------------------------------------------------------------------------
@@ -76,7 +77,59 @@ public class OfOffline implements Serializable {
 
     public static final String ATTRIBUTE_NAME_STANZA = "stanza";
 
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfOffline() {
+        super();
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",messageId=" + messageId
+               + ",creationDate=" + creationDate
+               + ",messageSize=" + messageSize
+               + ",stanza=" + stanza
+               + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(user);
+        hash = 67 * hash + Objects.hashCode(messageId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfOffline other = (OfOffline) obj;
+        if (!Objects.equals(user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(messageId, other.messageId)) {
+            return false;
+        }
+        return true;
+    }
+
     // -------------------------------------------------------------- idInstance
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
     public OfOfflineId getIdIsnstance() {
         return new OfOfflineId()
                 .user(getUserUsername())
@@ -160,10 +213,6 @@ public class OfOffline implements Serializable {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_USERNAME,
-//            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_USERNAME,
                 nullable = false,

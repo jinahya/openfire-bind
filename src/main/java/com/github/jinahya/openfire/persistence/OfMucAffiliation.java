@@ -148,10 +148,6 @@ public class OfMucAffiliation extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_ROOM_ID,
-//            referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_ROOM_ID,
                 nullable = false,

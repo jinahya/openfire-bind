@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.ConstraintMode;
@@ -33,8 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
 @IdClass(OfMucRoomPropId.class)
+@Entity
 public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
 
     private static final long serialVersionUID = -6469468042118345539L;
@@ -54,6 +55,33 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
      */
     public OfMucRoomProp() {
         super();
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return toString() + "{"
+               + "room=" + room
+               + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        hash = 89 * hash + Objects.hashCode(this.room);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final OfMucRoomProp other = (OfMucRoomProp) obj;
+        if (!Objects.equals(room, other.room)) {
+            return false;
+        }
+        return true;
     }
 
     // -------------------------------------------------------------- idInstance
@@ -91,10 +119,6 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_ROOM_ID,
-//            referencedColumnName = OfMucRoom.COLUMN_NAME_ROOM_ID)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_ROOM_ID,
                 nullable = false,

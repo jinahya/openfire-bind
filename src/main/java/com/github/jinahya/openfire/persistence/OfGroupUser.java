@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
@@ -63,6 +64,49 @@ public class OfGroupUser extends OfMapped {
     public static final String COLUMN_NAME_ADMINISTRATOR = "administrator";
 
     public static final String ATTRIBUTE_NAME_ADMINISTRATOR = "administrator";
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "group=" + group
+               + ",user=" + user
+               + ",administrator=" + administrator
+               + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(group);
+        hash = 17 * hash + Objects.hashCode(user);
+        hash = 17 * hash + (administrator ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfGroupUser other = (OfGroupUser) obj;
+        if (administrator != other.administrator) {
+            return false;
+        }
+        if (!Objects.equals(group, other.group)) {
+            return false;
+        }
+        if (!Objects.equals(user, other.user)) {
+            return false;
+        }
+        return true;
+    }
 
     // -------------------------------------------------------------- idInstance
     @JsonIgnore
@@ -134,10 +178,6 @@ public class OfGroupUser extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_GROUP_NAME,
-//            referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_GROUP_NAME,
                 nullable = false,
@@ -150,10 +190,6 @@ public class OfGroupUser extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_USERNAME,
-//            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_USERNAME,
                 nullable = false,

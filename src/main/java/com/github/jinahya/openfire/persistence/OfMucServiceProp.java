@@ -16,6 +16,7 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -35,8 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
 @IdClass(OfMucServicePropId.class)
+@Entity
 public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
     private static final long serialVersionUID = -8764347967513782358L;
@@ -64,6 +65,25 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
         return super.toString() + "{"
                + "service=" + service
                + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        hash = 13 * hash + Objects.hashCode(service);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final OfMucServiceProp other = (OfMucServiceProp) obj;
+        if (!Objects.equals(service, other.service)) {
+            return false;
+        }
+        return true;
     }
 
     // -------------------------------------------------------------- idInstance
