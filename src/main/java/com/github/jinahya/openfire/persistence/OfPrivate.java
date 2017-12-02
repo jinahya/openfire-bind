@@ -141,10 +141,6 @@ public class OfPrivate implements Serializable {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_USERNAME,
-//            referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_USERNAME,
                 nullable = false,

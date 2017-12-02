@@ -631,10 +631,6 @@ public class OfMucRoom extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_SERVICE_ID,
-//            referencedColumnName = OfMucService.COLUMN_NAME_SERVICE_ID)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_SERVICE_ID,
                 nullable = false,

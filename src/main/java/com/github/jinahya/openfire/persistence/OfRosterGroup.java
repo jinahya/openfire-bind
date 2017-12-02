@@ -128,10 +128,6 @@ public class OfRosterGroup extends OfMapped {
     @NotNull
     @Id
     @ManyToOne(optional = false)
-//    @PrimaryKeyJoinColumn(
-//            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-//            name = COLUMN_NAME_ROSTER_ID,
-//            referencedColumnName = OfRoster.COLUMN_NAME_ROSTER_ID)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_ROSTER_ID,
                 nullable = false,
