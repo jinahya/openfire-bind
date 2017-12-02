@@ -15,9 +15,9 @@
  */
 package com.github.jinahya.openfire.inject;
 
-import com.github.jinahya.openfire.persistence.ibatis.mapper.OfConversationMapper;
-import com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucRoomMapper;
-import com.github.jinahya.openfire.persistence.ibatis.mapper.OfMucServiceMapper;
+import com.github.jinahya.openfire.ibatis.mapper.OfConversationMapper;
+import com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapper;
+import com.github.jinahya.openfire.ibatis.mapper.OfMucServiceMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import org.apache.ibatis.session.SqlSession;
