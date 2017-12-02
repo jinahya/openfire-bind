@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 
 /**
- * The id class of {@link OfMucAffiliation}.
+ * An id class of {@link OfMucAffiliation}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

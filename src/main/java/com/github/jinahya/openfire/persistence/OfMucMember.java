@@ -16,7 +16,9 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static java.lang.invoke.MethodHandles.lookup;
+import java.util.Objects;
 import static java.util.Optional.ofNullable;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
@@ -37,13 +39,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Entity class for {@value #TABLE_NAME} table.
+ * An entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @XmlRootElement
-@Entity
 @IdClass(OfMucMemberId.class)
+@Entity
 public class OfMucMember extends OfMapped {
 
     private static final long serialVersionUID = -526903256883348399L;
@@ -115,6 +117,35 @@ public class OfMucMember extends OfMapped {
                + "}";
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(room);
+        hash = 29 * hash + Objects.hashCode(jid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OfMucMember other = (OfMucMember) obj;
+        if (!Objects.equals(jid, other.jid)) {
+            return false;
+        }
+        if (!Objects.equals(room, other.room)) {
+            return false;
+        }
+        return true;
+    }
+
     // -------------------------------------------------------------- idInstance
     @JsonIgnore
     @JsonbTransient
@@ -137,6 +168,7 @@ public class OfMucMember extends OfMapped {
         return this;
     }
 
+    @JsonProperty
     @JsonbProperty
     @XmlAttribute
     public Long getRoomRoomId() {

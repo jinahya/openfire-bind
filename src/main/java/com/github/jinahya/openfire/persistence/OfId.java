@@ -21,7 +21,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * An entity for {@value #TABLE_NAME} table.
+ * An entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

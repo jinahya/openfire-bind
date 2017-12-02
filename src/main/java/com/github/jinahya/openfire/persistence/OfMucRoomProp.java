@@ -41,6 +41,10 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     private static final long serialVersionUID = -6469468042118345539L;
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the target table to which this class binds. The value is
+     * {@value #TABLE_NAME}.
+     */
     public static final String TABLE_NAME = "ofMucRoomProp";
 
     // -------------------------------------------------------------------------
@@ -60,7 +64,7 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     // -------------------------------------------------------------------------
     @Override
     public String toString() {
-        return toString() + "{"
+        return super.toString() + "{"
                + "room=" + room
                + "}";
     }
@@ -68,7 +72,7 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     @Override
     public int hashCode() {
         int hash = super.hashCode();
-        hash = 89 * hash + Objects.hashCode(this.room);
+        hash = 89 * hash + Objects.hashCode(room);
         return hash;
     }
 

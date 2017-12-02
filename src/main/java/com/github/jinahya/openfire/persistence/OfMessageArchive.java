@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Entity for {@value #TABLE_NAME} table.
+ * An entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -104,8 +104,16 @@ public class OfMessageArchive extends OfMapped {
     public static final String ATTRIBUTE_NAME_STANZA = "stanza";
 
     // -------------------------------------------------------------------------
+    /**
+     * The name of the column to which {@value #ATTRIBUTE_NAME_BODY} attribute
+     * is bound.
+     */
     public static final String COLUMN_NAME_BODY = "body";
 
+    /**
+     * The name of the attribute from which {@value #COLUMN_NAME_BODY} column is
+     * bound.
+     */
     public static final String ATTRIBUTE_NAME_BODY = "body";
 
     // -------------------------------------------------------------------------
@@ -270,16 +278,12 @@ public class OfMessageArchive extends OfMapped {
     // -------------------------------------------------------------------------
     @JsonbProperty()
     @XmlElement()
+    // @NotNull // column is nullable
     @Id // not specified!!!
     @Column(name = COLUMN_NAME_MESSAGE_ID)
     @NamedAttribute(ATTRIBUTE_NAME_MESSAGE_ID)
     private Long messageId;
 
-//    @JsonbProperty()
-//    @XmlElement()
-//    @NotNull
-//    @Column(name = COLUMN_NAME_CONVERSATION_ID, nullable = false)
-//    private Long conversationId;
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
@@ -319,6 +323,7 @@ public class OfMessageArchive extends OfMapped {
     @NamedAttribute(ATTRIBUTE_NAME_TO_JID_RESOURCE)
     private String toJidResource;
 
+    @JsonProperty(required = true)
     @JsonbProperty
     @XmlElement(required = true)
     @NotNull
