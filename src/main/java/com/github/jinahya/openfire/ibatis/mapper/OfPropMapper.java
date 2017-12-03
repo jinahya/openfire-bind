@@ -16,8 +16,6 @@
 package com.github.jinahya.openfire.ibatis.mapper;
 
 import com.github.jinahya.openfire.persistence.OfProp;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapper.PARAM_CATALOG;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapper.PARAM_SCHEMA;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Param;
@@ -33,23 +31,4 @@ public interface OfPropMapper<T extends OfProp<T>> extends OfMappedMapper<T> {
 
     String PARAM_NAME = "name";
 
-    // -------------------------------------------------------------------------
-    /**
-     * Selects one whose {@value OfProp#COLUMN_NAME_NAME} column matches to
-     * given.
-     *
-     * @param catalog an optional value for database catalog; may be
-     * {@code null}.
-     * @param schema an optional value for database schema; may be {@code null}.
-     * @param name the value for {@value OfProp#COLUMN_NAME_NAME} column.
-     * @return found entity or {@code null} if not found
-     */
-    T selectOne01(@Param(PARAM_CATALOG) String catalog,
-                  @Param(PARAM_SCHEMA) String schema,
-                  @NotNull @Param(PARAM_NAME) String name);
-
-    List<T> selectList01(@Param(PARAM_CATALOG) String catalog,
-                         @Param(PARAM_SCHEMA) String schema,
-                         @Param(PARAM_ASCENDING) boolean ascending,
-                         RowBounds rowBounds);
 }
