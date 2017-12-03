@@ -16,10 +16,12 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Optional.ofNullable;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -30,6 +32,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,10 +42,13 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
 @IdClass(OfRosterGroupId.class)
+@Entity
 public class OfRosterGroup extends OfMapped {
 
+    private static final long serialVersionUID = 6710931163459638967L;
+
+    // -------------------------------------------------------------------------
     private static final Logger logger
             = getLogger(lookup().lookupClass().getName());
 
@@ -64,6 +70,28 @@ public class OfRosterGroup extends OfMapped {
     public static final String COLUMN_NAME_GROUP_NAME = "groupName";
 
     public static final String ATTRIBUTE_NAME_GROUP_NAME = "groupName";
+
+    public static final int SIZE_MAX_GROUP_NAME = 255;
+
+    public static final int SIZE_MIN_GROUP_NAME = 0;
+
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
+    public OfRosterGroup() {
+        super();
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "roster=" + roster
+               + ",rank=" + rank
+               + ",groupName=" + groupName
+               + "}";
+    }
 
     // -------------------------------------------------------------- idInstance
     @JsonIgnore
@@ -134,16 +162,24 @@ public class OfRosterGroup extends OfMapped {
                 nullable = false,
                 referencedColumnName = OfRoster.COLUMN_NAME_ROSTER_ID,
                 updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ROSTER)
     private OfRoster roster;
 
-    @XmlElement
+    @JsonProperty(required = true)
+    @JsonbProperty()
+    @XmlElement(required = true)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_RANK, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_RANK)
     private Long rank;
 
+    @JsonProperty(required = true)
+    @JsonbProperty()
     @XmlElement(required = true)
+    @Size(max = SIZE_MAX_GROUP_NAME, min = SIZE_MAX_GROUP_NAME)
     @NotNull
     @Column(name = COLUMN_NAME_RANK, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_GROUP_NAME)
     private String groupName;
 }

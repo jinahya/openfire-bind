@@ -18,6 +18,7 @@ package com.github.jinahya.openfire.ibatis.mapper;
 import com.github.jinahya.openfire.persistence.OfMucRoom;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -26,12 +27,18 @@ import org.apache.ibatis.session.RowBounds;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@Mapper
 public interface OfMucRoomMapper extends OfMappedMapper<OfMucRoom> {
 
     /**
      * Parameter value for {@value OfMucRoom#COLUMN_NAME_SERVICE_ID} column.
      */
-    String PARAM_SERVICE_ID = "serviceId";
+    String PARAM_SERVICE_ID = OfMucServiceMapper.PARAM_SERVICE_ID;
+
+    /**
+     * Parameter value for {@link OfMucRoom#COLUMN_NAME_ROOM_ID} column.
+     */
+    String PARAM_ROOM_ID = "roomId";
 
     /**
      * Parameter value for {@value OfMucRoom#COLUMN_NAME_NAME} column.

@@ -29,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@XmlRootElement
 @Entity
 @IdClass(OfUserPropId.class)
 public class OfUserProp extends OfProp<OfUserProp> {
@@ -61,18 +63,14 @@ public class OfUserProp extends OfProp<OfUserProp> {
      * column is bound.
      */
     public static final String ATTRIBUTE_NAME_USER = "user";
-    
-    
-    // -------------------------------------------------------------------------
 
+    // -------------------------------------------------------------------------
     @Override
     public String toString() {
         return super.toString() + "{"
                + "user=" + user
                + "}";
     }
-    
-    
 
     // -------------------------------------------------------------- idInstance
     /**

@@ -17,6 +17,7 @@ package com.github.jinahya.openfire.ibatis.mapper;
 
 import com.github.jinahya.openfire.persistence.OfMucRoomProp;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -25,9 +26,10 @@ import org.apache.ibatis.session.RowBounds;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@Mapper
 public interface OfMucRoomPropMapper extends OfPropMapper<OfMucRoomProp> {
 
-    String PARAM_ROOM_ID = "roomId";
+    String PARAM_ROOM_ID = OfMucRoomMapper.PARAM_ROOM_ID;
 
     // -------------------------------------------------------------------------
     OfMucRoomProp selectOne01(@Param(PARAM_CATALOG) String catalog,

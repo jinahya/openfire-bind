@@ -40,6 +40,8 @@ limitations under the License.
     <mapper class="com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapper"/>
     <mapper class="com.github.jinahya.openfire.ibatis.mapper.OfMucRoomPropMapper"/>
     <mapper class="com.github.jinahya.openfire.ibatis.mapper.OfPropertyMapper"/>
+    <mapper class="com.github.jinahya.openfire.ibatis.mapper.OfUserMapper"/>
+    <mapper class="com.github.jinahya.openfire.ibatis.mapper.OfUserPropMapper"/>
     <mapper resource="com/github/jinahya/openfire/ibatis/mapper/OfMappedMapper.xml"/>
     <mapper resource="com/github/jinahya/openfire/ibatis/mapper/OfPropMapper.xml"/>
   </mappers>

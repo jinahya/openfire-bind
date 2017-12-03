@@ -19,6 +19,7 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 /**
+ * Test class for {@link OfConversation}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -46,22 +47,36 @@ public class OfConversationTest extends OfMappedTest<OfConversation> {
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public static void testRoomExpectNpeWhenRoomNameIsNull() {
-        OfConversation.room(new OfMucRoom().name(null).service(new OfMucService().subdomain("subdomain")), "domain");
+        OfConversation.room(
+                new OfMucRoom()
+                        .name(null)
+                        .service(new OfMucService().subdomain("subdomain")),
+                "domain");
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public static void testRoomExpectNpeWhenRoomServiceIsNull() {
-        OfConversation.room(new OfMucRoom().name("name").service(null), "domain");
+        OfConversation.room(
+                new OfMucRoom().name("name").service(null),
+                "domain");
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public static void testRoomExpectNpeWhenRoomServiceSubdomainIsNull() {
-        OfConversation.room(new OfMucRoom().name("name").service(new OfMucService().subdomain(null)), "domain");
+        OfConversation.room(
+                new OfMucRoom()
+                        .name("name")
+                        .service(new OfMucService().subdomain(null)),
+                "domain");
     }
 
     @Test(expectedExceptions = {NullPointerException.class})
     public static void testRoomExpectNpeWhenDomainIsNull() {
-        OfConversation.room(new OfMucRoom().name("name").service(new OfMucService().subdomain("subdomain")), null);
+        OfConversation.room(
+                new OfMucRoom()
+                        .name("name")
+                        .service(new OfMucService().subdomain("subdomain")),
+                null);
     }
 
     // -------------------------------------------------------------------------

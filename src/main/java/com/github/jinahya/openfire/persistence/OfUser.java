@@ -15,25 +15,34 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static com.github.jinahya.openfire.persistence.Utilities.copyOf;
-import java.io.Serializable;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@XmlRootElement
 @Entity
-public class OfUser implements Serializable {
+public class OfUser extends OfMapped {
 
     private static final long serialVersionUID = -5654310275875222680L;
 
@@ -57,14 +66,54 @@ public class OfUser implements Serializable {
     public static final String ATTRIBUTE_NAME_USERNAME = "username";
 
     // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_STORED_KEY = "storedKey";
+
+    public static final String ATTRIBUTE_NAME_STORED_KEY = "storedKey";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_SERVIER_KEY = "serverKey";
+
+    public static final String ATTRIBUTE_NAME_SERVIER_KEY = "serverKey";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_SALT = "salt";
+
+    public static final String ATTRIBUTE_NAME_SALT = "salt";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_ITERATIONS = "iterations";
+
+    public static final String ATTRIBUTE_NAME_ITERATIONS = "iterations";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_PLAIN_PASSWORD = "plainPassword";
+
+    public static final String ATTRIBUTE_NAME_PLAIN_PASSWORD = "plainPassword";
+
+    // -------------------------------------------------------------------------
+    public static final String COLUMN_NAME_ENCRYPTED_PASSWORD
+            = "encryptedPassword";
+
+    public static final String ATTRIBUTE_NAME_ENCRYPTED_PASSWORD
+            = "encryptedPassword";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
     public static final String ATTRIBUTE_NAME_NAME = "name";
+
+    public static final int SIZE_MAX_NAME = 100;
+
+    public static final int SIZE_MIN_NAME = 0;
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_EMAIL = "email";
 
     public static final String ATTRIBUTE_NAME_EMAIL = "email";
+
+    public static final int SIZE_MAX_EMAIL = 100;
+
+    public static final int SIZE_MIN_EMAIL = 0;
 
     // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_CREATION_DATE = "creationDate";
@@ -84,6 +133,35 @@ public class OfUser implements Serializable {
      */
     public OfUser() {
         super();
+    }
+
+    // -------------------------------------------------------------------------
+    @PrePersist
+    private void onPrePersist() {
+        setCreationDate(new Date());
+    }
+
+    @PreUpdate
+    private void onPreUpdate() {
+        setModificationDate(new Date());
+    }
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "username=" + username
+               + ",storedKey=" + storedKey
+               + ",serverKey=" + serverKey
+               + ",salt=" + salt
+               + ",iterations=" + iterations
+               + ",plainPassword=" + plainPassword
+               + ",encryptedPassword=" + encryptedPassword
+               + ",name=" + name
+               + ",email=" + email
+               + ",creationDate=" + creationDate
+               + ",modificationDate=" + modificationDate
+               + "}";
     }
 
     // ---------------------------------------------------------------- username
@@ -157,38 +235,75 @@ public class OfUser implements Serializable {
     }
 
     // -------------------------------------------------------------------------
+    @JsonProperty(required = true)
+    @JsonbProperty()
     @XmlElement(required = true)
     @Id
     @NotNull
     @Column(name = COLUMN_NAME_USERNAME, unique = true, updatable = false)
     private String username;
 
-    @Column(name = "storedKey")
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    @Column(name = COLUMN_NAME_STORED_KEY)
+    @NamedAttribute(ATTRIBUTE_NAME_STORED_KEY)
     private String storedKey;
 
-    @Column(name = "serverKey")
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    @Column(name = COLUMN_NAME_SERVIER_KEY)
+    @NamedAttribute(ATTRIBUTE_NAME_SERVIER_KEY)
     private String serverKey;
 
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    @Column(name = COLUMN_NAME_SALT)
+    @NamedAttribute(ATTRIBUTE_NAME_SALT)
     private String salt;
 
-    @Column(name = "iterations", nullable = false)
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    @Column(name = COLUMN_NAME_ITERATIONS)
+    @NamedAttribute(ATTRIBUTE_NAME_ITERATIONS)
     private int iterations;
 
-    @Column(name = "plainPassword", nullable = false)
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    @Column(name = COLUMN_NAME_PLAIN_PASSWORD)
+    @NamedAttribute(ATTRIBUTE_NAME_PLAIN_PASSWORD)
     private String plainPassword;
 
-    @Column(name = "encryptedPassword")
+    @JsonIgnore
+    @JsonbTransient
+    @XmlTransient
+    @Column(name = COLUMN_NAME_ENCRYPTED_PASSWORD)
+    @NamedAttribute(ATTRIBUTE_NAME_ENCRYPTED_PASSWORD)
     private String encryptedPassword;
 
+    @JsonProperty()
+    @JsonbProperty(nillable = true)
+    @XmlElement(nillable = true)
+    @Size(max = SIZE_MAX_NAME, min = SIZE_MIN_NAME)
     @Column(name = COLUMN_NAME_NAME)
     @NamedAttribute(ATTRIBUTE_NAME_NAME)
     private String name;
 
+    @JsonProperty()
+    @JsonbProperty(nillable = true)
+    @XmlElement(nillable = true)
+    @Size(max = SIZE_MAX_EMAIL, min = SIZE_MIN_EMAIL)
     @Column(name = COLUMN_NAME_EMAIL)
     @NamedAttribute(ATTRIBUTE_NAME_EMAIL)
     private String email;
 
-    @XmlElement(required = true)
+    @JsonProperty()
+    @JsonbProperty()
+    @XmlElement()
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
@@ -196,11 +311,12 @@ public class OfUser implements Serializable {
             updatable = false)
     private Date creationDate;
 
-    @XmlElement(required = true)
+    @JsonProperty()
+    @JsonbProperty()
+    @XmlElement()
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
-    @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false,
-            updatable = false)
+    @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
     private Date modificationDate;
 }

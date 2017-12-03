@@ -29,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -36,8 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@IdClass(OfMucServicePropId.class)
+@XmlRootElement
 @Entity
+@IdClass(OfMucServicePropId.class)
 public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
 
     private static final long serialVersionUID = -8764347967513782358L;

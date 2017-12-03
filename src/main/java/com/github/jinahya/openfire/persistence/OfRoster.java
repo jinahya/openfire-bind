@@ -16,12 +16,15 @@
 package com.github.jinahya.openfire.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
+import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,19 +34,25 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * An entity for {@value #TABLE_NAME} table.
+ * Entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @see <a href="https://goo.gl/YMSN8t">Table ofRoster - meaning of
+ * sub/ask/recv</a>
  */
 // https://goo.gl/YMSN8t Table ofRoster - meaning of sub/ask/recv
+@Entity
 public class OfRoster extends OfMapped {
 
+    private static final long serialVersionUID = -3400376057340953555L;
+
+    // -------------------------------------------------------------------------
     private static final Logger logger
             = getLogger(lookup().lookupClass().getName());
 
     // -------------------------------------------------------------------------
     /**
-     * The name of the target table of this entity which is
+     * The name of the target table of this entity. The value is
      * {@value #TABLE_NAME}.
      */
     public static final String TABLE_NAME = "ofRoster";
@@ -183,9 +192,13 @@ public class OfRoster extends OfMapped {
     }
 
     // -------------------------------------------------------------------------
+    @JsonProperty
+    @JsonbProperty
     @XmlElement
     @Id
-    @Column(name = COLUMN_NAME_ROSTER_ID)
+    @Column(name = COLUMN_NAME_ROSTER_ID, nullable = false, unique = true,
+            updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ROSTER_ID)
     private Long rosterId;
 
     @JsonIgnore
@@ -194,27 +207,37 @@ public class OfRoster extends OfMapped {
     @ManyToOne(optional = false)
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_USERNAME,
-                referencedColumnName = OfUser.COLUMN_NAME_USERNAME)
+                nullable = false,
+                referencedColumnName = OfUser.COLUMN_NAME_USERNAME
+    )
+    @NamedAttribute(ATTRIBUTE_NAME_USER)
     private OfUser user;
 
     @XmlElement(required = true)
     @NotNull
     @Column(name = COLUMN_NAME_JID, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_JID)
     private String jid;
 
     @XmlElement(required = true)
     @Column(name = COLUMN_NAME_SUB, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_SUB)
     private int sub;
 
     @XmlElement(required = true)
     @Column(name = COLUMN_NAME_ASK, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_ASK)
     private int ask;
 
     @XmlElement(required = true)
     @Column(name = COLUMN_NAME_RECV, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_RECV)
     private int recv;
 
+    @JsonProperty
+    @JsonbProperty(nillable = true)
     @XmlElement(nillable = true)
-    @Column(name = COLUMN_NAME_NICK, nullable = true)
+    @Column(name = COLUMN_NAME_NICK)
+    @NamedAttribute(ATTRIBUTE_NAME_NICK)
     private String nick;
 }

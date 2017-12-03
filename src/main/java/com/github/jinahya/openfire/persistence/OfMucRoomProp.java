@@ -27,6 +27,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -34,8 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@IdClass(OfMucRoomPropId.class)
+@XmlRootElement
 @Entity
+@IdClass(OfMucRoomPropId.class)
 public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
 
     private static final long serialVersionUID = -6469468042118345539L;

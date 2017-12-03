@@ -17,6 +17,7 @@ package com.github.jinahya.openfire.ibatis.mapper;
 
 import com.github.jinahya.openfire.persistence.OfMucMember;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -25,6 +26,7 @@ import org.apache.ibatis.session.RowBounds;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@Mapper
 public interface OfMucMemberMapper extends OfMappedMapper<OfMucMember> {
 
     /**

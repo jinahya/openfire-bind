@@ -9,4 +9,8 @@ OfGroupUser
 OfMessageArchive
 OfMucMember
 OfMucService
+OfMucServiceProp
 OfMucRoom
+OfMucRoomProp
+OfUser
+OfUserProp

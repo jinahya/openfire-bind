@@ -15,33 +15,35 @@
  */
 package com.github.jinahya.openfire.ibatis.mapper;
 
-import com.github.jinahya.openfire.persistence.OfMucServiceProp;
+import com.github.jinahya.openfire.persistence.OfUserProp;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 /**
- * A mapper interface for {@link OfMucServiceProp}.
+ * A mapper interface for {@link OfUserProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 @Mapper
-public interface OfMucServicePropMapper extends OfPropMapper<OfMucServiceProp> {
+public interface OfUserPropMapper extends OfPropMapper<OfUserProp> {
 
-    String PARAM_SERVICE_ID = OfMucServiceMapper.PARAM_SERVICE_ID;
+    /**
+     * Parameter value for {@link OfUserProp#COLUMN_NAME_USERNAME} column.
+     */
+    String PARAM_USERNAME = "username";
 
     // -------------------------------------------------------------------------
-    OfMucServiceProp selectOne01(@Param(PARAM_CATALOG) String catalog,
-                                 @Param(PARAM_SCHEMA) String schema,
-                                 @Param(PARAM_SERVICE_ID) long serviceId,
-                                 @Param(PARAM_NAME) String name);
+    OfUserProp selectOne01(@Param(PARAM_CATALOG) String catalog,
+                           @Param(PARAM_SCHEMA) String schema,
+                           @Param(PARAM_USERNAME) String username,
+                           @Param(PARAM_NAME) String name);
 
-    List<OfMucServiceProp> selectList01(
+    List<OfUserProp> selectList01(
             @Param(PARAM_CATALOG) String catalog,
             @Param(PARAM_SCHEMA) String schema,
-            @Param(PARAM_SERVICE_ID) Long serviceId,
-            @Param(PARAM_NATURAL) boolean natural,
+            @Param(PARAM_USERNAME) String username,
             @Param(PARAM_ASCENDING) boolean ascending,
             RowBounds rowBounds);
 }

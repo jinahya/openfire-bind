@@ -29,8 +29,15 @@ import org.apache.ibatis.session.RowBounds;
 @Mapper
 public interface OfConversationMapper extends OfMappedMapper<OfConversation> {
 
+    /**
+     * Parameter value for {@value OfConversation#COLUMN_NAME_CONVERSATION_ID}
+     * column.
+     */
     String PARAM_CONVERSATION_ID = "conversationId";
 
+    /**
+     * Parameter value for {@value OfConversation#COLUMN_NAME_ROOM} column.
+     */
     String PARAM_ROOM = "room";
 
     // -------------------------------------------------------------------------

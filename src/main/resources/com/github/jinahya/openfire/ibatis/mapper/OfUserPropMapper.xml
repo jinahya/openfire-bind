@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2017 Jin Kwon &lt;onacit at gmail.com&gt;.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace="com.github.jinahya.openfire.ibatis.mapper.OfUserPropMapper">
+    
+  <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfUserProp"
+             extends="com.github.jinahya.openfire.ibatis.mapper.OfPropMapper.resultMap">
+    <id column="username" property="user.username"/>
+  </resultMap>
+
+  <sql id="sqlColumns">
+    ${alias}username AS ${prefix}username,
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfPropMapper.sqlColumns"/>
+  </sql>
+
+  <sql id="sqlColumnsAssociative">
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfUserPropMapper.sqlColumns">
+      <property name="alias" value="ofUserProp."/>
+      <property name="prefix" value="ofUserProp_"/>
+    </include>
+    ,
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfUserMapper.sqlColumns">
+      <property name="alias" value="ofUser."/>
+      <property name="prefix" value="ofUser_"/>
+    </include>
+  </sql>
+
+  <sql id="sqlTableAssociative">
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofUserProp"/>
+    </include>
+    AS ofUserProp
+    INNER JOIN
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfMappedMapper.sqlTable">
+      <property name="table" value="ofUser"/>
+    </include>
+    AS ofUser
+    ON ofUserProp.username = ofUser.username
+  </sql>
+
+  <select id="selectOne01" resultMap="resultMap" fetchSize="1">
+    SELECT
+    <include refid="sqlColumnsAssociative"/>
+    FROM
+    <include refid="sqlTableAssociative"/>
+    WHERE username = #{username} AND name = #{name}
+  </select>
+
+  <select id="selectList01" resultMap="resultMap">
+    SELECT
+    <include refid="sqlColumnsAssociative"/>
+    FROM
+    <include refid="sqlTableAssociative"/>
+    <where>
+      <if test="username != null">
+        ofUserProp.username = #{username}
+      </if>
+    </where>
+    ORDER BY
+    <if test="username == null">
+      ofUserProp.username
+      <include refid="com.github.jinahya.openfire.ibatis.mapper.OfMappedMapper.sqlAscending"/>
+      ,
+    </if>
+    ofUserProp.name
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfMappedMapper.sqlAscending"/>
+  </select>
+
+</mapper>
+
