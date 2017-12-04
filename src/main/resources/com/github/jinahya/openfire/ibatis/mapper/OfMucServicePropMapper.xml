@@ -24,6 +24,15 @@ limitations under the License.
     <id column="serviceID" property="service.serviceId"/>
   </resultMap>
 
+  <resultMap id="resultMapAssociative"
+             type="com.github.jinahya.openfire.persistence.OfMucServiceProp">
+    <id column="ofMucServiceProp_name" property="name"/>
+    <id column="ofMucServiceProp_propValue" property="propValue"/>
+    <association column="ofMucServiceProp_serviceID" property="servicer"
+                 resultMap="com.github.jinahya.openfire.ibatis.mapper.OfMucServiceMapper.resultMap"
+                 columnPrefix="ofMucService_"/>
+  </resultMap>
+
   <sql id="sqlColumns">
     ${alias}serviceID AS ${prefix}serviceID,
     <include refid="com.github.jinahya.openfire.ibatis.mapper.OfPropMapper.sqlColumns"/>
@@ -54,12 +63,13 @@ limitations under the License.
     ON ofMucServiceProp.serviceID = ofMucService.serviceID
   </sql>
 
-  <select id="selectOne01" resultMap="resultMap" fetchSize="1">
+  <select id="selectOne01" resultMap="resultMapAssociative" fetchSize="1">
     SELECT
     <include refid="sqlColumnsAssociative"/>
     FROM
     <include refid="sqlTableAssociative"/>
-    WHERE serviceID = #{serviceId} AND name = #{name}
+    WHERE ofMucServiceProp_serviceID = #{serviceId}
+    AND ofMucServiceProp_name = #{name}
   </select>
 
   <select id="selectList01" resultMap="resultMap">

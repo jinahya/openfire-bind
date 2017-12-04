@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.ibatis.mapper;
 
-import com.github.jinahya.openfire.ibatis.mapper.OfPropMapper;
 import com.github.jinahya.openfire.persistence.OfProp;
 import static java.lang.invoke.MethodHandles.lookup;
 import org.slf4j.Logger;

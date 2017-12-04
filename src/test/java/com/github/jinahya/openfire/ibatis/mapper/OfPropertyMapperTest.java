@@ -15,12 +15,12 @@
  */
 package com.github.jinahya.openfire.ibatis.mapper;
 
-import com.github.jinahya.openfire.ibatis.mapper.OfPropertyMapper;
 import com.github.jinahya.openfire.persistence.OfProperty;
 import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapperTest.CATALOG;
 import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapperTest.SCHEMA;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import java.util.function.Consumer;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -44,7 +44,8 @@ public class OfPropertyMapperTest
         final int limit = 8;
         for (int offset = 0; offset <= 1024; offset += limit) {
             final List<OfProperty> ofProperties = mapper.selectList01(
-                    CATALOG, SCHEMA, false, new RowBounds(offset, limit));
+                    CATALOG, SCHEMA, current().nextBoolean(),
+                    new RowBounds(offset, limit));
             if (ofProperties.isEmpty()) {
                 break;
             }

@@ -24,6 +24,14 @@ limitations under the License.
     <id column="username" property="user.username"/>
   </resultMap>
 
+  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.OfUserProp">
+    <id column="ofUserProp_name" property="name"/>
+    <id column="ofUserProp_propValue" property="propValue"/>
+    <association column="ofUserProp_username" property="user"
+                 resultMap="com.github.jinahya.openfire.ibatis.mapper.OfUserMapper.resultMap"
+                 columnPrefix="ofUser_"/>
+  </resultMap>
+
   <sql id="sqlColumns">
     ${alias}username AS ${prefix}username,
     <include refid="com.github.jinahya.openfire.ibatis.mapper.OfPropMapper.sqlColumns"/>
@@ -54,15 +62,15 @@ limitations under the License.
     ON ofUserProp.username = ofUser.username
   </sql>
 
-  <select id="selectOne01" resultMap="resultMap" fetchSize="1">
+  <select id="selectOne01" resultMap="resultMapAssociative" fetchSize="1">
     SELECT
     <include refid="sqlColumnsAssociative"/>
     FROM
     <include refid="sqlTableAssociative"/>
-    WHERE username = #{username} AND name = #{name}
+    WHERE ofUserProp.username = #{username} AND ofUserProp.name = #{name}
   </select>
 
-  <select id="selectList01" resultMap="resultMap">
+  <select id="selectList01" resultMap="resultMapAssociative">
     SELECT
     <include refid="sqlColumnsAssociative"/>
     FROM

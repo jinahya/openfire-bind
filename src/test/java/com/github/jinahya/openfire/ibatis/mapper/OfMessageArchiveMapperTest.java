@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.ibatis.mapper.OfConversationMapperTest.acceptMucConversationsPaginated;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import static org.testng.Assert.assertEquals;
 
 public class OfMessageArchiveMapperTest
@@ -42,7 +43,8 @@ public class OfMessageArchiveMapperTest
         for (int offset = 0; offset <= 32; offset += limit) {
             final List<OfMessageArchive> OfMessageArchives
                     = mapper.selectList01(
-                            CATALOG, SCHEMA, conversationId, false, false,
+                            CATALOG, SCHEMA, conversationId,
+                            current().nextBoolean(), current().nextBoolean(),
                             new RowBounds(offset, limit));
             if (OfMessageArchives.isEmpty()) {
                 break;

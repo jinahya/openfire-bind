@@ -15,8 +15,6 @@
  */
 package com.github.jinahya.openfire.ibatis.mapper;
 
-import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapperTest.CATALOG;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapperTest.SCHEMA;
 import com.github.jinahya.openfire.persistence.OfMucServiceProp;
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
@@ -31,6 +29,7 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
 /**
+ * A test class for testing {@link OfMucServicePropMapper}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -49,17 +48,25 @@ public class OfMucServicePropMapperTest
             final List<OfMucServiceProp> list = mapper.selectList01(
                     CATALOG, SCHEMA, serviceId, current().nextBoolean(),
                     current().nextBoolean(), new RowBounds(offset, limit));
-            if (list.isEmpty()) {
-                break;
-            }
+            logger.debug("ofMucServiceProps: {}", list);
             list.forEach(v -> {
                 logger.debug("ofMucServiceProp: {}", v);
             });
+            assertNotNull(list);
+            list.forEach(v -> {
+                assertNotNull(v);
+            });
+            if (list.isEmpty()) {
+                break;
+            }
             consumer.accept(list);
         }
     }
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfMucServicePropMapperTest() {
         super(OfMucServiceProp.class, OfMucServicePropMapper.class);
     }
@@ -71,16 +78,14 @@ public class OfMucServicePropMapperTest
                 serviceId,
                 ofMucServiceProps -> {
                     validate(ofMucServiceProps);
-                    ofMucServiceProps.forEach(ofMucServiceProp -> {
-                        assertNotNull(ofMucServiceProp.getServiceServiceId());
+                    ofMucServiceProps.forEach(v -> {
+                        assertNotNull(v.getServiceServiceId());
                         if (serviceId != null) {
-                            assertEquals(ofMucServiceProp.getServiceServiceId(),
-                                         serviceId);
+                            assertEquals(v.getServiceServiceId(), serviceId);
                         }
                         final OfMucServiceProp one = mappedMapper.selectOne01(
-                                CATALOG, SCHEMA,
-                                ofMucServiceProp.getServiceServiceId(),
-                                ofMucServiceProp.getName());
+                                CATALOG, SCHEMA, v.getServiceServiceId(),
+                                v.getName());
                         assertNotNull(one);
                     });
                 });
@@ -91,8 +96,8 @@ public class OfMucServicePropMapperTest
         OfMucServiceMapperTest.acceptOfMucServicesPaginated(
                 ofMucServiceMapper,
                 ofMucServices -> {
-                    ofMucServices.forEach(ofMucService -> {
-                        test(ofMucService.getServiceId());
+                    ofMucServices.forEach(v -> {
+                        test(v.getServiceId());
                     });
                 });
     }

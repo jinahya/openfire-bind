@@ -162,6 +162,9 @@ public abstract class OfMappedTest<T extends OfMapped> {
     }
 
     protected void validate(final T bean) {
+        if (bean == null) {
+            throw new NullPointerException("bean is null");
+        }
         final Set<ConstraintViolation<T>> violations = validator.validate(bean);
         violations.stream().findAny().ifPresent(violation -> {
             final String message = format("violation: %1$s", violation);
@@ -171,6 +174,9 @@ public abstract class OfMappedTest<T extends OfMapped> {
     }
 
     protected void validate(final Collection<? extends T> beans) {
+        if (beans == null) {
+            throw new NullPointerException("beans is null");
+        }
         beans.forEach(this::validate);
     }
 

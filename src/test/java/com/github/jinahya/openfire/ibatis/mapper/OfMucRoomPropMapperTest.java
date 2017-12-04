@@ -15,8 +15,6 @@
  */
 package com.github.jinahya.openfire.ibatis.mapper;
 
-import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapperTest.CATALOG;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMappedMapperTest.SCHEMA;
 import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
 import com.github.jinahya.openfire.persistence.OfMucRoomProp;
 import com.google.inject.Inject;
@@ -32,6 +30,7 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
 /**
+ * A class for testing {@link OfMucRoomProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */

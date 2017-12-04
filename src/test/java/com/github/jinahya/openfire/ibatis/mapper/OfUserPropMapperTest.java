@@ -29,6 +29,7 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
 /**
+ * A class for testing {@link OfUserPropMapper}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -47,6 +48,8 @@ public class OfUserPropMapperTest
             final List<OfUserProp> ofUserProps = mapper.selectList01(
                     CATALOG, SCHEMA, username, current().nextBoolean(),
                     new RowBounds(offset, limit));
+            logger.debug("ofUserProps: {}", ofUserProps);
+            assertNotNull(ofUserProps);
             if (ofUserProps.isEmpty()) {
                 break;
             }

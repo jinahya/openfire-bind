@@ -18,6 +18,7 @@ package com.github.jinahya.openfire.ibatis.mapper;
 import com.github.jinahya.openfire.persistence.OfMucService;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import java.util.function.Consumer;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -42,8 +43,8 @@ public class OfMucServiceMapperTest
         final int limit = 2;
         for (int offset = 0; offset <= 4; offset += limit) {
             final List<OfMucService> ofMucServices = mapper.selectList01(
-                    CATALOG, SCHEMA, false, false,
-                    new RowBounds(offset, limit));
+                    CATALOG, SCHEMA, current().nextBoolean(),
+                    current().nextBoolean(), new RowBounds(offset, limit));
             if (ofMucServices.isEmpty()) {
                 break;
             }

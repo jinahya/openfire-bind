@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import static org.testng.Assert.assertEquals;
 
 public class OfConversationMapperTest
@@ -41,8 +42,8 @@ public class OfConversationMapperTest
         final int limit = 4;
         for (int offset = 0; offset <= 16; offset += limit) {
             final List<OfConversation> ofConversations = mapper.selectList01(
-                    CATALOG, SCHEMA, room, false, false,
-                    new RowBounds(offset, limit));
+                    CATALOG, SCHEMA, room, current().nextBoolean(),
+                    current().nextBoolean(), new RowBounds(offset, limit));
             if (ofConversations.isEmpty()) {
                 break;
             }

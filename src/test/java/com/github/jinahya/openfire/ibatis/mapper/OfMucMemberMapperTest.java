@@ -20,6 +20,7 @@ import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acce
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import java.util.function.Consumer;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -40,8 +41,8 @@ public class OfMucMemberMapperTest
         final int limit = 3;
         for (int offset = 0; offset <= 8; offset += limit) {
             final List<OfMucMember> ofMucMembers = mapper.selectList01(
-                    CATALOG, SCHEMA, roomId, false, false,
-                    new RowBounds(offset, limit));
+                    CATALOG, SCHEMA, roomId, current().nextBoolean(),
+                    current().nextBoolean(), new RowBounds(offset, limit));
             if (ofMucMembers.isEmpty()) {
                 break;
             }
@@ -65,6 +66,9 @@ public class OfMucMemberMapperTest
                 ofMucMembers -> {
                     validate(ofMucMembers);
                     ofMucMembers.forEach(ofMucMember -> {
+                        if (roomId != null) {
+                            assertEquals(ofMucMember.getRoomRoomId(), roomId);
+                        }
                         final OfMucMember one = mappedMapper.selectOne01(
                                 CATALOG, SCHEMA, ofMucMember.getRoomRoomId(),
                                 ofMucMember.getJid());
