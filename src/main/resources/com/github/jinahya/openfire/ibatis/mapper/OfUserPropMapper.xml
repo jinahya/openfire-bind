@@ -26,7 +26,7 @@ limitations under the License.
 
   <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.OfUserProp">
     <id column="ofUserProp_name" property="name"/>
-    <id column="ofUserProp_propValue" property="propValue"/>
+    <result column="ofUserProp_propValue" property="propValue"/>
     <association column="ofUserProp_username" property="user"
                  resultMap="com.github.jinahya.openfire.ibatis.mapper.OfUserMapper.resultMap"
                  columnPrefix="ofUser_"/>

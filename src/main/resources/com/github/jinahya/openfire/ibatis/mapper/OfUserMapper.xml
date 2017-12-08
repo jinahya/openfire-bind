@@ -18,7 +18,9 @@ limitations under the License.
 <!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 
 <mapper namespace="com.github.jinahya.openfire.ibatis.mapper.OfUserMapper">
-    
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+
   <resultMap id="resultMap" type="com.github.jinahya.openfire.persistence.OfUser">
     <id column="username" property="username"/>
     <result column="storedKey" property="storedKey"/>
@@ -35,6 +37,24 @@ limitations under the License.
             typeHandler="com.github.jinahya.openfire.ibatis.type.Date015TypeHandler"/>
   </resultMap>
 
+  <resultMap id="resultMapAssociative" type="com.github.jinahya.openfire.persistence.OfUser">
+    <id column="ofUser_username" property="username"/>
+    <result column="ofUser_storedKey" property="storedKey"/>
+    <result column="ofUser_serverKey" property="serverKey"/>
+    <result column="ofUser_salt" property="salt"/>
+    <result column="ofUser_iterations" property="iterations"/>
+    <result column="ofUser_plainPassword" property="plainPassword"/>
+    <result column="ofUser_encryptedPassword" property="encryptedPassword"/>
+    <result column="ofUser_name" property="name"/>
+    <result column="ofUser_email" property="email"/>
+    <result column="ofUser_creationDate" property="creationDate"
+            typeHandler="com.github.jinahya.openfire.ibatis.type.Date015TypeHandler"/>
+    <result column="ofUser_modificationDate" property="modificationDate"
+            typeHandler="com.github.jinahya.openfire.ibatis.type.Date015TypeHandler"/>
+  </resultMap>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+
   <sql id="sqlColumns">
     ${alias}username          AS ${prefix}username,
     ${alias}storedKey         AS ${prefix}storedKey,
@@ -48,6 +68,15 @@ limitations under the License.
     ${alias}creationDate      AS ${prefix}creationDate,
     ${alias}modificationDate  AS ${prefix}modificationDate
   </sql>
+
+  <sql id="sqlColumnsAssociative">
+    <include refid="com.github.jinahya.openfire.ibatis.mapper.OfUserMapper.sqlColumns">
+      <property name="alias" value="ofUser."/>
+      <property name="prefix" value="ofUser_"/>
+    </include>
+  </sql>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
 
   <select id="selectOne01" resultMap="resultMap" fetchSize="1">
     SELECT
