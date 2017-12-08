@@ -37,8 +37,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class OfVCard implements Serializable {
 
+    private static final long serialVersionUID = -4105766200827756560L;
+
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofUserFlag";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 

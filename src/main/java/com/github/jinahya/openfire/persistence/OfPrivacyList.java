@@ -36,20 +36,35 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Entity
 @IdClass(OfPrivacyListId.class)
+@Entity
 public class OfPrivacyList implements Serializable {
 
+    private static final long serialVersionUID = -1769575697381121094L;
+
+    // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofPrivacyList";
 
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_USERNAME
             = OfUser.COLUMN_NAME_USERNAME;
 
+    public static final String ATTRIBUTE_NAME_USER = "user";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_NAME = "name";
 
+    public static final String ATTRIBUTE_NAME_NAME = "name";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_IS_DEFAULT = "isDefault";
 
+    public static final String ATTRIBUTE_NAME_DEFAULT = "default__";
+
+    // -------------------------------------------------------------------------
     public static final String COLUMN_NAME_LIST = "list";
+
+    public static final String ATTRIBUTE_NAME_LIST = "list";
 
     // -------------------------------------------------------------------------
     /**
@@ -107,6 +122,11 @@ public class OfPrivacyList implements Serializable {
     public void setUser(final OfUser user) {
         this.user = user;
     }
+    
+    public OfPrivacyList user(final OfUser user) {
+        setUser(user);
+        return this;
+    }
 
     // -------------------------------------------------------------------- name
     public String getName() {
@@ -115,6 +135,11 @@ public class OfPrivacyList implements Serializable {
 
     public void setName(final String name) {
         this.name = name;
+    }
+    
+    public OfPrivacyList name(final String name) {
+        setName(name);
+        return this;
     }
 
     // ----------------------------------------------------------------- default
@@ -126,6 +151,11 @@ public class OfPrivacyList implements Serializable {
         this.default__ = default__;
     }
 
+    public OfPrivacyList default__(final boolean default__) {
+        setDefault(default__);
+        return this;
+    }
+
     // -------------------------------------------------------------------- list
     public String getList() {
         return list;
@@ -133,6 +163,11 @@ public class OfPrivacyList implements Serializable {
 
     public void setList(final String list) {
         this.list = list;
+    }
+
+    public OfPrivacyList list(final String list) {
+        setList(list);
+        return this;
     }
 
     // -------------------------------------------------------------------------

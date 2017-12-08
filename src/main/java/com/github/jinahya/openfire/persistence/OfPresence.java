@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class OfPresence implements Serializable {
 
+    private static final long serialVersionUID = 5643584503751740542L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofPresence";
 
@@ -165,15 +167,18 @@ public class OfPresence implements Serializable {
                 nullable = false,
                 referencedColumnName = OfUser.COLUMN_NAME_USERNAME,
                 updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_USER)
     private OfUser user;
 
     @XmlElement(nillable = true)
     @Column(name = COLUMN_NAME_OFFLINE_PRESENCE)
+    @NamedAttribute(ATTRIBUTE_NAME_OFFLINE_PRESENCE)
     private String offlinePresence;
 
     @XmlElement(required = true)
     @NotNull
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_OFFLINE_DATE)
     private Date offlineDate;
 }

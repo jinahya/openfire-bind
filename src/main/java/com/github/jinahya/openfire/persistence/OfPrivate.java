@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @IdClass(OfPrivateId.class)
 public class OfPrivate implements Serializable {
 
+    private static final long serialVersionUID = -6315462731845917329L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofPrivate";
 

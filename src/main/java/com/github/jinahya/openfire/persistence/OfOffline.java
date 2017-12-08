@@ -48,6 +48,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class OfOffline implements Serializable {
 
+    private static final long serialVersionUID = -7158107658001768204L;
+
     // -------------------------------------------------------------------------
     public static final String TABLE_NAME = "ofOffline";
 
@@ -106,7 +108,7 @@ public class OfOffline implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

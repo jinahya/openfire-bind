@@ -25,6 +25,17 @@ import java.util.Objects;
  */
 public class OfPrivacyListId implements Serializable {
 
+    private static final long serialVersionUID = 6807663972427751611L;
+
+    // -------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "user=" + user
+               + ",name=" + name
+               + "}";
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -34,7 +45,7 @@ public class OfPrivacyListId implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -59,11 +70,11 @@ public class OfPrivacyListId implements Serializable {
         return user;
     }
 
-    public void setUser(final String user) {
+    void setUser(final String user) {
         this.user = user;
     }
 
-    public OfPrivacyListId user(final String user) {
+    OfPrivacyListId user(final String user) {
         setUser(user);
         return this;
     }
@@ -73,11 +84,11 @@ public class OfPrivacyListId implements Serializable {
         return name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
-    public OfPrivacyListId name(final String name) {
+    OfPrivacyListId name(final String name) {
         setName(name);
         return this;
     }

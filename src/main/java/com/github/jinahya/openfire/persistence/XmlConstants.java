@@ -22,7 +22,7 @@ package com.github.jinahya.openfire.persistence;
 public final class XmlConstants {
 
     /**
-     * The XML namespace URI.
+     * The XML Nmespace URI.
      */
     public static final String NS_URI_OPENFIRE_BIND
             = "http://github.com/jinahya/openfire/persistence";
