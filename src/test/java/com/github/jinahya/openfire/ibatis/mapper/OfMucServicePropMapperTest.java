@@ -39,7 +39,7 @@ public class OfMucServicePropMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMucServicePropsPaginated(
+    static void acceptOfMucServiceProps(
             final OfMucServicePropMapper mapper,
             final Long serviceId,
             final Consumer<List<OfMucServiceProp>> consumer) {
@@ -73,7 +73,7 @@ public class OfMucServicePropMapperTest
 
     // -------------------------------------------------------------------------    
     private void test(final Long serviceId) {
-        acceptOfMucServicePropsPaginated(
+        acceptOfMucServiceProps(
                 mappedMapper,
                 serviceId,
                 ofMucServiceProps -> {
@@ -93,7 +93,7 @@ public class OfMucServicePropMapperTest
 
     @Test
     public void testWithService() {
-        OfMucServiceMapperTest.acceptOfMucServicesPaginated(
+        OfMucServiceMapperTest.acceptOfMucServices(
                 ofMucServiceMapper,
                 ofMucServices -> {
                     ofMucServices.forEach(v -> {

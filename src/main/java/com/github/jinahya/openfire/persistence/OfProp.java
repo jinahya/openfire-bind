@@ -61,7 +61,7 @@ public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
     public int hashCode() {
         int hash = 3;
         hash = 89 * hash + Objects.hashCode(name);
-        hash = 89 * hash + Objects.hashCode(propValue);
+        //hash = 89 * hash + Objects.hashCode(propValue);
         return hash;
     }
 
@@ -80,9 +80,9 @@ public abstract class OfProp<T extends OfProp<T>> extends OfMapped {
         if (!Objects.equals(name, other.name)) {
             return false;
         }
-        if (!Objects.equals(propValue, other.propValue)) {
-            return false;
-        }
+//        if (!Objects.equals(propValue, other.propValue)) {
+//            return false;
+//        }
         return true;
     }
 

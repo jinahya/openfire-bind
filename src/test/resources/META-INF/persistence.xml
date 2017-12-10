@@ -16,21 +16,31 @@ limitations under the License.
 -->
 
 <!--
-xsi:schemaLocation='http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd'
+http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd'
+http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_2.xsd
 -->
 
 <persistence xmlns='http://xmlns.jcp.org/xml/ns/persistence'
              xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-             xsi:schemaLocation='http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_2.xsd'
-             version='2.2'>
+             xsi:schemaLocation='http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd'
+             version='2.1'>
 
-  <persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="openfirePU" transaction-type="RESOURCE_LOCAL">
     <provider>${persistence.provider}</provider>
+    <class>com.github.jinahya.openfire.persistence.Date015AttributeConverter</class>
+    <class>com.github.jinahya.openfire.persistence.DateMillisAttributeConverter</class>
+    <class>com.github.jinahya.openfire.persistence.OfGroup</class>
+    <class>com.github.jinahya.openfire.persistence.OfGroupProp</class>
+    <class>com.github.jinahya.openfire.persistence.OfMucService</class>
+    <class>com.github.jinahya.openfire.persistence.OfMucServiceProp</class>
+    <class>com.github.jinahya.openfire.persistence.OfUser</class>
+    <class>com.github.jinahya.openfire.persistence.OfUserProp</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="${jdbc.driver}"/>
       <property name="javax.persistence.jdbc.url" value="${jdbc.url}"/>
       <property name="javax.persistence.jdbc.user" value="${jdbc.user}"/>
-      <property name="javax.persistence.jdbc.password" value="${jdbc.password"/>
+      <property name="javax.persistence.jdbc.password" value="${jdbc.password}"/>
     </properties>
   </persistence-unit>
 

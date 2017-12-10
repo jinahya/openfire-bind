@@ -287,8 +287,8 @@ public class OfMessageArchive extends OfMapped {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    @NotNull
-    @ManyToOne(optional = false)
+    //@NotNull
+    @ManyToOne()
     @JoinColumn(
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             name = COLUMN_NAME_CONVERSATION_ID,

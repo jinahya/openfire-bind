@@ -27,7 +27,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -130,9 +129,8 @@ public class OfMucServiceProp extends OfProp<OfMucServiceProp> {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    @NotNull
     @Id
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_SERVICE_ID,
                 nullable = false,

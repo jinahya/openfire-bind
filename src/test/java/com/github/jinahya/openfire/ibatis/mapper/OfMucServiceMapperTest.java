@@ -37,7 +37,7 @@ public class OfMucServiceMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMucServicesPaginated(
+    static void acceptOfMucServices(
             final OfMucServiceMapper mapper,
             final Consumer<List<OfMucService>> consumer) {
         final int limit = 2;
@@ -63,7 +63,7 @@ public class OfMucServiceMapperTest
     // -------------------------------------------------------------------------
     @Test
     public void test() {
-        acceptOfMucServicesPaginated(
+        acceptOfMucServices(
                 mappedMapper,
                 list -> {
                     validate(list);

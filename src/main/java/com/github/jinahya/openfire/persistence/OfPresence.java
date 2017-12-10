@@ -177,6 +177,7 @@ public class OfPresence implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_OFFLINE_DATE, nullable = false)
     @NamedAttribute(ATTRIBUTE_NAME_OFFLINE_DATE)

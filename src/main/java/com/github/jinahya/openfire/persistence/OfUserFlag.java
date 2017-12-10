@@ -155,13 +155,13 @@ public class OfUserFlag implements Serializable {
 
     // -------------------------------------------------------------------------
     @XmlElement(nillable = true)
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_START_TIME)
     private Date startTime;
 
     @XmlElement(nillable = true)
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_END_TIME)
     private Date endTime;

@@ -15,7 +15,6 @@
  */
 package com.github.jinahya.openfire.ibatis.mapper;
 
-import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
 import com.github.jinahya.openfire.persistence.OfMucRoomProp;
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
@@ -28,6 +27,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
+import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRooms;
 
 /**
  * A class for testing {@link OfMucRoomProp}.
@@ -40,7 +40,7 @@ public class OfMucRoomPropMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMucRoomPropsPaginated(
+    static void acceptOfMucRoomProps(
             final OfMucRoomPropMapper mapper,
             final Long roomId,
             final Consumer<List<OfMucRoomProp>> consumer) {
@@ -66,7 +66,7 @@ public class OfMucRoomPropMapperTest
 
     // -------------------------------------------------------------------------    
     private void test(final Long roomId) {
-        acceptOfMucRoomPropsPaginated(
+        acceptOfMucRoomProps(
                 mappedMapper,
                 roomId,
                 ofMucRoomProps -> {
@@ -86,7 +86,7 @@ public class OfMucRoomPropMapperTest
 
     @Test
     public void testWithRoom() {
-        acceptOfMucRoomsPaginated(
+        acceptOfMucRooms(
                 ofMucRoomMapper,
                 null,
                 ofMucRooms -> {

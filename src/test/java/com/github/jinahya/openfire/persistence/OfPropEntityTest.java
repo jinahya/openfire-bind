@@ -15,15 +15,24 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
- * A test class for {@link OfGroupProp}.
+ * An abstract class for testing subclasses of {@link OfProp} as entities.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> subclass type parameter
  */
-public class OfGroupPropIdTest extends OfPropIdTest<OfGroupPropId> {
+public abstract class OfPropEntityTest<T extends OfProp<T>>
+        extends OfMappedTest<T> {
 
     // -------------------------------------------------------------------------
-    public OfGroupPropIdTest() {
-        super(OfGroupPropId.class);
+    private static final Logger logger = getLogger(lookup().lookupClass());
+
+    // -------------------------------------------------------------------------
+    public OfPropEntityTest(final Class<T> entityClass) {
+        super(entityClass);
     }
 }

@@ -19,6 +19,7 @@ import static java.lang.String.format;
 import java.util.Date;
 import static java.util.Optional.ofNullable;
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  * An attribute converter for converting {@code Date} attributes to/from
@@ -26,6 +27,7 @@ import javax.persistence.AttributeConverter;
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
+@Converter
 public class Date015AttributeConverter
         implements AttributeConverter<Date, String> {
 

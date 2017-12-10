@@ -40,11 +40,13 @@
     <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
     <version.animal-sniffer>1.16</version.animal-sniffer>
     <version.org.eclipse.persistence>2.7.0</version.org.eclipse.persistence>
+    <version.org.hibernate>5.2.12.Final</version.org.hibernate>
     <version.org.hibernate.validator>6.0.5.Final</version.org.hibernate.validator>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <!--
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>eclipselink</artifactId>
@@ -53,8 +55,9 @@
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>5.2.12.Final</version>
+        <version>${version.org.hibernate.validator}</version>
       </dependency>
+      -->
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -127,7 +130,7 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>${version.org.hibernate.validator}</version>
+      <version>6.0.5.Final</version>
       <scope>test</scope>
     </dependency>
     <!--
@@ -235,6 +238,32 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <version>3.3.2</version>
+        <executions>
+          <execution>
+            <id>process</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>generate-sources</phase>
+            <configuration>
+              <processors>
+                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+              </processors>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${version.org.hibernate}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
         <version>${version.animal-sniffer}</version>
@@ -329,6 +358,16 @@
       </properties>
     </profile>
     <profile>
+      <id>mysql</id>
+      <dependencies>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>${jdbc.driver.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>active</id>
       <activation>
         <activeByDefault>true</activeByDefault>
@@ -341,21 +380,12 @@
             <configuration>
               <excludes>
                 <exclude>**/*MapperTest.java</exclude>
+                <exclude>**/*EntityTest.java</exclude>
               </excludes>
             </configuration>
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>mysql</id>
-      <dependencies>
-        <dependency>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-          <version>${jdbc.driver.version}</version>
-        </dependency>
-      </dependencies>
     </profile>
     <profile>
       <id>mybatis</id>
@@ -365,6 +395,9 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
+              <excludes>
+                <exclude>**/*EntityTest.java</exclude>
+              </excludes>
               <includes>
                 <include>**/*MapperTest.java</include>
               </includes>
@@ -377,10 +410,54 @@
       </build>
     </profile>
     <profile>
-      <id>ecliselink</id>
+      <id>jpa</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>**/*MapperTest.java</exclude>
+              </excludes>
+              <includes>
+                <include>**/*EntityTest.java</include>
+              </includes>
+              <systemProperties>
+              </systemProperties>
+              <trimStackTrace>false</trimStackTrace>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>eclipselink</id>
+      <properties>
+        <persistence.provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence.provider>
+        <persistence.provider.version>${version.org.eclipse.persistence}</persistence.provider.version>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.eclipse.persistence</groupId>
+          <artifactId>eclipselink</artifactId>
+          <version>${persistence.provider.version}</version>
+        </dependency>
+      </dependencies>
     </profile>
     <profile>
       <id>hibernate</id>
+      <properties>
+        <persistence.provider>org.hibernate.jpa.HibernatePersistenceProvider</persistence.provider>
+        <persistence.provider.version>${version.org.hibernate}</persistence.provider.version>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>${persistence.provider.version}</version>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 </project>

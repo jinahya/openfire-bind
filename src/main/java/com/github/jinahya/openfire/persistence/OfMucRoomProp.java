@@ -94,10 +94,8 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    public OfMucServicePropId getIdInstance() {
-        return new OfMucServicePropId()
-                .service(getRoomRoomId())
-                .name(getName());
+    public OfMucRoomPropId getIdInstance() {
+        return new OfMucRoomPropId().room(getRoomRoomId()).name(getName());
     }
 
     // -------------------------------------------------------------------- room
@@ -122,9 +120,9 @@ public class OfMucRoomProp extends OfProp<OfMucRoomProp> {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    @NotNull
+    //@NotNull
     @Id
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_ROOM_ID,
                 nullable = false,

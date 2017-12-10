@@ -25,9 +25,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
 import static java.util.concurrent.ThreadLocalRandom.current;
 import static org.testng.Assert.assertEquals;
+import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRooms;
 
 public class OfConversationMapperTest
         extends OfMappedMapperTest<OfConversation, OfConversationMapper> {
@@ -35,7 +35,7 @@ public class OfConversationMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptMucConversationsPaginated(
+    static void acceptMucConversations(
             final OfConversationMapper mapper,
             final String room,
             final Consumer<List<OfConversation>> consumer) {
@@ -61,7 +61,7 @@ public class OfConversationMapperTest
 
     // -------------------------------------------------------------------------
     private void test(final String room) {
-        acceptMucConversationsPaginated(
+        acceptMucConversations(
                 mappedMapper,
                 room,
                 list -> {
@@ -80,7 +80,7 @@ public class OfConversationMapperTest
 
     @Test
     public void selectList01WithRoom() {
-        acceptOfMucRoomsPaginated(
+        acceptOfMucRooms(
                 ofMucRoomMapper,
                 null,
                 ofMucRooms -> {

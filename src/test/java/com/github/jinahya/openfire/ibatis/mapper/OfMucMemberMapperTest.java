@@ -16,7 +16,6 @@
 package com.github.jinahya.openfire.ibatis.mapper;
 
 import com.github.jinahya.openfire.persistence.OfMucMember;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRoomsPaginated;
 import com.google.inject.Inject;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
@@ -28,6 +27,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
+import static com.github.jinahya.openfire.ibatis.mapper.OfMucRoomMapperTest.acceptOfMucRooms;
 
 public class OfMucMemberMapperTest
         extends OfMappedMapperTest<OfMucMember, OfMucMemberMapper> {
@@ -35,7 +35,7 @@ public class OfMucMemberMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMucMembersPaginated(
+    static void acceptOfMucMembers(
             final OfMucMemberMapper mapper, final Long roomId,
             final Consumer<List<OfMucMember>> consumer) {
         final int limit = 3;
@@ -60,7 +60,7 @@ public class OfMucMemberMapperTest
 
     // -------------------------------------------------------------------------
     private void test(final Long roomId) {
-        acceptOfMucMembersPaginated(
+        acceptOfMucMembers(
                 mappedMapper,
                 roomId,
                 ofMucMembers -> {
@@ -82,7 +82,7 @@ public class OfMucMemberMapperTest
 
     @Test
     public void selectWithRoom() {
-        acceptOfMucRoomsPaginated(
+        acceptOfMucRooms(
                 ofMucRoomMapper,
                 null,
                 ofMucRooms -> {

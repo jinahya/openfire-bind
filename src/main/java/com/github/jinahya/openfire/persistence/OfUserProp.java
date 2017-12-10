@@ -27,7 +27,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -110,7 +109,7 @@ public class OfUserProp extends OfProp<OfUserProp> {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    @NotNull
+    //@NotNull
     @Id
     @ManyToOne(optional = false)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),

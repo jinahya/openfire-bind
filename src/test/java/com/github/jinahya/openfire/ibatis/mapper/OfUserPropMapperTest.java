@@ -39,7 +39,7 @@ public class OfUserPropMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfUserPropsPaginated(
+    static void acceptOfUserProps(
             final OfUserPropMapper mapper,
             final String username,
             final Consumer<List<OfUserProp>> consumer) {
@@ -67,7 +67,7 @@ public class OfUserPropMapperTest
 
     // -------------------------------------------------------------------------    
     private void test(final String username) {
-        acceptOfUserPropsPaginated(
+        acceptOfUserProps(
                 mappedMapper,
                 username,
                 ofUserProps -> {
@@ -89,7 +89,7 @@ public class OfUserPropMapperTest
 
     @Test
     public void testWithUser() {
-        OfUserMapperTest.acceptOfUsersPaginated(
+        OfUserMapperTest.acceptOfUsers(
                 ofUserMapper,
                 ofUsers -> {
                     ofUsers.forEach(ofUser -> {

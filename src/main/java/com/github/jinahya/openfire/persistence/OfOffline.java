@@ -231,7 +231,7 @@ public class OfOffline implements Serializable {
 
     @XmlElement(required = true)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false)
     private Date creationDate;

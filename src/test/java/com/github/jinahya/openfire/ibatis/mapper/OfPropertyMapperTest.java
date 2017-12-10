@@ -38,7 +38,7 @@ public class OfPropertyMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfPropertiesPaginated(
+    static void acceptOfProperties(
             final OfPropertyMapper mapper,
             final Consumer<List<OfProperty>> consumer) {
         final int limit = 8;
@@ -64,7 +64,7 @@ public class OfPropertyMapperTest
     // -------------------------------------------------------------------------    
     @Test
     public void test() {
-        acceptOfPropertiesPaginated(
+        acceptOfProperties(
                 mappedMapper,
                 ofProperties -> {
                     validate(ofProperties);

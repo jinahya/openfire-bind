@@ -27,8 +27,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -241,6 +239,7 @@ public class OfUser extends OfMapped {
     @Id
     @NotNull
     @Column(name = COLUMN_NAME_USERNAME, unique = true, updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_USERNAME)
     private String username;
 
     @JsonIgnore
@@ -305,18 +304,20 @@ public class OfUser extends OfMapped {
     @JsonbProperty()
     @XmlElement()
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false,
             updatable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_CREATION_DATE)
     private Date creationDate;
 
     @JsonProperty()
     @JsonbProperty()
     @XmlElement()
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false)
+    @NamedAttribute(ATTRIBUTE_NAME_MODIFICATION_DATE)
     private Date modificationDate;
 }

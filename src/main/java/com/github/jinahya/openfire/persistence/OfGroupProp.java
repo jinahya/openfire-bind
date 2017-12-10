@@ -27,12 +27,11 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * An entity for {@value #TABLE_NAME} table.
+ * Entity class for {@value #TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
@@ -55,7 +54,7 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     @Override
     public String toString() {
         return super.toString() + "{"
-               + ",group=" + group
+               + "group=" + group
                + "}";
     }
 
@@ -110,9 +109,9 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    @NotNull
+    //@NotNull
     @Id
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
                 name = COLUMN_NAME_GROUP_NAME,
                 nullable = false,

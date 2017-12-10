@@ -38,7 +38,7 @@ public class OfUserMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfUsersPaginated(
+    static void acceptOfUsers(
             final OfUserMapper mapper,
             final Consumer<List<OfUser>> consumer) {
         final int limit = 2;
@@ -64,7 +64,7 @@ public class OfUserMapperTest
     // -------------------------------------------------------------------------
     @Test
     public void test() {
-        acceptOfUsersPaginated(
+        acceptOfUsers(
                 mappedMapper,
                 ofUsers -> {
                     validate(ofUsers);

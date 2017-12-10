@@ -648,6 +648,7 @@ public class OfMucRoom extends OfMapped {
     @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_CREATION_DATE, nullable = false,
             updatable = false)
@@ -657,6 +658,7 @@ public class OfMucRoom extends OfMapped {
     @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_MODIFICATION_DATE, nullable = false,
             updatable = false)
@@ -690,7 +692,7 @@ public class OfMucRoom extends OfMapped {
     @JsonbTransient
     @XmlTransient
     //@NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_LOCKED_DATE, nullable = false, updatable = false)
     @NamedAttribute(ATTRIBUTE_NAME_LOCKED_DATE)
@@ -701,7 +703,7 @@ public class OfMucRoom extends OfMapped {
     @JsonIgnore
     @JsonbTransient
     @XmlTransient
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Convert(converter = Date015AttributeConverter.class)
     @Column(name = COLUMN_NAME_EMPTY_DATE, updatable = false)
     @NamedAttribute(ATTRIBUTE_NAME_EMPTY_DATE)

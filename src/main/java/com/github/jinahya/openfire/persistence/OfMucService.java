@@ -19,6 +19,8 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
@@ -157,6 +159,8 @@ public class OfMucService extends OfMapped {
     // -------------------------------------------------------------------------
     @JsonbProperty()
     @XmlElement()
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_SERVICE_ID, nullable = false, unique = true)
     @NamedAttribute(ATTRIBUTE_NAME_SERVICE_ID)
     private Long serviceId;
@@ -164,7 +168,7 @@ public class OfMucService extends OfMapped {
     @JsonbProperty()
     @XmlElement(required = true)
     @NotNull
-    @Id
+    //@Id
     @Column(name = COLUMN_NAME_SUBDOMAIN, nullable = false, unique = true)
     @NamedAttribute(ATTRIBUTE_NAME_SUBDOMAIN)
     private String subdomain;

@@ -79,6 +79,14 @@ public class OfGroup extends OfMapped {
 
     // -------------------------------------------------------------------------
     @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "groupName=" + groupName
+               + ",description=" + description
+               + "}";
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 97 * hash + Objects.hashCode(groupName);
@@ -183,7 +191,7 @@ public class OfGroup extends OfMapped {
     @XmlElement(required = true)
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_GROUP_NAME, nullable = false)
+    @Column(name = COLUMN_NAME_GROUP_NAME, nullable = false, unique = true)
     @NamedAttribute(ATTRIBUTE_NAME_GROUP_NAME)
     private String groupName;
 

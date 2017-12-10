@@ -25,8 +25,8 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
-import static com.github.jinahya.openfire.ibatis.mapper.OfMucServiceMapperTest.acceptOfMucServicesPaginated;
 import static java.util.concurrent.ThreadLocalRandom.current;
+import static com.github.jinahya.openfire.ibatis.mapper.OfMucServiceMapperTest.acceptOfMucServices;
 
 public class OfMucRoomMapperTest
         extends OfMappedMapperTest<OfMucRoom, OfMucRoomMapper> {
@@ -34,7 +34,7 @@ public class OfMucRoomMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMucRoomsPaginated(
+    static void acceptOfMucRooms(
             final OfMucRoomMapper mapper, final Long serviceId,
             final Consumer<List<OfMucRoom>> consumer) {
         final int limit = 3;
@@ -58,7 +58,7 @@ public class OfMucRoomMapperTest
     }
 
     private void test(final long serviceId) {
-        acceptOfMucRoomsPaginated(
+        acceptOfMucRooms(
                 mappedMapper,
                 serviceId,
                 list -> {
@@ -74,7 +74,7 @@ public class OfMucRoomMapperTest
 
     @Test
     public void selectWithService() {
-        acceptOfMucServicesPaginated(
+        acceptOfMucServices(
                 ofMucServiceMapper,
                 services -> {
                     services.forEach(service -> {

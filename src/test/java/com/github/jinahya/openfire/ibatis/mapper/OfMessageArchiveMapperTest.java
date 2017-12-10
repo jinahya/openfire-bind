@@ -25,9 +25,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
-import static com.github.jinahya.openfire.ibatis.mapper.OfConversationMapperTest.acceptMucConversationsPaginated;
 import static java.util.concurrent.ThreadLocalRandom.current;
 import static org.testng.Assert.assertEquals;
+import static com.github.jinahya.openfire.ibatis.mapper.OfConversationMapperTest.acceptMucConversations;
 
 public class OfMessageArchiveMapperTest
         extends OfMappedMapperTest<OfMessageArchive, OfMessageArchiveMapper> {
@@ -35,7 +35,7 @@ public class OfMessageArchiveMapperTest
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
-    static void acceptOfMessageArchivesPaginated(
+    static void acceptOfMessageArchives(
             final OfMessageArchiveMapper mapper,
             final Long conversationId,
             final Consumer<List<OfMessageArchive>> consumer) {
@@ -63,7 +63,7 @@ public class OfMessageArchiveMapperTest
 
     // -------------------------------------------------------------------------
     private void test(final Long conversationId) {
-        acceptOfMessageArchivesPaginated(
+        acceptOfMessageArchives(
                 mappedMapper,
                 conversationId,
                 list -> {
@@ -84,7 +84,7 @@ public class OfMessageArchiveMapperTest
 
     @Test
     public void selectWithConversation() {
-        acceptMucConversationsPaginated(
+        acceptMucConversations(
                 ofConversationMapper,
                 null,
                 ofConversations -> {
