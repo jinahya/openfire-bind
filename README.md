@@ -8,7 +8,7 @@
 
 ## tesitng against exsiting databases
 
-### common properties
+#### common properties
 
 |name                 |description                           |
 |---------------------|--------------------------------------|
@@ -18,6 +18,12 @@
 |`jdbc.user`          |username of the database              |
 |`jdbc.password`      |password of the database              |
 |`xmpp.domain`        |XMPP domain name                      |
+
+#### \<database\>
+
+|name                 |description                           |
+|---------------------|--------------------------------------|
+|`mysql`|version of the target driver artifact.|
 
 ### JPA
 
@@ -32,14 +38,14 @@ $ mvn -Pjpa,<provider>,<database> \
       test
 ```
 
-### \<provider\>
+#### \<provider\>
 
 |name         |artifact                                                             |
 |-------------|---------------------------------------------------------------------|
 |`eclipselink`|`org.eclipse.persistence:eclipselink:${persistence.provider.version}`|
 |`hibernate`  |`org.hibernate:hibernate-core:${persistence.provider.version}`       |
 
-### properties
+#### properties
 
 |name                          |description                                        |
 |------------------------------|---------------------------------------------------|
