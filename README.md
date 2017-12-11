@@ -25,7 +25,7 @@ All intrinsic test cases only read from database. No writing functionality inclu
 
 |name   |description                                |
 |-------|-------------------------------------------|
-|`mysql`|`mysql:mysql-connector-java:${jdbc.driver}`|
+|`mysql`|[`mysql:mysql-connector-java:${jdbc.driver.version}`](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22mysql-connector-java%22)|
 
 ### JPA
 
