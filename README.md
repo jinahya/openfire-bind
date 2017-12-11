@@ -21,11 +21,11 @@ All intrinsic test cases only read from database. No writing functionality inclu
 |`jdbc.password`      |password of the database              |
 |`xmpp.domain`        |XMPP domain name                      |
 
-#### \<database\>
+#### \<database\> and jdbc driver
 
-|name                 |description                           |
-|---------------------|--------------------------------------|
-|`mysql`|version of the target driver artifact.|
+|name   |description                                |
+|-------|-------------------------------------------|
+|`mysql`|`mysql:mysql-connector-java:${jdbc.driver}`|
 
 ### JPA
 
