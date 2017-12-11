@@ -8,6 +8,8 @@
 
 ## tesitng against exsiting databases
 
+All intrinsic test cases only read from database. No writing functionality included.
+
 #### common properties
 
 |name                 |description                           |
