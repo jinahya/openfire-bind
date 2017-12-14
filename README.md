@@ -21,7 +21,7 @@ All intrinsic test cases only read from database. No writing functionality inclu
 |`jdbc.password`      |password of the database              |
 |`xmpp.domain`        |XMPP domain name                      |
 
-#### \<database\> and jdbc driver
+#### \<database\> and `jdbc.driver.version`
 
 |name   |description                                |
 |-------|-------------------------------------------|
@@ -40,18 +40,18 @@ $ mvn -Pjpa,<provider>,<database> \
       test
 ```
 
-#### \<provider\>
-
-|name         |artifact                                                             |
-|-------------|---------------------------------------------------------------------|
-|`eclipselink`|`org.eclipse.persistence:eclipselink:${persistence.provider.version}`|
-|`hibernate`  |`org.hibernate:hibernate-core:${persistence.provider.version}`       |
-
 #### properties
 
 |name                          |description                                        |
 |------------------------------|---------------------------------------------------|
 |`persistence.provider.version`|version of the target persistence provider artifact|
+
+#### \<provider\> and `persistence.provider.version`
+
+|name         |artifact                                                             |
+|-------------|---------------------------------------------------------------------|
+|`eclipselink`|`org.eclipse.persistence:eclipselink:${persistence.provider.version}`|
+|`hibernate`  |`org.hibernate:hibernate-core:${persistence.provider.version}`       |
 
 ### examples
 
