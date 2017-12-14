@@ -6,9 +6,9 @@
 
 ##
 
-## tesitng against exsiting databases
+## Tesitng against exsiting databases
 
-All intrinsic test cases only read from database. No writing functionality included.
+All test cases only read from database. No writing functionality included.
 
 #### common properties
 
