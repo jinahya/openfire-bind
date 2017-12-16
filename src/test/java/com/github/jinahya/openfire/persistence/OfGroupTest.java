@@ -22,13 +22,16 @@ import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 
 /**
- * Test class for {@link OfGroup} class.
+ * Test class for testing {@link OfGroup}.
  *
  * @author Jin Kwon &lt;onacit at wemakeprice.com&gt;
  */
 public class OfGroupTest extends OfMappedTest<OfGroup> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
+
+    // -------------------------------------------------------------------------
+    static final double EXPONENT = 2.0d;
 
     // -------------------------------------------------------------------------
     public OfGroupTest() {

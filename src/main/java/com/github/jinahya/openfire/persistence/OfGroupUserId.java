@@ -113,9 +113,9 @@ public class OfGroupUserId implements Serializable {
     }
 
     // -------------------------------------------------------------------------
-    private String group;
+    private String group; // ofGroup.groupName
 
-    private String user;
+    private String user; // ofUser.username
 
     private boolean administrator;
 }

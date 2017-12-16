@@ -15,28 +15,17 @@
  */
 package com.github.jinahya.openfire.persistence;
 
-import java.util.Date;
-import static java.util.Optional.ofNullable;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
-
 /**
- * An attribute converter for converting {@code Date} attribute to/from
- * milliseconds numeric columns.
+ * Test class for testing {@link OfGroupUser}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-@Converter
-public class DateMillisAttributeConverter
-        implements AttributeConverter<Date, Long> {
+public class OfGroupUserTest extends OfMappedTest<OfGroupUser> {
 
-    @Override
-    public Long convertToDatabaseColumn(final Date attribute) {
-        return ofNullable(attribute).map(Date::getTime).orElse(null);
-    }
+    static final double EXPONENT = OfGroupTest.EXPONENT + 1.0d;
 
-    @Override
-    public Date convertToEntityAttribute(final Long dbData) {
-        return ofNullable(dbData).map(Date::new).orElse(null);
+    // -------------------------------------------------------------------------
+    public OfGroupUserTest() {
+        super(OfGroupUser.class);
     }
 }

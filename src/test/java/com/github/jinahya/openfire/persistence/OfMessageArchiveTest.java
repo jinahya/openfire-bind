@@ -16,11 +16,13 @@
 package com.github.jinahya.openfire.persistence;
 
 /**
- * Test class for {@link OfMessageArchive}.
+ * Test class for testing {@link OfMessageArchive}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfMessageArchiveTest extends OfMappedTest<OfMessageArchive> {
+
+    static final double EXPONENT = OfConversationTest.EXPONENT + 1.0d;
 
     // -------------------------------------------------------------------------
     /**

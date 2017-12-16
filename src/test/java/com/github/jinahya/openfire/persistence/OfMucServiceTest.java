@@ -22,6 +22,8 @@ package com.github.jinahya.openfire.persistence;
  */
 public class OfMucServiceTest extends OfMappedTest<OfMucService> {
 
+    static final double EXPONENT = 1.0d;
+
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.

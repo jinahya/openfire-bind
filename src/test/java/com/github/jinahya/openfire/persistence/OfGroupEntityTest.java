@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.persistence.OfGroupEntityTest.applyOfGroups;
+import static java.lang.Math.pow;
 
 /**
  * A class for testing {@link OfGroup} as an Entity.
@@ -41,6 +42,12 @@ public class OfGroupEntityTest extends OfMappedEntityTest<OfGroup> {
     public static <R> R applyOfGroups(
             final EntityManager manager,
             final Function<List<OfGroup>, R> function) {
+        if (manager == null) {
+            throw new NullPointerException("manager is null");
+        }
+        if (function == null) {
+            throw new NullPointerException("function is null");
+        }
         final CriteriaBuilder builder = manager.getCriteriaBuilder();
         final CriteriaQuery<OfGroup> criteria
                 = builder.createQuery(OfGroup.class);
@@ -48,7 +55,7 @@ public class OfGroupEntityTest extends OfMappedEntityTest<OfGroup> {
         criteria.orderBy(builder.desc(root.get(OfGroup_.groupName)));
         final TypedQuery<OfGroup> typed = manager.createQuery(criteria);
         typed.setFirstResult(0);
-        typed.setMaxResults(8);
+        typed.setMaxResults((int) pow(2, OfGroupTest.EXPONENT));
         final List<OfGroup> list = typed.getResultList();
         return function.apply(list);
     }

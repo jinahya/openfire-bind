@@ -31,6 +31,7 @@ http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetw
     <class>com.github.jinahya.openfire.persistence.DateMillisAttributeConverter</class>
     <class>com.github.jinahya.openfire.persistence.OfGroup</class>
     <class>com.github.jinahya.openfire.persistence.OfGroupProp</class>
+    <class>com.github.jinahya.openfire.persistence.OfMucRoom</class>
     <class>com.github.jinahya.openfire.persistence.OfMucService</class>
     <class>com.github.jinahya.openfire.persistence.OfMucServiceProp</class>
     <class>com.github.jinahya.openfire.persistence.OfUser</class>

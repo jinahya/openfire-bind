@@ -16,12 +16,19 @@
 package com.github.jinahya.openfire.persistence;
 
 /**
+ * Test class for {@link OfGroupProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
 public class OfGroupPropTest extends OfPropTest<OfGroupProp> {
 
+    // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfGroupPropTest() {
         super(OfGroupProp.class);
     }
+
+    // -------------------------------------------------------------------------
 }

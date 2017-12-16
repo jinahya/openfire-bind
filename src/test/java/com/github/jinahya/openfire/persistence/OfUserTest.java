@@ -22,6 +22,8 @@ package com.github.jinahya.openfire.persistence;
  */
 public class OfUserTest extends OfMappedTest<OfUser> {
 
+    static final double EXPONENT = 1.0d;
+
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.

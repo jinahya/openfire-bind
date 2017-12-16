@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.persistence.OfMucServiceEntityTest.applyOfMucServices;
+import static java.lang.Math.pow;
 
 /**
  * A class for testing {@link OfMucService} as an Entity.
@@ -48,7 +49,7 @@ public class OfMucServiceEntityTest extends OfMappedEntityTest<OfMucService> {
         criteria.orderBy(builder.desc(root.get(OfMucService_.subdomain)));
         final TypedQuery<OfMucService> typed = manager.createQuery(criteria);
         typed.setFirstResult(0);
-        typed.setMaxResults(8);
+        typed.setMaxResults((int) pow(2.0d, OfMucServiceTest.EXPONENT));
         final List<OfMucService> list = typed.getResultList();
         return function.apply(list);
     }

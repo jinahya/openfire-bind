@@ -53,10 +53,13 @@ public class OfMucServicePropEntityTest
                 = criteria.from(OfMucServiceProp.class);
         if (service != null) {
             criteria.where(
-                    //                    builder.equal(root.get(OfMucServiceProp_.service),
-                    //                                  service));
-                    builder.equal(root.get(OfMucServiceProp_.service).get(OfMucService_.serviceId),
-                                  service.getServiceId()));
+                    //builder.equal(
+                    //        root.get(OfMucServiceProp_.service), service));
+                    builder.equal(
+                            root.get(OfMucServiceProp_.service)
+                                    .get(OfMucService_.serviceId),
+                            service.getServiceId())
+            );
         }
         criteria.orderBy(builder.desc(root.get(OfMucServiceProp_.name)));
         final TypedQuery<OfMucServiceProp> typed

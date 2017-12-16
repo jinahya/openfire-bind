@@ -23,6 +23,9 @@ package com.github.jinahya.openfire.persistence;
 public class OfGroupPropIdTest extends OfPropIdTest<OfGroupPropId> {
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfGroupPropIdTest() {
         super(OfGroupPropId.class);
     }

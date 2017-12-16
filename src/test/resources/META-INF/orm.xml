@@ -25,11 +25,23 @@ http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetw
                  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
                  version="2.1">
 
+  <entity class="com.github.jinahya.openfire.persistence.OfConversation">
+    <table name="ofConversation"/>
+  </entity>
   <entity class="com.github.jinahya.openfire.persistence.OfGroup">
     <table name="ofGroup"/>
   </entity>
   <entity class="com.github.jinahya.openfire.persistence.OfGroupProp">
     <table name="ofGroupProp"/>
+  </entity>
+  <entity class="com.github.jinahya.openfire.persistence.OfGroupUser">
+    <table name="ofGroupUser"/>
+  </entity>
+  <entity class="com.github.jinahya.openfire.persistence.OfMessageArchive">
+    <table name="ofMessageArchive"/>
+  </entity>
+  <entity class="com.github.jinahya.openfire.persistence.OfMucRoom">
+    <table name="ofMucRoom"/>
   </entity>
   <entity class="com.github.jinahya.openfire.persistence.OfMucService">
     <table name="ofMucService"/>

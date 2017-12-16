@@ -22,6 +22,7 @@ package com.github.jinahya.openfire.persistence;
  */
 public class OfMucMemberTest extends OfMappedTest<OfMucMember> {
 
+
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.

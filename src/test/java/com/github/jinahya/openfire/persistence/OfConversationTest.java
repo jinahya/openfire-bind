@@ -25,6 +25,9 @@ import org.testng.annotations.Test;
  */
 public class OfConversationTest extends OfMappedTest<OfConversation> {
 
+    static final double EXPONENT = OfMucRoomTest.EXPONENT + 1.0d;
+
+    // -------------------------------------------------------------------------
     @Test
     public static void testRoom() {
         final String ofMucServiceSubdomain = "subdomain";
