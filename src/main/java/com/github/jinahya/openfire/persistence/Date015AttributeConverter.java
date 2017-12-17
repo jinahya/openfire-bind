@@ -31,6 +31,7 @@ import javax.persistence.Converter;
 public class Date015AttributeConverter
         implements AttributeConverter<Date, String> {
 
+    // -------------------------------------------------------------------------
     @Override
     public String convertToDatabaseColumn(final Date attribute) {
         return ofNullable(attribute)

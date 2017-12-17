@@ -15,19 +15,28 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
- * Test class for {@link OfMucMember}.
+ * A class for testing {@link OfUser} as an Entity.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfMucMemberTest extends OfMappedTest<OfMucMember> {
+public class OfUserPropTest extends OfPropTest<OfUserProp> {
+
+    private static final Logger logger = getLogger(lookup().lookupClass());
+
+    // -------------------------------------------------------------------------
+    static final double EXPONENT = OfUserTest.EXPONENT + 1.0d;
 
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.
      */
-    public OfMucMemberTest() {
-        super(OfMucMember.class);
+    public OfUserPropTest() {
+        super(OfUserProp.class);
     }
 
     // -------------------------------------------------------------------------

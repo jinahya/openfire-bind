@@ -35,8 +35,7 @@ import org.testng.annotations.BeforeSuite;
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  * @param <T>
  */
-public abstract class OfMappedEntityTest<T extends OfMapped>
-        extends OfMappedTest<T> {
+abstract class OfMappedEntityTest<T extends OfMapped> extends OfMappedTest<T> {
 
     // -------------------------------------------------------------------------
     private static final Logger logger = getLogger(lookup().lookupClass());

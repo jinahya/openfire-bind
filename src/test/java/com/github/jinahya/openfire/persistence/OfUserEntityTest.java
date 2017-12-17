@@ -15,9 +15,11 @@
  */
 package com.github.jinahya.openfire.persistence;
 
+import static java.lang.Math.pow;
 import static java.lang.invoke.MethodHandles.lookup;
 import java.util.List;
 import java.util.function.Function;
+import static java.util.function.Function.identity;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,6 +27,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
+import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
 /**
@@ -47,29 +50,31 @@ public class OfUserEntityTest extends OfMappedEntityTest<OfUser> {
         criteria.orderBy(builder.desc(root.get(OfUser_.username)));
         final TypedQuery<OfUser> typed = manager.createQuery(criteria);
         typed.setFirstResult(0);
-        typed.setMaxResults(8);
+        typed.setMaxResults((int) pow(2.0d, OfUserTest.EXPONENT));
         final List<OfUser> list = typed.getResultList();
         return function.apply(list);
     }
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfUserEntityTest() {
         super(OfUser.class);
     }
 
     // -------------------------------------------------------------------------
+    private void test(final EntityManager entityManager) {
+        final List<OfUser> ofUsers = applyOfUsers(entityManager, identity());
+        validate(ofUsers);
+        ofUsers.forEach(ofUser -> {
+            logger.debug("ofUser: {}", ofUser);
+            assertNotNull(ofUser);
+        });
+    }
+
     @Test
     public void test() {
-        acceptEntityManager(entityManager -> {
-            applyOfUsers(
-                    entityManager,
-                    ofUsers -> {
-                        ofUsers.forEach(ofUser -> {
-                            logger.debug("ofUser: {}", ofUser);
-                        });
-                        return null;
-                    }
-            );
-        });
+        acceptEntityManager(this::test);
     }
 }

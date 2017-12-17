@@ -31,14 +31,14 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.persistence.OfUserEntityTest.applyOfUsers;
+import static java.lang.Math.pow;
 
 /**
  * A class for testing {@link OfUser} as an Entity.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
  */
-public class OfUserPropEntityTest
-        extends OfPropEntityTest<OfUserProp> {
+public class OfUserPropEntityTest extends OfPropEntityTest<OfUserProp> {
 
     private static final Logger logger = getLogger(lookup().lookupClass());
 
@@ -46,17 +46,29 @@ public class OfUserPropEntityTest
     public static <R> R applyOfUserProps(
             final EntityManager manager, final OfUser user,
             final Function<List<OfUserProp>, R> function) {
+        if (manager == null) {
+            throw new NullPointerException("manager is null");
+        }
+        if (user != null && user.getUsername() == null) {
+            throw new NullPointerException("user.username is null");
+        }
+        if (function == null) {
+            throw new NullPointerException("funciton is null");
+        }
         final CriteriaBuilder builder = manager.getCriteriaBuilder();
         final CriteriaQuery<OfUserProp> criteria
                 = builder.createQuery(OfUserProp.class);
         final Root<OfUserProp> root = criteria.from(OfUserProp.class);
         if (user != null) {
-            criteria.where(builder.equal(root.get(OfUserProp_.user), user));
+            //criteria.where(builder.equal(root.get(OfUserProp_.user), user));
+            criteria.where(builder.equal(
+                    root.get(OfUserProp_.user).get(OfUser_.username),
+                    user.getUsername()));
         }
         criteria.orderBy(builder.desc(root.get(OfUserProp_.name)));
         final TypedQuery<OfUserProp> typed = manager.createQuery(criteria);
         typed.setFirstResult(0);
-        typed.setMaxResults(16);
+        typed.setMaxResults((int) pow(2.0d, OfUserPropTest.EXPONENT));
         final List<OfUserProp> list = typed.getResultList();
         return function.apply(list);
     }
@@ -73,12 +85,9 @@ public class OfUserPropEntityTest
     private void test(final EntityManager entityManager, final OfUser ofUser) {
         final List<OfUserProp> ofUserProps = applyOfUserProps(
                 entityManager, ofUser, identity());
-        assertNotNull(ofUserProps);
         validate(ofUserProps);
         ofUserProps.forEach(ofUserProp -> {
             logger.debug("ofUserProp: {}", ofUserProp);
-            assertNotNull(ofUserProp);
-            validate(ofUserProp);
             if (ofUser != null) {
                 assertNotNull(ofUserProp.getUser());
                 assertEquals(ofUserProp.getUser(), ofUser);
@@ -91,16 +100,12 @@ public class OfUserPropEntityTest
         acceptEntityManager(entityManager -> {
             final List<OfUser> ofUsers
                     = applyOfUsers(entityManager, identity());
-            ofUsers.forEach(ofUser -> {
-                test(entityManager, ofUser);
-            });
+            ofUsers.forEach(ofUser -> test(entityManager, ofUser));
         });
     }
 
     @Test
     public void testWithoutUser() {
-        acceptEntityManager(entityManager -> {
-            test(entityManager, null);
-        });
+        acceptEntityManager(entityManager -> test(entityManager, null));
     }
 }

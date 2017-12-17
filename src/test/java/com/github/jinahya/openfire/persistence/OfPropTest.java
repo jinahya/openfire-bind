@@ -27,9 +27,9 @@ abstract class OfPropTest<T extends OfProp<T>> extends OfMappedTest<T> {
     /**
      * Creates a new instance.
      *
-     * @param subclass the subclass of {@link OfProp} to test.
+     * @param propClass the subclass of {@link OfProp} to test.
      */
-    public OfPropTest(final Class<T> subclass) {
-        super(subclass);
+    public OfPropTest(final Class<T> propClass) {
+        super(propClass);
     }
 }

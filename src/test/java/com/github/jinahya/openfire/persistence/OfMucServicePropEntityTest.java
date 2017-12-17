@@ -46,6 +46,15 @@ public class OfMucServicePropEntityTest
     public static <R> R applyOfMucServiceProps(
             final EntityManager manager, final OfMucService service,
             final Function<List<OfMucServiceProp>, R> function) {
+        if (manager == null) {
+            throw new NullPointerException("manager is null");
+        }
+        if (service != null && service.getServiceId() == null) {
+            throw new IllegalArgumentException("service.serviceId is null");
+        }
+        if (function == null) {
+            throw new NullPointerException("function is null");
+        }
         final CriteriaBuilder builder = manager.getCriteriaBuilder();
         final CriteriaQuery<OfMucServiceProp> criteria
                 = builder.createQuery(OfMucServiceProp.class);
@@ -53,8 +62,6 @@ public class OfMucServicePropEntityTest
                 = criteria.from(OfMucServiceProp.class);
         if (service != null) {
             criteria.where(
-                    //builder.equal(
-                    //        root.get(OfMucServiceProp_.service), service));
                     builder.equal(
                             root.get(OfMucServiceProp_.service)
                                     .get(OfMucService_.serviceId),
@@ -83,8 +90,6 @@ public class OfMucServicePropEntityTest
         assertNotNull(ofMucServiceProps);
         validate(ofMucServiceProps);
         ofMucServiceProps.forEach(ofMucServiceProp -> {
-            assertNotNull(ofMucServiceProp);
-            validate(ofMucServiceProp);
             if (ofMucService != null) {
                 assertNotNull(ofMucServiceProp.getService());
                 assertEquals(ofMucServiceProp.getService(), ofMucServiceProp);
@@ -97,16 +102,13 @@ public class OfMucServicePropEntityTest
         acceptEntityManager(entityManager -> {
             final List<OfMucService> ofMucServices
                     = applyOfMucServices(entityManager, identity());
-            ofMucServices.forEach(ofMucService -> {
-                test(entityManager, ofMucService);
-            });
+            ofMucServices.forEach(
+                    ofMucService -> test(entityManager, ofMucService));
         });
     }
 
     @Test
     public void testWithoutService() {
-        acceptEntityManager(entityManager -> {
-            test(entityManager, null);
-        });
+        acceptEntityManager(entityManager -> test(entityManager, null));
     }
 }

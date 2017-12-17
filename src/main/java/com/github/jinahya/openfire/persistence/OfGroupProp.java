@@ -113,9 +113,8 @@ public class OfGroupProp extends OfProp<OfGroupProp> {
     @Id
     @ManyToOne()
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
-                name = COLUMN_NAME_GROUP_NAME,
-                nullable = false,
-                updatable = false)
+                name = COLUMN_NAME_GROUP_NAME, nullable = false,
+                referencedColumnName = OfGroup.COLUMN_NAME_GROUP_NAME)
     @NamedAttribute(ATTRIBUTE_NAME_GROUP)
     private OfGroup group;
 }

@@ -25,9 +25,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
-import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.persistence.OfMucServiceEntityTest.applyOfMucServices;
 import static java.lang.Math.pow;
+import static java.util.function.Function.identity;
+import org.testng.annotations.Test;
 
 /**
  * A class for testing {@link OfMucService} as an Entity.
@@ -63,18 +64,17 @@ public class OfMucServiceEntityTest extends OfMappedEntityTest<OfMucService> {
     }
 
     // -------------------------------------------------------------------------
+    private void test(final EntityManager entityManager) {
+        final List<OfMucService> ofMucServices = applyOfMucServices(
+                entityManager, identity());
+        validate(ofMucServices);
+        ofMucServices.forEach(ofMucService -> {
+            logger.debug("ofMucService: {}", ofMucService);
+        });
+    }
+
     @Test
     public void test() {
-        acceptEntityManager(entityManager -> {
-            applyOfMucServices(
-                    entityManager,
-                    ofMucServices -> {
-                        ofMucServices.forEach(ofMucService -> {
-                            logger.debug("ofMucService: {}", ofMucService);
-                        });
-                        return null;
-                    }
-            );
-        });
+        acceptEntityManager(this::test);
     }
 }

@@ -48,8 +48,8 @@ public class OfMucRoomEntityTest extends OfMappedEntityTest<OfMucRoom> {
         if (manager == null) {
             throw new NullPointerException("manager is null");
         }
-        if (service != null && service.getSubdomain() == null) {
-            throw new IllegalArgumentException("service.subdomain is null");
+        if (service != null && service.getServiceId() == null) {
+            throw new IllegalArgumentException("service.serviceId is null");
         }
         if (function == null) {
             throw new NullPointerException("function is null");
@@ -60,8 +60,8 @@ public class OfMucRoomEntityTest extends OfMappedEntityTest<OfMucRoom> {
         final Root<OfMucRoom> root = criteria.from(OfMucRoom.class);
         if (service != null) {
             criteria.where(builder.equal(
-                    root.get(OfMucRoom_.service).get(OfMucService_.subdomain),
-                    service.getSubdomain()));
+                    root.get(OfMucRoom_.service).get(OfMucService_.serviceId),
+                    service.getServiceId()));
         }
         criteria.orderBy(builder.desc(root.get(OfMucRoom_.creationDate)));
         final TypedQuery<OfMucRoom> typed = manager.createQuery(criteria);
@@ -77,14 +77,15 @@ public class OfMucRoomEntityTest extends OfMappedEntityTest<OfMucRoom> {
 
     // -------------------------------------------------------------------------
     private void test(final EntityManager manager, final OfMucService service) {
-        final List<OfMucRoom> rooms
+        final List<OfMucRoom> ofMucRooms
                 = applyOfMucRooms(manager, service, identity());
-        validate(rooms);
-        for (final OfMucRoom room : rooms) {
+        validate(ofMucRooms);
+        for (final OfMucRoom room : ofMucRooms) {
             logger.debug("ofMucRoom: {}", room);
-            assertNotNull(room);
-            assertNotNull(room.getService());
             if (service != null) {
+                assertNotNull(room.getService());
+                assertEquals(room.getService().getServiceId(),
+                             service.getServiceId());
                 assertEquals(room.getService().getSubdomain(),
                              service.getSubdomain());
             }
@@ -93,11 +94,11 @@ public class OfMucRoomEntityTest extends OfMappedEntityTest<OfMucRoom> {
 
     @Test
     public void testWithService() {
-        acceptEntityManager(manager -> {
-            final List<OfMucService> services
-                    = applyOfMucServices(manager, identity());
-            for (final OfMucService service : services) {
-                test(manager, service);
+        acceptEntityManager(entityManager -> {
+            final List<OfMucService> ofMucServices
+                    = applyOfMucServices(entityManager, identity());
+            for (final OfMucService ofMucService : ofMucServices) {
+                test(entityManager, ofMucService);
             }
         });
     }

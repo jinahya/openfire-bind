@@ -18,9 +18,10 @@ package com.github.jinahya.openfire.persistence;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Abstract test class for {@link OfProp}.
+ * An abstract class for testing subclasses of {@link OfProp}.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
+ * @param <T> subclass type parameter
  */
 abstract class OfPropIdTest<T extends OfPropId<T>> {
 

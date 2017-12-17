@@ -16,10 +16,8 @@
 package com.github.jinahya.openfire.persistence;
 
 import static java.lang.invoke.MethodHandles.lookup;
-import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
-import org.testng.annotations.Test;
 
 /**
  * Test class for testing {@link OfGroup}.
@@ -34,18 +32,12 @@ public class OfGroupTest extends OfMappedTest<OfGroup> {
     static final double EXPONENT = 2.0d;
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfGroupTest() {
         super(OfGroup.class);
     }
 
     // -------------------------------------------------------------------------
-    @Test(enabled = false)
-    public void test() {
-        IntStream.range(0, 65536)
-                .filter(v -> Character.isJavaIdentifierStart((char) v))
-                .limit(128)
-                .forEach(v -> {
-                    logger.debug("start: {}", (char) v);
-                });
-    }
 }

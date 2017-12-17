@@ -28,6 +28,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.persistence.OfGroupEntityTest.applyOfGroups;
 import static java.lang.Math.pow;
+import static java.util.function.Function.identity;
 
 /**
  * A class for testing {@link OfGroup} as an Entity.
@@ -69,18 +70,16 @@ public class OfGroupEntityTest extends OfMappedEntityTest<OfGroup> {
     }
 
     // -------------------------------------------------------------------------
+    private void test(final EntityManager entityManager) {
+        final List<OfGroup> ofGroups = applyOfGroups(entityManager, identity());
+        validate(ofGroups);
+        ofGroups.forEach(ofGroup -> {
+            logger.debug("ofGroup: {}", ofGroup);
+        });
+    }
+
     @Test
     public void test() {
-        acceptEntityManager(entityManager -> {
-            applyOfGroups(
-                    entityManager,
-                    ofGroups -> {
-                        ofGroups.forEach(ofGroup -> {
-                            logger.debug("ofGroup: {}", ofGroup);
-                        });
-                        return null;
-                    }
-            );
-        });
+        acceptEntityManager(this::test);
     }
 }

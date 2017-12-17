@@ -30,6 +30,7 @@ import javax.persistence.Converter;
 public class DateMillisAttributeConverter
         implements AttributeConverter<Date, Long> {
 
+    // -------------------------------------------------------------------------
     @Override
     public Long convertToDatabaseColumn(final Date attribute) {
         return ofNullable(attribute).map(Date::getTime).orElse(null);
