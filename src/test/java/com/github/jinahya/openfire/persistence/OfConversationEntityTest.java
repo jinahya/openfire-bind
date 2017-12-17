@@ -98,12 +98,10 @@ public class OfConversationEntityTest
 
     @Test
     public void testWithRoom() {
-        acceptEntityManager(manager -> {
-            final List<OfMucRoom> rooms
-                    = applyOfMucRooms(manager, null, identity());
-            for (final OfMucRoom room : rooms) {
-                test(manager, room);
-            }
+        acceptEntityManager(entityManager -> {
+            final List<OfMucRoom> ofMucRooms
+                    = applyOfMucRooms(entityManager, null, identity());
+            ofMucRooms.forEach(ofMucRoom -> test(entityManager, ofMucRoom));
         });
     }
 

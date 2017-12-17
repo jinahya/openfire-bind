@@ -78,6 +78,9 @@ public class OfMucServicePropEntityTest
     }
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfMucServicePropEntityTest() {
         super(OfMucServiceProp.class);
     }
@@ -87,7 +90,6 @@ public class OfMucServicePropEntityTest
                       final OfMucService ofMucService) {
         final List<OfMucServiceProp> ofMucServiceProps = applyOfMucServiceProps(
                 entityManager, ofMucService, identity());
-        assertNotNull(ofMucServiceProps);
         validate(ofMucServiceProps);
         ofMucServiceProps.forEach(ofMucServiceProp -> {
             if (ofMucService != null) {

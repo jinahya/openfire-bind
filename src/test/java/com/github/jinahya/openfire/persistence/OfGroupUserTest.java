@@ -25,6 +25,9 @@ public class OfGroupUserTest extends OfMappedTest<OfGroupUser> {
     static final double EXPONENT = OfGroupTest.EXPONENT + 1.0d;
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfGroupUserTest() {
         super(OfGroupUser.class);
     }

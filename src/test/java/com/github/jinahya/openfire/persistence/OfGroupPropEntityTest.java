@@ -31,6 +31,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 import static com.github.jinahya.openfire.persistence.OfGroupEntityTest.applyOfGroups;
+import static java.lang.Math.pow;
 
 /**
  * A class for testing {@link OfGroupProp} as an Entity.
@@ -45,6 +46,15 @@ public class OfGroupPropEntityTest extends OfPropEntityTest<OfGroupProp> {
     public static <R> R applyOfGroupProps(
             final EntityManager manager, final OfGroup group,
             final Function<List<OfGroupProp>, R> function) {
+        if (manager == null) {
+            throw new NullPointerException("manager is null");
+        }
+        if (group != null && group.getGroupName() == null) {
+            throw new IllegalArgumentException("group.groupName is null");
+        }
+        if (function == null) {
+            throw new NullPointerException("function is null");
+        }
         final CriteriaBuilder builder = manager.getCriteriaBuilder();
         final CriteriaQuery<OfGroupProp> criteria
                 = builder.createQuery(OfGroupProp.class);
@@ -55,12 +65,15 @@ public class OfGroupPropEntityTest extends OfPropEntityTest<OfGroupProp> {
         criteria.orderBy(builder.desc(root.get(OfGroupProp_.name)));
         final TypedQuery<OfGroupProp> typed = manager.createQuery(criteria);
         typed.setFirstResult(0);
-        typed.setMaxResults(16);
+        typed.setMaxResults((int) pow(2.0d, OfGroupPropTest.EXPONENT));
         final List<OfGroupProp> list = typed.getResultList();
         return function.apply(list);
     }
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfGroupPropEntityTest() {
         super(OfGroupProp.class);
     }
@@ -70,11 +83,9 @@ public class OfGroupPropEntityTest extends OfPropEntityTest<OfGroupProp> {
                       final OfGroup ofGroup) {
         final List<OfGroupProp> ofGroupProps = applyOfGroupProps(
                 entityManager, ofGroup, identity());
-        assertNotNull(ofGroupProps);
         validate(ofGroupProps);
         ofGroupProps.forEach(ofGroupProp -> {
             logger.debug("ofGroupProp: {}", ofGroupProp);
-            assertNotNull(ofGroupProp);
             validate(ofGroupProp);
             if (ofGroup != null) {
                 assertNotNull(ofGroupProp.getGroup());
@@ -88,16 +99,12 @@ public class OfGroupPropEntityTest extends OfPropEntityTest<OfGroupProp> {
         acceptEntityManager(entityManager -> {
             final List<OfGroup> ofGroups
                     = applyOfGroups(entityManager, identity());
-            ofGroups.forEach(ofGroup -> {
-                test(entityManager, ofGroup);
-            });
+            ofGroups.forEach(ofGroup -> test(entityManager, ofGroup));
         });
     }
 
     @Test
     public void testWithoutGroup() {
-        acceptEntityManager(entityManager -> {
-            test(entityManager, null);
-        });
+        acceptEntityManager(entityManager -> test(entityManager, null));
     }
 }

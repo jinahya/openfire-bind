@@ -71,6 +71,9 @@ public class OfMucRoomEntityTest extends OfMappedEntityTest<OfMucRoom> {
     }
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfMucRoomEntityTest() {
         super(OfMucRoom.class);
     }

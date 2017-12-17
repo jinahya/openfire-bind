@@ -43,6 +43,12 @@ public class OfMucServiceEntityTest extends OfMappedEntityTest<OfMucService> {
     public static <R> R applyOfMucServices(
             final EntityManager manager,
             final Function<List<OfMucService>, R> function) {
+        if (manager == null) {
+            throw new NullPointerException("manager is null");
+        }
+        if (function == null) {
+            throw new NullPointerException("function is null");
+        }
         final CriteriaBuilder builder = manager.getCriteriaBuilder();
         final CriteriaQuery<OfMucService> criteria
                 = builder.createQuery(OfMucService.class);

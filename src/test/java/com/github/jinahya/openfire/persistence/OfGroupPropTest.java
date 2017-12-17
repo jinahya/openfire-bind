@@ -22,6 +22,8 @@ package com.github.jinahya.openfire.persistence;
  */
 public class OfGroupPropTest extends OfPropTest<OfGroupProp> {
 
+    static final double EXPONENT = OfGroupTest.EXPONENT + 1.0d;
+
     // -------------------------------------------------------------------------
     /**
      * Creates a new instance.

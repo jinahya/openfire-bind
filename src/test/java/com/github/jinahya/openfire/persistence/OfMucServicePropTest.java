@@ -29,6 +29,9 @@ public class OfMucServicePropTest extends OfPropTest<OfMucServiceProp> {
     private static final Logger logger = getLogger(lookup().lookupClass());
 
     // -------------------------------------------------------------------------
+    /**
+     * Creates a new instance.
+     */
     public OfMucServicePropTest() {
         super(OfMucServiceProp.class);
     }
