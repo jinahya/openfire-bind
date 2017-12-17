@@ -33,7 +33,7 @@ import org.testng.annotations.BeforeSuite;
  * An abstract class for testing subclasses of {@link OfMapped} as entities.
  *
  * @author Jin Kwon &lt;onacit at gmail.com&gt;
- * @param <T>
+ * @param <T> subclass type parameter
  */
 abstract class OfMappedEntityTest<T extends OfMapped> extends OfMappedTest<T> {
 
