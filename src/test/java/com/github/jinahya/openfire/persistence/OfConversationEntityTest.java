@@ -89,8 +89,8 @@ public class OfConversationEntityTest
         for (final OfConversation conversation : conversations) {
             logger.debug("ofConversation: {}", conversation);
             assertNotNull(conversation);
-            assertNotNull(conversation.getRoom());
             if (room != null) {
+                assertNotNull(conversation.getRoom());
                 assertEquals(conversation.getRoom(), room.getName());
             }
         }
